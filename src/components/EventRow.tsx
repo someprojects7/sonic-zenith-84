@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
-import type { EventItem } from "@/data/events";
+import { formatWhen, type EventItem } from "@/data/events";
 
 export function EventRow({ event }: { event: EventItem }) {
   return (
@@ -21,7 +21,7 @@ export function EventRow({ event }: { event: EventItem }) {
           {event.title}
         </p>
         <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
-          {event.day} · {event.time} · {event.category}
+          {formatWhen(event)} · {event.category}
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-1.5">
