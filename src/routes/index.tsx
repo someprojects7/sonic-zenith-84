@@ -12,6 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { EventCard } from "@/components/EventCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, picks } from "@/data/events";
 import { cn } from "@/lib/utils";
@@ -91,6 +92,7 @@ function Index() {
                 Your shortcut to the city
               </p>
             </div>
+            <ThemeToggle />
             {/* Profile lives in the header, so the tabs stay a pure feed switch */}
             <button
               onClick={() => setTab(tab === "profile" ? "foryou" : "profile")}
