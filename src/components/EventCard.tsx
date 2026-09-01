@@ -22,13 +22,13 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
         />
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent" />
         <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2">
-          <span className="truncate rounded-full bg-glass px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground backdrop-blur-md">
+          <span className="truncate rounded-full bg-glass-media px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] backdrop-blur-md">
             {event.category}
           </span>
           {/* Share lives on the cover so the action row below stays a single decision */}
           <button
             aria-label="Share"
-            className="grid size-9 shrink-0 place-items-center rounded-full bg-glass text-foreground backdrop-blur-md transition-transform active:scale-95"
+            className="grid size-9 shrink-0 place-items-center rounded-full bg-glass-media backdrop-blur-md transition-transform active:scale-95"
           >
             <Share2 className="size-[17px]" />
           </button>
