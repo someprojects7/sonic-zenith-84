@@ -11,6 +11,7 @@ export type EventItem = {
   day: string;
   time: string;
   venue: string;
+  city?: string;
   price: string;
   image: string;
   reason?: string;

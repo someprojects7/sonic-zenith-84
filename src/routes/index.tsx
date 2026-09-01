@@ -83,7 +83,7 @@ function Index() {
         </header>
 
         {/* Tabs: own sticky layer so they survive the header collapsing */}
-        <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur-xl">
+        <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
           <div className="grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
             {(
               [
