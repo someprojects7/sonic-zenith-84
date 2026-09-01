@@ -44,7 +44,7 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "icon-button ring-1 ring-hairline",
+            "icon-button size-11 ring-1 ring-hairline",
             profileActive ? "bg-surface-2 text-brand" : "bg-surface-2/60 text-muted-foreground",
           )}
         >
