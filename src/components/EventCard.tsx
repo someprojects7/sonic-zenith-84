@@ -1,4 +1,5 @@
 import { ArrowUpRight, MapPin, Share2, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
+
 import { useState } from "react";
 import type { EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
