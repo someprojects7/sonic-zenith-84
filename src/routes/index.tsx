@@ -60,7 +60,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(6rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
         <header
           className={cn(
             "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
@@ -92,14 +92,14 @@ function Index() {
         </header>
 
         {/* Tabs: own sticky layer so they survive the header collapsing.
-            Same capsule language as the bottom dock (icon + label, soft active pill),
-            but a sliding indicator marks it as a switch, not a destination. */}
+            One surface only — the sliding pill is the single filled shape,
+            the track stays transparent so the block reads light. */}
         <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
-          <div className="relative grid grid-cols-2 rounded-full bg-surface-2 p-1.5 ring-1 ring-hairline">
+          <div className="relative grid grid-cols-2">
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-background shadow-elevated transition-transform duration-300 ease-out",
+                "pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
                 tab === "all" && "translate-x-full",
               )}
             />
@@ -128,6 +128,7 @@ function Index() {
 
 
 
+
         {tab === "foryou" ? (
           <main className="space-y-8 pt-5">
             {/* Entry point of the scroll: the time saved, stated as work already done for you */}
@@ -138,12 +139,12 @@ function Index() {
                     <Hourglass className="size-[18px]" />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-[17px] leading-[1.4] text-foreground text-balance-tight">
+                    <p className="text-[15px] leading-[1.45] text-foreground text-balance-tight">
                       We scanned <span className="font-semibold text-brand">746 events</span> across{" "}
                       <span className="font-semibold text-brand">15 sources</span> in Vilnius this
                       week and picked the {picks.length} worth your time.
                     </p>
-                    <div className="mt-3.5 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
+                    <div className="mt-3 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
                       <span>Updated 2 h ago</span>
                       <span className="size-1 rounded-full bg-surface-3" />
                       <span>~3 h of scrolling saved</span>
@@ -164,7 +165,7 @@ function Index() {
 
             {/* Lower density as the eye tires: compact rows instead of full cards */}
             <section className="px-5">
-              <h2 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 Also this weekend
               </h2>
               <div className="divide-y divide-hairline">
@@ -174,7 +175,7 @@ function Index() {
               </div>
             </section>
 
-            <p className="px-5 pb-2 text-center text-[12px] leading-4 text-muted-foreground">
+            <p className="px-5 pt-1 text-center text-[12px] leading-4 text-muted-foreground">
               That's everything worth your time this week.
             </p>
           </main>
