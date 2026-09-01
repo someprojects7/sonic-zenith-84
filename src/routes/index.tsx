@@ -1,7 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Hourglass, LayoutGrid, Search, SlidersHorizontal, Sparkles } from "lucide-react";
-import { BottomNav } from "@/components/BottomNav";
+import {
+  Bell,
+  ChevronRight,
+  Heart,
+  Hourglass,
+  LayoutGrid,
+  Search,
+  SlidersHorizontal,
+  Sparkles,
+  User,
+} from "lucide-react";
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, picks } from "@/data/events";
@@ -33,9 +42,8 @@ export const Route = createFileRoute("/")({
    - every tappable element is at least 44px high
    - bottom padding clears the 76px tab bar + safe area */
 function Index() {
-  const [tab, setTab] = useState<"foryou" | "all">("foryou");
+  const [tab, setTab] = useState<"foryou" | "all" | "profile">("foryou");
   const [category, setCategory] = useState("All");
-  const [nav, setNav] = useState("events");
 
   /* Header is decoration, tabs are navigation: the title scrolls away, the tabs stay pinned */
   const [headerHidden, setHeaderHidden] = useState(false);
@@ -60,7 +68,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md pb-[calc(3rem+env(safe-area-inset-bottom))]">
         <header
           className={cn(
             "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
@@ -91,22 +99,24 @@ function Index() {
 
         </header>
 
-        {/* Tabs: own sticky layer so they survive the header collapsing.
-            One surface only — the sliding pill is the single filled shape,
-            the track stays transparent so the block reads light. */}
+        {/* One navigation layer for the whole app: two feeds + profile.
+            Sticky, so it survives the header collapsing. The sliding pill is
+            the only filled shape, the track stays transparent. */}
         <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
-          <div className="relative grid grid-cols-2">
+          <div className="relative grid grid-cols-3">
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
+                "pointer-events-none absolute inset-y-0 left-0 w-1/3 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
                 tab === "all" && "translate-x-full",
+                tab === "profile" && "translate-x-[200%]",
               )}
             />
             {(
               [
                 ["foryou", "For you", Sparkles],
                 ["all", "All events", LayoutGrid],
+                ["profile", "Profile", User],
               ] as const
             ).map(([id, label, Icon]) => (
               <button
@@ -115,19 +125,16 @@ function Index() {
                 aria-selected={tab === id}
                 role="tab"
                 className={cn(
-                  "relative z-10 flex h-11 items-center justify-center gap-2 rounded-full text-[14px] font-semibold leading-none transition-colors",
+                  "relative z-10 flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-full text-[13px] font-semibold leading-none transition-colors",
                   tab === id ? "text-foreground" : "text-muted-foreground",
                 )}
               >
-                <Icon className={cn("size-[18px] shrink-0", tab === id && "text-brand")} />
-                {label}
+                <Icon className={cn("size-[17px] shrink-0", tab === id && "text-brand")} />
+                <span className="truncate">{label}</span>
               </button>
             ))}
           </div>
         </div>
-
-
-
 
         {tab === "foryou" ? (
           <main className="space-y-8 pt-5">
@@ -179,7 +186,7 @@ function Index() {
               That's everything worth your time this week.
             </p>
           </main>
-        ) : (
+        ) : tab === "all" ? (
           <main className="space-y-5 pt-5">
             <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2.5 px-5">
               <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-surface-2 px-4">
@@ -226,10 +233,52 @@ function Index() {
               )}
             </div>
           </main>
+        ) : (
+          <main className="space-y-8 pt-5">
+            <section className="px-5">
+              <div className="flex items-center gap-4 rounded-3xl bg-card p-5 ring-1 ring-hairline">
+                <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/12 text-brand">
+                  <User className="size-6" />
+                </span>
+                <div className="min-w-0">
+                  <p className="truncate text-[18px] font-bold leading-tight tracking-[-0.01em] text-foreground">
+                    Eduard
+                  </p>
+                  <p className="mt-1 truncate text-[13px] leading-4 text-muted-foreground">
+                    Vilnius · 12 picks liked
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="px-5">
+              <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Your taste
+              </h2>
+              <div className="divide-y divide-hairline rounded-3xl bg-card ring-1 ring-hairline">
+                {(
+                  [
+                    ["Saved events", Heart],
+                    ["Interests", Sparkles],
+                    ["Notifications", Bell],
+                  ] as const
+                ).map(([label, Icon]) => (
+                  <button
+                    key={label}
+                    className="flex min-h-[56px] w-full items-center gap-3.5 px-5 text-left"
+                  >
+                    <Icon className="size-[18px] shrink-0 text-muted-foreground" />
+                    <span className="min-w-0 flex-1 truncate text-[15px] font-medium text-foreground">
+                      {label}
+                    </span>
+                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          </main>
         )}
       </div>
-
-      <BottomNav active={nav} onChange={setNav} />
     </div>
   );
 }
