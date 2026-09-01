@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Hourglass, Search, SlidersHorizontal } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
@@ -122,17 +122,25 @@ function Index() {
             {/* Entry point of the scroll: the time saved, stated as work already done for you */}
             <section className="px-5">
               <div className="rounded-3xl bg-card p-5 ring-1 ring-hairline">
-                <p className="text-[17px] leading-[1.4] text-foreground text-balance-tight">
-                  We scanned <span className="font-semibold text-brand">746 events</span> across{" "}
-                  <span className="font-semibold text-brand">15 sources</span> in Vilnius this week
-                  and picked the {picks.length} worth your time.
-                </p>
-                <div className="mt-3.5 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
-                  <span>Updated 2 h ago</span>
-                  <span className="size-1 rounded-full bg-surface-3" />
-                  <span>~3 h of scrolling saved</span>
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-brand/12 text-brand">
+                    <Hourglass className="size-[18px]" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[17px] leading-[1.4] text-foreground text-balance-tight">
+                      We scanned <span className="font-semibold text-brand">746 events</span> across{" "}
+                      <span className="font-semibold text-brand">15 sources</span> in Vilnius this
+                      week and picked the {picks.length} worth your time.
+                    </p>
+                    <div className="mt-3.5 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
+                      <span>Updated 2 h ago</span>
+                      <span className="size-1 rounded-full bg-surface-3" />
+                      <span>~3 h of scrolling saved</span>
+                    </div>
+                  </div>
                 </div>
               </div>
+
             </section>
 
             <section className="px-5">

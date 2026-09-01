@@ -50,17 +50,13 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
 
         {event.reason && (
           <div className="mt-3.5 rounded-2xl bg-surface-2 p-3.5">
-            <div className="flex items-center justify-between gap-3">
-              <span className="flex min-w-0 items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                <Sparkles className="size-3.5 shrink-0 text-brand" />
-                Why this pick
+            <div className="flex items-center gap-2">
+              <Sparkles className="size-3.5 shrink-0 text-brand" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
+                {typeof event.match === "number" ? `${event.match}% match` : "Why this pick"}
               </span>
-              {typeof event.match === "number" && (
-                <span className="shrink-0 text-[12px] font-semibold text-brand">
-                  {event.match}% match
-                </span>
-              )}
             </div>
+
 
             <p className="mt-2 text-[13px] leading-[1.45] text-foreground/90">{event.reason}</p>
 
