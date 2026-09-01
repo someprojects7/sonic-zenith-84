@@ -92,14 +92,14 @@ function Index() {
         </header>
 
         {/* Tabs: own sticky layer so they survive the header collapsing.
-            Same capsule language as the bottom dock (icon + label, soft active pill),
-            but a sliding indicator marks it as a switch, not a destination. */}
+            One surface only — the sliding pill is the single filled shape,
+            the track stays transparent so the block reads light. */}
         <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
-          <div className="relative grid grid-cols-2 rounded-full bg-surface-2 p-1.5 ring-1 ring-hairline">
+          <div className="relative grid grid-cols-2">
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-background shadow-elevated transition-transform duration-300 ease-out",
+                "pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
                 tab === "all" && "translate-x-full",
               )}
             />
@@ -125,6 +125,7 @@ function Index() {
             ))}
           </div>
         </div>
+
 
 
 
