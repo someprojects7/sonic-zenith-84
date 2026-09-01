@@ -21,7 +21,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={labels[mode]}
       title={labels[mode]}
       className={cn(
-        "grid size-11 shrink-0 place-items-center rounded-full bg-surface-2/60 text-muted-foreground ring-1 ring-hairline transition-colors active:scale-95",
+        "icon-button size-11 bg-surface-2/60 text-muted-foreground ring-1 ring-hairline",
         mode !== "auto" && "text-brand",
         className,
       )}

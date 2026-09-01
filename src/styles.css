@@ -86,12 +86,6 @@
   --hairline: oklch(0.2 0.01 285 / 9%);
 
   --gradient-brand: linear-gradient(100deg, oklch(0.72 0.18 62), oklch(0.6 0.22 32));
-  --scrim: linear-gradient(
-    to top,
-    oklch(1 0 0) 4%,
-    oklch(1 0 0 / 0.85) 34%,
-    transparent 78%
-  );
   --glass: oklch(0.99 0.002 60 / 0.78);
   --shadow-elevated: 0 18px 40px -26px oklch(0.2 0.02 285 / 0.28);
   --shadow-brand: 0 12px 26px -14px oklch(0.66 0.2 45 / 0.42);
@@ -125,12 +119,6 @@
   --hairline: oklch(1 0 0 / 9%);
 
   --gradient-brand: linear-gradient(100deg, oklch(0.78 0.17 68), oklch(0.65 0.22 32));
-  --scrim: linear-gradient(
-    to top,
-    oklch(0.21 0.008 285) 4%,
-    oklch(0.21 0.008 285 / 0.85) 34%,
-    transparent 78%
-  );
   --glass: oklch(0.2 0.008 285 / 0.72);
   --shadow-elevated: 0 18px 40px -24px oklch(0 0 0 / 0.9);
   --shadow-brand: 0 12px 26px -14px oklch(0.7 0.2 45 / 0.7);
@@ -138,10 +126,6 @@
 
 @utility bg-brand-gradient {
   background-image: var(--gradient-brand);
-}
-
-@utility bg-scrim {
-  background-image: var(--scrim);
 }
 
 @utility bg-glass {
@@ -154,6 +138,37 @@
   color: oklch(0.99 0 0);
 }
 
+/* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */
+
+/* Elevated block: stats card, details list, profile card */
+@utility surface-card {
+  @apply rounded-3xl bg-card ring-1 ring-hairline;
+}
+
+/* Quiet block inside a card: the "why this pick" panel */
+@utility surface-inset {
+  @apply rounded-2xl bg-surface-2;
+}
+
+/* Section heading above a list */
+@utility eyebrow {
+  @apply text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground;
+}
+
+/* Small brand label: category chip, match percentage */
+@utility eyebrow-brand {
+  @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-brand;
+}
+
+/* Round tap target — set the size at the call site (size-11 = 44px default) */
+@utility icon-button {
+  @apply grid shrink-0 place-items-center rounded-full transition-transform active:scale-95;
+}
+
+/* The single primary action on a screen */
+@utility btn-brand {
+  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
+}
 
 @utility text-balance-tight {
   text-wrap: balance;
