@@ -75,7 +75,7 @@ function Index() {
             headerHidden && "pointer-events-none -translate-y-2 opacity-0",
           )}
         >
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2">
             <img
               src={logoMark}
               alt="Sponsa logo"
