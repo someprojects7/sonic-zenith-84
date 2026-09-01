@@ -91,32 +91,44 @@ function Index() {
                 Your shortcut to the city
               </p>
             </div>
-            <span className="flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-surface-2 px-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-brand">
-              <span className="size-1.5 rounded-full bg-brand" />
-              Beta
-            </span>
+            {/* Profile lives in the header, so the tabs stay a pure feed switch */}
+            <button
+              onClick={() => setTab(tab === "profile" ? "foryou" : "profile")}
+              aria-label="Profile"
+              aria-current={tab === "profile" ? "page" : undefined}
+              className={cn(
+                "grid size-11 shrink-0 place-items-center rounded-full transition-colors",
+                tab === "profile"
+                  ? "bg-surface-2 text-brand ring-1 ring-hairline"
+                  : "text-muted-foreground",
+              )}
+            >
+              <User className="size-[21px]" />
+            </button>
           </div>
 
         </header>
 
-        {/* One navigation layer for the whole app: two feeds + profile.
-            Sticky, so it survives the header collapsing. The sliding pill is
-            the only filled shape, the track stays transparent. */}
-        <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
-          <div className="relative grid grid-cols-3">
+        {/* Feed switch only — sticky, so it survives the header collapsing.
+            The sliding pill is the only filled shape, the track stays transparent. */}
+        <div
+          className={cn(
+            "sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl",
+            tab === "profile" && "hidden",
+          )}
+        >
+          <div className="relative grid grid-cols-2">
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-y-0 left-0 w-1/3 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
+                "pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
                 tab === "all" && "translate-x-full",
-                tab === "profile" && "translate-x-[200%]",
               )}
             />
             {(
               [
                 ["foryou", "For you", Sparkles],
                 ["all", "All events", LayoutGrid],
-                ["profile", "Profile", User],
               ] as const
             ).map(([id, label, Icon]) => (
               <button
@@ -125,11 +137,11 @@ function Index() {
                 aria-selected={tab === id}
                 role="tab"
                 className={cn(
-                  "relative z-10 flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-full text-[13px] font-semibold leading-none transition-colors",
+                  "relative z-10 flex h-11 min-w-0 items-center justify-center gap-2 rounded-full text-[14px] font-semibold leading-none transition-colors",
                   tab === id ? "text-foreground" : "text-muted-foreground",
                 )}
               >
-                <Icon className={cn("size-[17px] shrink-0", tab === id && "text-brand")} />
+                <Icon className={cn("size-[18px] shrink-0", tab === id && "text-brand")} />
                 <span className="truncate">{label}</span>
               </button>
             ))}
