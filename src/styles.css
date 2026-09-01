@@ -140,10 +140,6 @@
   background-image: var(--gradient-brand);
 }
 
-@utility bg-scrim {
-  background-image: var(--scrim);
-}
-
 @utility bg-glass {
   background-color: var(--glass);
 }
@@ -153,6 +149,39 @@
   background-color: oklch(0.18 0.008 285 / 0.55);
   color: oklch(0.99 0 0);
 }
+
+/* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */
+
+/* Elevated block: stats card, details list, profile card */
+@utility surface-card {
+  @apply rounded-3xl bg-card ring-1 ring-hairline;
+}
+
+/* Quiet block inside a card: the "why this pick" panel */
+@utility surface-inset {
+  @apply rounded-2xl bg-surface-2;
+}
+
+/* Section heading above a list */
+@utility eyebrow {
+  @apply text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground;
+}
+
+/* Small brand label: category chip, match percentage */
+@utility eyebrow-brand {
+  @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-brand;
+}
+
+/* 44px round tap target */
+@utility icon-button {
+  @apply grid size-11 shrink-0 place-items-center rounded-full transition-transform active:scale-95;
+}
+
+/* The single primary action on a screen */
+@utility btn-brand {
+  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient px-6 text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
+}
+
 
 
 @utility text-balance-tight {
