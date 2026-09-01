@@ -40,44 +40,64 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           {event.title}
         </h3>
 
+        {/* Only city on the feed — the full address belongs to the event page */}
         <div className="mt-2.5 flex min-w-0 items-center gap-2 text-[13px] leading-5 text-muted-foreground">
           <MapPin className="size-4 shrink-0 text-brand" />
           <span className="truncate">
-            {event.day} · {event.time} · {event.venue}
+            {event.day} · {event.time} · {event.city ?? "Vilnius"}
           </span>
         </div>
 
         {event.reason && (
-          <div className="mt-3.5 flex items-start gap-2.5 rounded-2xl bg-surface-2 p-3.5">
-            <Sparkles className="mt-px size-4 shrink-0 text-brand" />
-            <p className="min-w-0 flex-1 text-[13px] leading-[1.45] text-muted-foreground">
-              {event.reason}
+          <div className="mt-3.5 rounded-2xl bg-surface-2 p-3.5">
+            <div className="flex items-center justify-between gap-3">
+              <span className="flex min-w-0 items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                <Sparkles className="size-3.5 shrink-0 text-brand" />
+                Why this pick
+              </span>
               {typeof event.match === "number" && (
-                <span className="font-semibold text-brand"> · {event.match}% match</span>
+                <span className="shrink-0 text-[12px] font-semibold text-brand">
+                  {event.match}% match
+                </span>
               )}
-            </p>
-            {/* Feedback reduced to two quiet glyphs attached to the reason it rates */}
-            <div className="-my-1 flex shrink-0 items-center">
-              <button
-                aria-label="Good pick"
-                onClick={() => setVote(vote === "up" ? null : "up")}
-                className={cn(
-                  "grid size-9 place-items-center rounded-full transition-colors",
-                  vote === "up" ? "text-brand" : "text-surface-3 hover:text-muted-foreground",
-                )}
-              >
-                <ThumbsUp className="size-[17px]" />
-              </button>
-              <button
-                aria-label="Not for me"
-                onClick={() => setVote(vote === "down" ? null : "down")}
-                className={cn(
-                  "grid size-9 place-items-center rounded-full transition-colors",
-                  vote === "down" ? "text-foreground" : "text-surface-3 hover:text-muted-foreground",
-                )}
-              >
-                <ThumbsDown className="size-[17px]" />
-              </button>
+            </div>
+
+            <p className="mt-2 text-[13px] leading-[1.45] text-foreground/90">{event.reason}</p>
+
+            <div className="mt-3 flex items-center justify-between gap-3 border-t border-hairline pt-3">
+              <span className="min-w-0 truncate text-[12px] text-muted-foreground">
+                {vote === "up"
+                  ? "Thanks — more like this"
+                  : vote === "down"
+                    ? "Got it — fewer like this"
+                    : "Was this a good pick?"}
+              </span>
+              <div className="-my-1.5 flex shrink-0 items-center gap-1">
+                <button
+                  aria-label="Good pick"
+                  onClick={() => setVote(vote === "up" ? null : "up")}
+                  className={cn(
+                    "grid size-10 place-items-center rounded-full transition-colors",
+                    vote === "up"
+                      ? "bg-brand text-brand-foreground"
+                      : "text-muted-foreground active:bg-surface-3",
+                  )}
+                >
+                  <ThumbsUp className="size-[17px]" />
+                </button>
+                <button
+                  aria-label="Not for me"
+                  onClick={() => setVote(vote === "down" ? null : "down")}
+                  className={cn(
+                    "grid size-10 place-items-center rounded-full transition-colors",
+                    vote === "down"
+                      ? "bg-surface-3 text-foreground"
+                      : "text-muted-foreground active:bg-surface-3",
+                  )}
+                >
+                  <ThumbsDown className="size-[17px]" />
+                </button>
+              </div>
             </div>
           </div>
         )}
