@@ -82,13 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
       { name: "theme-color", content: "#141416" },
-      { title: "Sponsa — your shortcut to the city" },
+      { title: "Sponsa — your city shortcut" },
       {
         name: "description",
         content:
           "Sponsa scans everything happening in your city and picks only the events worth your time.",
       },
-      { property: "og:title", content: "Sponsa — your shortcut to the city" },
+      { property: "og:title", content: "Sponsa — your city shortcut" },
       {
         property: "og:description",
         content: "Curated city events, picked for you every week.",

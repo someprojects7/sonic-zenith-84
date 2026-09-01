@@ -34,7 +34,7 @@ export function AppHeader({
             Sponsa
           </h1>
           <p className="mt-1.5 truncate text-[13px] leading-4 text-muted-foreground">
-            Your shortcut to the city
+            Your city shortcut
           </p>
         </div>
         <ThemeToggle />
