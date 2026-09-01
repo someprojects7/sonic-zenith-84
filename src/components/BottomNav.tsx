@@ -16,8 +16,8 @@ export function BottomNav({
   onChange: (id: string) => void;
 }) {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass pb-[env(safe-area-inset-bottom)] backdrop-blur-xl">
-      <div className="mx-auto grid max-w-md grid-cols-4 px-2 py-2">
+    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass backdrop-blur-xl">
+      <div className="mx-auto grid max-w-md grid-cols-4 px-2 pb-[env(safe-area-inset-bottom)] pt-1.5">
         {items.map((item) => {
           const isActive = active === item.id;
           return (
@@ -25,11 +25,11 @@ export function BottomNav({
               key={item.id}
               onClick={() => onChange(item.id)}
               className={cn(
-                "flex flex-col items-center gap-1 rounded-2xl py-1.5 text-[11px] font-medium transition-colors",
+                "flex h-14 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-medium leading-none transition-colors",
                 isActive ? "text-foreground" : "text-muted-foreground",
               )}
             >
-              <item.icon className={cn("size-5", isActive && "text-brand")} />
+              <item.icon className={cn("size-[22px]", isActive && "text-brand")} />
               {item.label}
             </button>
           );
