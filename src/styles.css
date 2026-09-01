@@ -55,8 +55,49 @@
   --shadow-brand: var(--shadow-brand);
 }
 
+/* Light theme = daytime default. The .dark class (set by the theme controller
+   in src/lib/theme.tsx) swaps every value below for the night palette. */
 :root {
   --radius: 0.875rem;
+  --background: oklch(0.985 0.003 60);
+  --foreground: oklch(0.2 0.01 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.01 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.01 285);
+  --primary: oklch(0.24 0.01 285);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.95 0.004 60);
+  --secondary-foreground: oklch(0.24 0.01 285);
+  --muted: oklch(0.95 0.004 60);
+  --muted-foreground: oklch(0.52 0.012 285);
+  --accent: oklch(0.93 0.006 60);
+  --accent-foreground: oklch(0.24 0.01 285);
+  --destructive: oklch(0.58 0.21 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.2 0.01 285 / 10%);
+  --input: oklch(0.2 0.01 285 / 14%);
+  --ring: oklch(0.66 0.19 45);
+
+  --brand: oklch(0.62 0.21 45);
+  --brand-foreground: oklch(0.99 0 0);
+  --surface-2: oklch(0.955 0.004 60);
+  --surface-3: oklch(0.915 0.006 60);
+  --hairline: oklch(0.2 0.01 285 / 9%);
+
+  --gradient-brand: linear-gradient(100deg, oklch(0.72 0.18 62), oklch(0.6 0.22 32));
+  --scrim: linear-gradient(
+    to top,
+    oklch(1 0 0) 4%,
+    oklch(1 0 0 / 0.85) 34%,
+    transparent 78%
+  );
+  --glass: oklch(0.99 0.002 60 / 0.78);
+  --shadow-elevated: 0 18px 40px -26px oklch(0.2 0.02 285 / 0.28);
+  --shadow-brand: 0 12px 26px -14px oklch(0.66 0.2 45 / 0.42);
+}
+
+.dark {
   --background: oklch(0.16 0.006 285);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.21 0.008 285);
@@ -90,6 +131,7 @@
     oklch(0.21 0.008 285 / 0.85) 34%,
     transparent 78%
   );
+  --glass: oklch(0.2 0.008 285 / 0.72);
   --shadow-elevated: 0 18px 40px -24px oklch(0 0 0 / 0.9);
   --shadow-brand: 0 12px 26px -14px oklch(0.7 0.2 45 / 0.7);
 }
@@ -103,8 +145,15 @@
 }
 
 @utility bg-glass {
-  background-color: oklch(0.2 0.008 285 / 0.72);
+  background-color: var(--glass);
 }
+
+/* Glass that sits on top of a photo: always dark, in both themes */
+@utility bg-glass-media {
+  background-color: oklch(0.18 0.008 285 / 0.55);
+  color: oklch(0.99 0 0);
+}
+
 
 @utility text-balance-tight {
   text-wrap: balance;
