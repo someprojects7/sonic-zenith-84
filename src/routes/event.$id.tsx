@@ -10,7 +10,8 @@ import {
   Ticket,
   Users,
 } from "lucide-react";
-import { getEvent } from "@/data/events";
+
+import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -25,10 +26,11 @@ export const Route = createFileRoute("/event/$id")({
       };
     }
     const { event } = loaderData;
-    const title = `${event.title} — ${event.day}, Vilnius`;
-    const description = `${event.day} at ${event.time}, ${event.venue}. ${event.price}. ${
-      event.about ?? "Details, tickets and location."
-    }`.slice(0, 158);
+    const title = `${event.title} — ${event.day}, ${event.city}`;
+    const description = `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(
+      0,
+      158,
+    );
     return {
       meta: [
         { title },
@@ -43,6 +45,13 @@ export const Route = createFileRoute("/event/$id")({
   component: EventPage,
   notFoundComponent: EventMissing,
 });
+
+const facts = (event: EventItem) => [
+  { icon: CalendarDays, label: "Date", value: formatWhen(event) },
+  { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
+  { icon: Clock, label: "Doors", value: `Open ${event.doorsOpen}` },
+  { icon: Users, label: "Entry", value: event.ageLimit },
+];
 
 function EventMissing() {
   return (
@@ -60,14 +69,7 @@ function EventMissing() {
 
 function EventPage() {
   const { event } = Route.useLoaderData();
-  const isFree = event.price.toLowerCase().startsWith("free");
-
-  const facts = [
-    { icon: CalendarDays, label: "Date", value: `${event.day} · ${event.time}` },
-    { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address ?? "Vilnius"}` },
-    { icon: Clock, label: "Doors", value: event.doorsOpen ? `Open ${event.doorsOpen}` : "—" },
-    { icon: Users, label: "Entry", value: event.ageLimit ?? "All ages" },
-  ];
+  const free = isFree(event);
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,13 +89,13 @@ function EventPage() {
             <Link
               to="/"
               aria-label="Back"
-              className="grid size-11 place-items-center rounded-full bg-glass-media ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
+              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
             >
               <ChevronLeft className="size-[21px]" />
             </Link>
             <button
               aria-label="Share"
-              className="grid size-11 place-items-center rounded-full bg-glass-media ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
+              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
             >
               <Share2 className="size-[18px]" />
             </button>
@@ -102,41 +104,40 @@ function EventPage() {
 
         <main className="space-y-8 px-5 pt-4">
           <header>
-            <span className="inline-flex h-7 items-center rounded-full bg-surface-2 px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
+            <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
               {event.category}
             </span>
             <h1 className="mt-3 text-[26px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
               {event.title}
             </h1>
             <p className="mt-2 text-[14px] leading-5 text-muted-foreground">
-              {event.day} · {event.time} · {event.city ?? "Vilnius"}
+              {formatWhen(event)} · {event.city}
             </p>
           </header>
 
-          {typeof event.match === "number" && event.reason && (
+          {event.match && event.reason && (
             <section className="rounded-3xl bg-surface-2 p-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="size-3.5 shrink-0 text-brand" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
-                  {event.match}% match
-                </span>
+                <span className="eyebrow-brand">{event.match}% match</span>
               </div>
               <p className="mt-2 text-[14px] leading-[1.5] text-foreground/90">{event.reason}</p>
             </section>
           )}
 
           <section>
-            <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Details
-            </h2>
-            <div className="divide-y divide-hairline rounded-3xl bg-card ring-1 ring-hairline">
-              {facts.map((f) => (
-                <div key={f.label} className="flex min-h-[60px] items-center gap-3.5 px-4 py-3.5">
-                  <f.icon className="size-[18px] shrink-0 text-muted-foreground" />
+            <h2 className="eyebrow mb-3">Details</h2>
+            <div className="surface-card divide-y divide-hairline">
+              {facts(event).map((fact) => (
+                <div
+                  key={fact.label}
+                  className="flex min-h-[60px] items-center gap-3.5 px-4 py-3.5"
+                >
+                  <fact.icon className="size-[18px] shrink-0 text-muted-foreground" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-[12px] leading-4 text-muted-foreground">{f.label}</p>
+                    <p className="text-[12px] leading-4 text-muted-foreground">{fact.label}</p>
                     <p className="mt-0.5 whitespace-pre-line text-[14px] font-medium leading-5 text-foreground">
-                      {f.value}
+                      {fact.value}
                     </p>
                   </div>
                 </div>
@@ -144,30 +145,25 @@ function EventPage() {
             </div>
           </section>
 
-          {event.about && (
-            <section>
-              <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                About
-              </h2>
-              <p className="text-[15px] leading-[1.55] text-foreground/90">{event.about}</p>
-              {event.highlights && (
-                <ul className="mt-4 space-y-2">
-                  {event.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2.5 text-[14px] leading-5 text-muted-foreground">
-                      <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
-                      <span className="min-w-0">{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          )}
+          <section>
+            <h2 className="eyebrow mb-3">About</h2>
+            <p className="text-[15px] leading-[1.55] text-foreground/90">{event.about}</p>
+            <ul className="mt-4 space-y-2">
+              {event.highlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="flex items-start gap-2.5 text-[14px] leading-5 text-muted-foreground"
+                >
+                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
+                  <span className="min-w-0">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-          {event.source && (
-            <p className="text-[12px] leading-4 text-muted-foreground">
-              Found on <span className="text-foreground">{event.source}</span> · verified by Sponsa
-            </p>
-          )}
+          <p className="text-[12px] leading-4 text-muted-foreground">
+            Found on <span className="text-foreground">{event.source}</span> · verified by Sponsa
+          </p>
         </main>
       </div>
 
@@ -179,12 +175,12 @@ function EventPage() {
               {event.price}
             </p>
             <p className="truncate text-[12px] leading-4 text-muted-foreground">
-              {event.day} · {event.time}
+              {formatWhen(event)}
             </p>
           </div>
-          <button className="flex h-12 shrink-0 items-center gap-2 rounded-full bg-brand-gradient px-6 text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98]">
-            {isFree ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
-            {isFree ? "Open page" : "Get tickets"}
+          <button className="btn-brand shrink-0 px-6">
+            {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
+            {free ? "Open page" : "Get tickets"}
           </button>
         </div>
       </div>
