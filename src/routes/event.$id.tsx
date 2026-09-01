@@ -100,7 +100,7 @@ function EventPage() {
           </div>
         </div>
 
-        <main className="-mt-6 space-y-8 px-5">
+        <main className="space-y-8 px-5 pt-4">
           <header>
             <span className="inline-flex h-7 items-center rounded-full bg-surface-2 px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
               {event.category}
