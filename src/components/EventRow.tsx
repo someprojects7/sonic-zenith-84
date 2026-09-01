@@ -3,7 +3,7 @@ import type { EventItem } from "@/data/events";
 
 export function EventRow({ event }: { event: EventItem }) {
   return (
-    <button className="grid min-h-[72px] w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 rounded-2xl px-2 py-2.5 text-left transition-colors active:bg-surface-2">
+    <button className="-mx-2 grid min-h-[76px] w-[calc(100%+1rem)] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 rounded-2xl px-2 py-3 text-left transition-colors active:bg-surface-2">
       <img
         src={event.image}
         alt={event.title}
