@@ -66,9 +66,16 @@ function Index() {
             headerHidden && "pointer-events-none -translate-y-2 opacity-0",
           )}
         >
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+            <img
+              src={logoMark}
+              alt="Sponsa logo"
+              width={1024}
+              height={1024}
+              className="size-9 shrink-0 object-contain"
+            />
             <div className="min-w-0">
-              <h1 className="truncate text-[26px] font-bold leading-none text-foreground">
+              <h1 className="truncate text-[26px] font-bold leading-none tracking-[-0.02em] text-foreground">
                 Sponsa
               </h1>
               <p className="mt-1.5 truncate text-[13px] leading-4 text-muted-foreground">
@@ -80,6 +87,7 @@ function Index() {
               Beta
             </span>
           </div>
+
         </header>
 
         {/* Tabs: own sticky layer so they survive the header collapsing */}
