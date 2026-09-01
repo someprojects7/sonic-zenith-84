@@ -1,5 +1,6 @@
 import { ArrowUpRight, MapPin, Share2, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import type { EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
 
@@ -36,6 +37,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
 
       {/* Content: 20px gutter, 12px rhythm between text blocks, 16px before the single action */}
       <div className="p-5">
+        <Link to="/event/$id" params={{ id: event.id }} className="block">
         <h3 className="text-[20px] font-semibold leading-[1.2] text-foreground text-balance-tight">
           {event.title}
         </h3>
@@ -47,6 +49,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
             {event.day} · {event.time} · {event.city ?? "Vilnius"}
           </span>
         </div>
+        </Link>
 
         {event.reason && (
           <div className="mt-3.5 rounded-2xl bg-surface-2 p-3.5">
@@ -98,10 +101,14 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           </div>
         )}
 
-        <button className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-gradient px-4 text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98]">
+        <Link
+          to="/event/$id"
+          params={{ id: event.id }}
+          className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-gradient px-4 text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98]"
+        >
           <span className="truncate">{isFree ? "See details" : `Tickets · ${event.price}`}</span>
           <ArrowUpRight className="size-4 shrink-0" />
-        </button>
+        </Link>
       </div>
     </article>
   );

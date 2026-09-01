@@ -97,10 +97,10 @@ function Index() {
               aria-label="Profile"
               aria-current={tab === "profile" ? "page" : undefined}
               className={cn(
-                "grid size-11 shrink-0 place-items-center rounded-full transition-colors",
+                "grid size-11 shrink-0 place-items-center rounded-full ring-1 ring-hairline transition-colors",
                 tab === "profile"
-                  ? "bg-surface-2 text-brand ring-1 ring-hairline"
-                  : "text-muted-foreground",
+                  ? "bg-surface-2 text-brand"
+                  : "bg-surface-2/60 text-muted-foreground",
               )}
             >
               <User className="size-[21px]" />
