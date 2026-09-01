@@ -15,7 +15,7 @@ import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, picks } from "@/data/events";
 import { cn } from "@/lib/utils";
-import logoMark from "@/assets/logo-sponsa-s.png";
+import logoMark from "@/assets/logo-sponsa-hourglass.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
