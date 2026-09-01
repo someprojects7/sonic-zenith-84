@@ -10,7 +10,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
   return (
     <article className="overflow-hidden rounded-3xl bg-card shadow-elevated ring-1 ring-hairline">
       {/* Cover: fixed 4:3 ratio keeps every card the same height so the scroll rhythm is predictable */}
-      <div className="relative aspect-[4/3] w-full">
+      <div className="relative aspect-[3/2] w-full">
         <img
           src={event.image}
           alt={event.title}
@@ -21,7 +21,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
         />
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent" />
         <div className="absolute inset-x-3 top-3 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
-          <span className="truncate rounded-full bg-glass px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground backdrop-blur-md">
+          <span className="justify-self-start truncate rounded-full bg-glass px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground backdrop-blur-md">
             {event.category}
           </span>
           {typeof event.match === "number" && (
