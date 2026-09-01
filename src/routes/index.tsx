@@ -83,7 +83,7 @@ function Index() {
                 Your shortcut to the city
               </p>
             </div>
-            <span className="flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-surface-2 px-2.5 text-[10px] font-bold uppercase tracking-[0.16em] text-brand">
+            <span className="flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-surface-2 px-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-brand">
               <span className="size-1.5 rounded-full bg-brand" />
               Beta
             </span>
