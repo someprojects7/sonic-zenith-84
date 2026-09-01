@@ -36,6 +36,22 @@ function Index() {
   const [category, setCategory] = useState("All");
   const [nav, setNav] = useState("events");
 
+  /* Header is decoration, tabs are navigation: the title scrolls away, the tabs stay pinned */
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 12) setHeaderHidden(false);
+      else if (y > lastY.current + 4) setHeaderHidden(true);
+      else if (y < lastY.current - 24) setHeaderHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const filtered = useMemo(
     () => (category === "All" ? allEvents : allEvents.filter((e) => e.category === category)),
     [category],
@@ -44,7 +60,12 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        <header className="sticky top-0 z-20 bg-glass px-5 pb-4 pt-[calc(1.25rem+env(safe-area-inset-top))] backdrop-blur-xl">
+        <header
+          className={cn(
+            "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
+            headerHidden && "pointer-events-none -translate-y-2 opacity-0",
+          )}
+        >
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
             <div className="min-w-0">
               <h1 className="truncate text-[26px] font-bold leading-none text-foreground">
@@ -59,8 +80,11 @@ function Index() {
               Beta
             </span>
           </div>
+        </header>
 
-          <div className="mt-4 grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
+        {/* Tabs: own sticky layer so they survive the header collapsing */}
+        <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur-xl">
+          <div className="grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
             {(
               [
                 ["foryou", "For you"],
@@ -81,7 +105,8 @@ function Index() {
               </button>
             ))}
           </div>
-        </header>
+        </div>
+
 
         {tab === "foryou" ? (
           <main className="space-y-8 pt-5">
