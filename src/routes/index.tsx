@@ -141,7 +141,7 @@ function Index() {
                   tab === id ? "text-foreground" : "text-muted-foreground",
                 )}
               >
-                <Icon className={cn("size-[17px] shrink-0", tab === id && "text-brand")} />
+                <Icon className={cn("size-[18px] shrink-0", tab === id && "text-brand")} />
                 <span className="truncate">{label}</span>
               </button>
             ))}
