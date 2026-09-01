@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { EventCard } from "@/components/EventCard";
@@ -36,6 +36,22 @@ function Index() {
   const [category, setCategory] = useState("All");
   const [nav, setNav] = useState("events");
 
+  /* Header is decoration, tabs are navigation: the title scrolls away, the tabs stay pinned */
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 12) setHeaderHidden(false);
+      else if (y > lastY.current + 4) setHeaderHidden(true);
+      else if (y < lastY.current - 24) setHeaderHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const filtered = useMemo(
     () => (category === "All" ? allEvents : allEvents.filter((e) => e.category === category)),
     [category],
@@ -44,7 +60,12 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        <header className="sticky top-0 z-20 bg-glass px-5 pb-4 pt-[calc(1.25rem+env(safe-area-inset-top))] backdrop-blur-xl">
+        <header
+          className={cn(
+            "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
+            headerHidden && "pointer-events-none -translate-y-2 opacity-0",
+          )}
+        >
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
             <div className="min-w-0">
               <h1 className="truncate text-[26px] font-bold leading-none text-foreground">
@@ -59,8 +80,11 @@ function Index() {
               Beta
             </span>
           </div>
+        </header>
 
-          <div className="mt-4 grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
+        {/* Tabs: own sticky layer so they survive the header collapsing */}
+        <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur-xl">
+          <div className="grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
             {(
               [
                 ["foryou", "For you"],
@@ -81,32 +105,28 @@ function Index() {
               </button>
             ))}
           </div>
-        </header>
+        </div>
+
 
         {tab === "foryou" ? (
           <main className="space-y-8 pt-5">
-            {/* Entry point of the scroll: one short sentence, biggest text on the screen after the logo */}
+            {/* Entry point of the scroll: the time saved, stated as work already done for you */}
             <section className="px-5">
               <div className="rounded-3xl bg-card p-5 ring-1 ring-hairline">
                 <p className="text-[17px] leading-[1.4] text-foreground text-balance-tight">
-                  We scanned <span className="font-semibold text-brand">746 events</span> in Vilnius
-                  this week and picked the {picks.length} worth your time.
+                  We scanned <span className="font-semibold text-brand">746 events</span> across{" "}
+                  <span className="font-semibold text-brand">15 sources</span> in Vilnius this week
+                  and picked the {picks.length} worth your time.
                 </p>
                 <div className="mt-3.5 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
                   <span>Updated 2 h ago</span>
                   <span className="size-1 rounded-full bg-surface-3" />
-                  <span>Tuned to your taste</span>
+                  <span>~3 h of scrolling saved</span>
                 </div>
               </div>
             </section>
 
             <section className="px-5">
-              <div className="mb-3.5 flex items-baseline justify-between gap-3">
-                <h2 className="text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Your picks
-                </h2>
-                <span className="text-[12px] text-muted-foreground">{picks.length} of 746</span>
-              </div>
               <div className="space-y-4">
                 {picks.map((event, i) => (
                   <EventCard key={event.id} event={event} featured={i === 0} />
