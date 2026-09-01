@@ -60,7 +60,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md pb-[calc(6rem+env(safe-area-inset-bottom))]">
         <header
           className={cn(
             "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
