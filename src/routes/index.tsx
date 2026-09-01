@@ -110,28 +110,23 @@ function Index() {
 
         {tab === "foryou" ? (
           <main className="space-y-8 pt-5">
-            {/* Entry point of the scroll: one short sentence, biggest text on the screen after the logo */}
+            {/* Entry point of the scroll: the time saved, stated as work already done for you */}
             <section className="px-5">
               <div className="rounded-3xl bg-card p-5 ring-1 ring-hairline">
                 <p className="text-[17px] leading-[1.4] text-foreground text-balance-tight">
-                  We scanned <span className="font-semibold text-brand">746 events</span> in Vilnius
-                  this week and picked the {picks.length} worth your time.
+                  We scanned <span className="font-semibold text-brand">746 events</span> across{" "}
+                  <span className="font-semibold text-brand">15 sources</span> in Vilnius this week
+                  and picked the {picks.length} worth your time.
                 </p>
                 <div className="mt-3.5 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
                   <span>Updated 2 h ago</span>
                   <span className="size-1 rounded-full bg-surface-3" />
-                  <span>Tuned to your taste</span>
+                  <span>~3 h of scrolling saved</span>
                 </div>
               </div>
             </section>
 
             <section className="px-5">
-              <div className="mb-3.5 flex items-baseline justify-between gap-3">
-                <h2 className="text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Your picks
-                </h2>
-                <span className="text-[12px] text-muted-foreground">{picks.length} of 746</span>
-              </div>
               <div className="space-y-4">
                 {picks.map((event, i) => (
                   <EventCard key={event.id} event={event} featured={i === 0} />
