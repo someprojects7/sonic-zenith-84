@@ -160,14 +160,14 @@
   @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-brand;
 }
 
-/* 44px round tap target */
+/* Round tap target — set the size at the call site (size-11 = 44px default) */
 @utility icon-button {
-  @apply grid size-11 shrink-0 place-items-center rounded-full transition-transform active:scale-95;
+  @apply grid shrink-0 place-items-center rounded-full transition-transform active:scale-95;
 }
 
 /* The single primary action on a screen */
 @utility btn-brand {
-  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient px-6 text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
+  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
 }
 
 @utility text-balance-tight {
