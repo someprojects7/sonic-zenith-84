@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Hourglass, Search, SlidersHorizontal } from "lucide-react";
+import { Hourglass, LayoutGrid, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
@@ -91,30 +91,41 @@ function Index() {
 
         </header>
 
-        {/* Tabs: own sticky layer so they survive the header collapsing */}
+        {/* Tabs: own sticky layer so they survive the header collapsing.
+            Same capsule language as the bottom dock (icon + label, soft active pill),
+            but a sliding indicator marks it as a switch, not a destination. */}
         <div className="sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl">
-          <div className="grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
+          <div className="relative grid grid-cols-2 rounded-full bg-surface-2 p-1.5 ring-1 ring-hairline">
+            <span
+              aria-hidden
+              className={cn(
+                "pointer-events-none absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-background shadow-elevated transition-transform duration-300 ease-out",
+                tab === "all" && "translate-x-full",
+              )}
+            />
             {(
               [
-                ["foryou", "For you"],
-                ["all", "All events"],
+                ["foryou", "For you", Sparkles],
+                ["all", "All events", LayoutGrid],
               ] as const
-            ).map(([id, label]) => (
+            ).map(([id, label, Icon]) => (
               <button
                 key={id}
                 onClick={() => setTab(id)}
+                aria-selected={tab === id}
+                role="tab"
                 className={cn(
-                  "h-11 rounded-full text-[14px] font-semibold transition-colors",
-                  tab === id
-                    ? "bg-background text-foreground shadow-elevated"
-                    : "text-muted-foreground",
+                  "relative z-10 flex h-11 items-center justify-center gap-2 rounded-full text-[14px] font-semibold leading-none transition-colors",
+                  tab === id ? "text-foreground" : "text-muted-foreground",
                 )}
               >
+                <Icon className={cn("size-[18px] shrink-0", tab === id && "text-brand")} />
                 {label}
               </button>
             ))}
           </div>
         </div>
+
 
 
         {tab === "foryou" ? (
