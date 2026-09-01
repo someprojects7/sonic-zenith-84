@@ -87,13 +87,13 @@ function EventPage() {
             <Link
               to="/"
               aria-label="Back"
-              className="grid size-11 place-items-center rounded-full bg-glass text-foreground ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
+              className="grid size-11 place-items-center rounded-full bg-glass-media ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
             >
               <ChevronLeft className="size-[21px]" />
             </Link>
             <button
               aria-label="Share"
-              className="grid size-11 place-items-center rounded-full bg-glass text-foreground ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
+              className="grid size-11 place-items-center rounded-full bg-glass-media ring-1 ring-hairline backdrop-blur-md transition-transform active:scale-95"
             >
               <Share2 className="size-[18px]" />
             </button>
