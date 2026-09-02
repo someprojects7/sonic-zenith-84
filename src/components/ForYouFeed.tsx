@@ -7,34 +7,28 @@ import { allEvents, picks } from "@/data/events";
 /** How the weekly shortlist was produced — the promise the feed delivers on. */
 const SCAN = { events: 746, sources: 15, updated: "2 h ago", saved: "~3 h of scrolling saved" };
 
-/**
- * Reading order: work already done for you → full cards while attention is
- * high → compact rows as the eye tires → an explicit end of the list.
- */
+/** The weekly shortlist, ordered from highest-attention picks to compact extras. */
 export function ForYouFeed() {
   return (
-    <main className="space-y-8 pt-5">
+    <main className="space-y-6 pt-4">
       <section className="px-5">
-        <div className="surface-card flex gap-3.5 p-5">
-          <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-brand/12 text-brand">
-            <Hourglass className="size-[18px]" />
+        <div className="surface-card flex items-center gap-3 p-3.5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand/12 text-brand">
+            <Hourglass className="size-4" />
           </span>
           <div className="min-w-0">
-            <p className="text-[15px] leading-[1.45] text-foreground text-balance-tight">
-              We scanned <span className="font-semibold text-brand">{SCAN.events} events</span>{" "}
-              across <span className="font-semibold text-brand">{SCAN.sources} sources</span> in
-              Vilnius this week and picked the {picks.length} worth your time.
+            <p className="truncate text-[13px] leading-5 text-foreground">
+              Scanned <span className="font-semibold text-brand">{SCAN.events} events</span> across{" "}
+              <span className="font-semibold text-brand">{SCAN.sources} sources</span> · picked {picks.length} for you.
             </p>
-            <div className="mt-3 flex items-center gap-2 text-[12px] leading-4 text-muted-foreground">
-              <span>Updated {SCAN.updated}</span>
-              <span className="size-1 rounded-full bg-surface-3" />
-              <span>{SCAN.saved}</span>
-            </div>
+            <p className="truncate text-[11px] leading-4 text-muted-foreground">
+              Updated {SCAN.updated} · {SCAN.saved}
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="space-y-4 px-5">
+      <section className="space-y-2.5 px-5">
         {picks.map((event, i) => (
           <EventCard key={event.id} event={event} featured={i === 0} />
         ))}
