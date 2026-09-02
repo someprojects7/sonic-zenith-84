@@ -45,46 +45,40 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
       </Link>
 
       {event.reason && (
-        <div className="surface-inset mt-3 p-3">
-          <div className="flex gap-2">
-            <Sparkles className="mt-[3px] size-3.5 shrink-0 text-brand" />
-            <p className="text-[12.5px] leading-[1.4] text-foreground/90">{event.reason}</p>
-          </div>
-          <div className="mt-2.5 flex items-center justify-between gap-3 border-t border-hairline pt-2">
-            <span className="min-w-0 truncate text-[11.5px] text-muted-foreground">
-              {vote === "up"
-                ? "Thanks — more like this"
-                : vote === "down"
-                  ? "Got it — fewer like this"
-                  : "Good pick?"}
-            </span>
-            <div className="-my-1 flex shrink-0 items-center gap-0.5">
-              <VoteButton
-                label="Good pick"
-                icon={ThumbsUp}
-                active={vote === "up"}
-                activeClass="bg-brand text-brand-foreground"
-                onClick={() => setVote(vote === "up" ? null : "up")}
-              />
-              <VoteButton
-                label="Not for me"
-                icon={ThumbsDown}
-                active={vote === "down"}
-                activeClass="bg-surface-3 text-foreground"
-                onClick={() => setVote(vote === "down" ? null : "down")}
-              />
-            </div>
-          </div>
+        <div className="mt-3 flex gap-2">
+          <Sparkles className="mt-[3px] size-3.5 shrink-0 text-brand" />
+          <p className="text-[12.5px] leading-[1.4] text-muted-foreground">{event.reason}</p>
         </div>
       )}
 
-      <Link
-        to="/event/$id"
-        params={{ id: event.id }}
-        className="btn-brand mt-3 h-11 w-full px-4 text-[14px]">
-        <span className="truncate">{free ? "See details" : `Tickets · ${event.price}`}</span>
-        <ArrowUpRight className="size-4 shrink-0" />
-      </Link>
+      <div className="mt-3 flex items-center gap-2">
+        <Link
+          to="/event/$id"
+          params={{ id: event.id }}
+          className="btn-brand h-11 min-w-0 flex-1 px-4 text-[14px]">
+          <span className="truncate">{free ? "See details" : `Tickets · ${event.price}`}</span>
+          <ArrowUpRight className="size-4 shrink-0" />
+        </Link>
+        {event.reason && (
+          <div className="flex shrink-0 items-center gap-0.5">
+            <VoteButton
+              label="Good pick"
+              icon={ThumbsUp}
+              active={vote === "up"}
+              activeClass="bg-brand text-brand-foreground"
+              onClick={() => setVote(vote === "up" ? null : "up")}
+            />
+            <VoteButton
+              label="Not for me"
+              icon={ThumbsDown}
+              active={vote === "down"}
+              activeClass="bg-surface-3 text-foreground"
+              onClick={() => setVote(vote === "down" ? null : "down")}
+            />
+          </div>
+        )}
+      </div>
+
     </article>
   );
 }
