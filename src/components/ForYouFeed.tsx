@@ -34,11 +34,12 @@ export function ForYouFeed() {
         </div>
       </section>
 
-      <section className="space-y-4 px-5">
+      <section className="space-y-3 px-5">
         {picks.map((event, i) => (
           <EventCard key={event.id} event={event} featured={i === 0} />
         ))}
       </section>
+
 
       <section className="px-5">
         <h2 className="eyebrow mb-3">Also this weekend</h2>
