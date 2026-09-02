@@ -47,9 +47,16 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
       {event.reason && (
         <div className="mt-3 flex gap-2">
           <Sparkles className="mt-[3px] size-3.5 shrink-0 text-brand" />
-          <p className="text-[12.5px] leading-[1.4] text-muted-foreground">{event.reason}</p>
+          <p className="text-[12.5px] leading-[1.4] text-muted-foreground">
+            {vote === "up"
+              ? "Thanks — more like this."
+              : vote === "down"
+                ? "Got it — fewer like this."
+                : `${event.reason} Good pick?`}
+          </p>
         </div>
       )}
+
 
       <div className="mt-3 flex items-center gap-2">
         <Link
