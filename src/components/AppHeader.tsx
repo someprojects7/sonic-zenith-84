@@ -36,7 +36,7 @@ export function AppHeader({
 
         {/* One grouped control cluster keeps the row balanced instead of two loose icons */}
         <div className="flex shrink-0 items-center gap-1 rounded-full bg-surface-2/80 p-1 ring-1 ring-hairline">
-          <ThemeToggle />
+          <ThemeToggle className="size-10 hover:bg-surface-3" />
           <span className="h-5 w-px bg-hairline" aria-hidden />
           <button
             onClick={onProfileClick}
