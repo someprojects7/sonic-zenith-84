@@ -53,6 +53,8 @@ export const picks: EventItem[] = [
     address: "Šv. Mikalojaus g. 8, Vilnius 01133",
     price: "from €18",
     image: shalom,
+    gallery: [live, art],
+
     ageLimit: "All ages",
     source: "festivalis.lt",
     about:
