@@ -72,39 +72,58 @@ function EventMissing() {
 function EventPage() {
   const { event } = Route.useLoaderData();
   const free = isFree(event);
+  const photos = eventPhotos(event);
+  const [activePhoto, setActivePhoto] = useState(0);
+
+  const shareEvent = async () => {
+    const url = window.location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: event.title,
+          text: `${formatWhen(event)} · ${event.venue}`,
+          url,
+        });
+      } else {
+        await navigator.clipboard?.writeText(url);
+      }
+    } catch {
+      // Dismissing the native share sheet is a normal interaction.
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        {/* Cover doubles as the header: back and share float on it, so no separate bar is needed */}
-        <div className="relative aspect-[4/3] w-full">
-          <img
-            src={event.image}
-            alt={event.title}
-            width={1024}
-            height={768}
-            className="absolute inset-0 size-full object-cover"
-          />
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/55 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
-          <div className="absolute inset-x-5 top-[calc(1rem+env(safe-area-inset-top))] flex items-center justify-between">
-            <Link
-              to="/"
-              aria-label="Back"
-              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
-            >
-              <ChevronLeft className="size-[21px]" />
-            </Link>
-            <button
-              aria-label="Share"
-              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
-            >
-              <Share2 className="size-[18px]" />
-            </button>
+        <section aria-label="Event photos">
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <img
+              src={photos[activePhoto]}
+              alt={`${event.title} photo ${activePhoto + 1} of ${photos.length}`}
+              width={1024}
+              height={768}
+              className="size-full object-cover"
+            />
           </div>
-        </div>
+          {photos.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto px-5 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {photos.map((photo, index) => (
+                <button
+                  key={photo}
+                  type="button"
+                  aria-label={`Show photo ${index + 1}`}
+                  aria-pressed={activePhoto === index}
+                  onClick={() => setActivePhoto(index)}
+                  className="size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-hairline transition-opacity aria-pressed:ring-2 aria-pressed:ring-brand"
+                >
+                  <img src={photo} alt="" width={112} height={112} className="size-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </section>
 
-        <main className="space-y-8 px-5 pt-4">
+        <main className="space-y-8 px-5 pt-5">
           <header>
             <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
               {event.category}
