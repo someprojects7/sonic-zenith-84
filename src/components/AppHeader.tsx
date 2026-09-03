@@ -20,13 +20,8 @@ export function AppHeader({
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
-      {/* Warm brand wash so the brand row reads as a distinct surface */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.12]"
-        style={{
-          background:
-            "radial-gradient(120% 140% at 0% 0%, var(--brand) 0%, transparent 62%)",
-        }}
+        className="pointer-events-none absolute inset-0 bg-brand opacity-[0.08]"
         aria-hidden
       />
 
