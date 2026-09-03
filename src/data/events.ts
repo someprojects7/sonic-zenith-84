@@ -17,8 +17,6 @@ export type EventItem = {
   address: string;
   price: string;
   image: string;
-  /** Extra photos shown after the cover in the event gallery. */
-  gallery?: string[];
 
   ageLimit: string;
   source: string;
@@ -34,8 +32,6 @@ export const formatWhen = (event: EventItem) => `${event.day} · ${event.time}`;
 
 export const isFree = (event: EventItem) => event.price.toLowerCase().startsWith("free");
 
-/** Cover first, then any extra photos — the single source for event imagery. */
-export const eventPhotos = (event: EventItem) => [event.image, ...(event.gallery ?? [])];
 
 
 
@@ -53,7 +49,6 @@ export const picks: EventItem[] = [
     address: "Šv. Mikalojaus g. 8, Vilnius 01133",
     price: "from €18",
     image: shalom,
-    gallery: [live, art],
 
     ageLimit: "All ages",
     source: "festivalis.lt",

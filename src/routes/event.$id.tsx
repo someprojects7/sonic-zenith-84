@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 
-import { eventPhotos, formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -72,8 +72,6 @@ function EventMissing() {
 function EventPage() {
   const { event } = Route.useLoaderData();
   const free = isFree(event);
-  const photos = eventPhotos(event);
-  const [activePhoto, setActivePhoto] = useState(0);
 
   const shareEvent = async () => {
     const url = window.location.href;
