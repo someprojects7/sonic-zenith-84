@@ -34,24 +34,19 @@ export function AppHeader({
           </p>
         </div>
 
-        {/* One grouped control cluster keeps the row balanced instead of two loose icons */}
-        <div className="flex shrink-0 items-center gap-1 rounded-full bg-surface-2/80 p-1 ring-1 ring-hairline">
-          <ThemeToggle className="size-10 hover:bg-surface-3" />
-          <span className="h-5 w-px bg-hairline" aria-hidden />
-          <button
-            onClick={onProfileClick}
-            aria-label="Profile"
-            aria-current={profileActive ? "page" : undefined}
-            className={cn(
-              "icon-button size-10",
-              profileActive
-                ? "bg-brand text-brand-foreground"
-                : "text-foreground/70 hover:bg-surface-3",
-            )}
-          >
-            <User className="size-[19px]" />
-          </button>
-        </div>
+        <button
+          onClick={onProfileClick}
+          aria-label="Profile"
+          aria-current={profileActive ? "page" : undefined}
+          className={cn(
+            "icon-button size-11 ring-1 ring-hairline",
+            profileActive
+              ? "bg-brand text-brand-foreground"
+              : "bg-surface-2/80 text-foreground/70 hover:bg-surface-3",
+          )}
+        >
+          <User className="size-[19px]" />
+        </button>
       </div>
     </header>
   );
