@@ -34,6 +34,11 @@ export const formatWhen = (event: EventItem) => `${event.day} · ${event.time}`;
 
 export const isFree = (event: EventItem) => event.price.toLowerCase().startsWith("free");
 
+/** Cover first, then any extra photos — the single source for event imagery. */
+export const eventPhotos = (event: EventItem) => [event.image, ...(event.gallery ?? [])];
+
+
+
 /** The three recommended events, in match order. */
 export const picks: EventItem[] = [
   {
