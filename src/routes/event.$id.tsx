@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
@@ -11,7 +12,8 @@ import {
   Users,
 } from "lucide-react";
 
-import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+
+import { eventPhotos, formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -70,50 +72,80 @@ function EventMissing() {
 function EventPage() {
   const { event } = Route.useLoaderData();
   const free = isFree(event);
+  const photos = eventPhotos(event);
+  const [activePhoto, setActivePhoto] = useState(0);
+
+  const shareEvent = async () => {
+    const url = window.location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: event.title,
+          text: `${formatWhen(event)} · ${event.venue}`,
+          url,
+        });
+      } else {
+        await navigator.clipboard?.writeText(url);
+      }
+    } catch {
+      // Dismissing the native share sheet is a normal interaction.
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        {/* Cover doubles as the header: back and share float on it, so no separate bar is needed */}
-        <div className="relative aspect-[4/3] w-full">
-          <img
-            src={event.image}
-            alt={event.title}
-            width={1024}
-            height={768}
-            className="absolute inset-0 size-full object-cover"
-          />
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/55 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
-          <div className="absolute inset-x-5 top-[calc(1rem+env(safe-area-inset-top))] flex items-center justify-between">
-            <Link
-              to="/"
-              aria-label="Back"
-              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
-            >
-              <ChevronLeft className="size-[21px]" />
-            </Link>
+        <section aria-label="Event photos">
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <img
+              src={photos[activePhoto]}
+              alt={`${event.title} photo ${activePhoto + 1} of ${photos.length}`}
+              width={1024}
+              height={768}
+              className="size-full object-cover"
+            />
+          </div>
+          {photos.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto px-5 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {photos.map((photo, index) => (
+                <button
+                  key={photo}
+                  type="button"
+                  aria-label={`Show photo ${index + 1}`}
+                  aria-pressed={activePhoto === index}
+                  onClick={() => setActivePhoto(index)}
+                  className="size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-hairline transition-opacity aria-pressed:ring-2 aria-pressed:ring-brand"
+                >
+                  <img src={photo} alt="" width={112} height={112} className="size-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <main className="space-y-8 px-5 pt-5">
+          <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+            <div className="min-w-0">
+              <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
+                {event.category}
+              </span>
+              <h1 className="mt-3 text-[26px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
+                {event.title}
+              </h1>
+              <p className="mt-2 text-[14px] leading-5 text-muted-foreground">
+                {formatWhen(event)} · {event.city}
+              </p>
+            </div>
             <button
-              aria-label="Share"
-              className="icon-button size-11 bg-glass-media ring-1 ring-hairline backdrop-blur-md"
+              type="button"
+              aria-label="Share event"
+              onClick={shareEvent}
+              className="icon-button mt-1 size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
             >
               <Share2 className="size-[18px]" />
             </button>
-          </div>
-        </div>
-
-        <main className="space-y-8 px-5 pt-4">
-          <header>
-            <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
-              {event.category}
-            </span>
-            <h1 className="mt-3 text-[26px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
-              {event.title}
-            </h1>
-            <p className="mt-2 text-[14px] leading-5 text-muted-foreground">
-              {formatWhen(event)} · {event.city}
-            </p>
           </header>
+
 
           {event.match && event.reason && (
             <section className="rounded-3xl bg-surface-2 p-4">
@@ -167,10 +199,17 @@ function EventPage() {
         </main>
       </div>
 
-      {/* One decision, always reachable */}
+      {/* One decision, always reachable; back stays under the thumb on mobile. */}
       <div className="fixed inset-x-0 bottom-0 z-30 bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-md items-center gap-3">
-          <div className="min-w-0 flex-1">
+        <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+          <Link
+            to="/"
+            aria-label="Back to events"
+            className="icon-button size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
+          >
+            <ChevronLeft className="size-[21px]" />
+          </Link>
+          <div className="min-w-0">
             <p className="truncate text-[15px] font-semibold leading-5 text-foreground">
               {event.price}
             </p>
@@ -178,7 +217,7 @@ function EventPage() {
               {formatWhen(event)}
             </p>
           </div>
-          <button className="btn-brand shrink-0 px-6">
+          <button type="button" className="btn-brand shrink-0 px-5">
             {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
             {free ? "Open page" : "Get tickets"}
           </button>
