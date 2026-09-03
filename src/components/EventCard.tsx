@@ -17,7 +17,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
       <Link
         to="/event/$id"
         params={{ id: event.id }}
-        className="flex items-center gap-3 p-3.5 active:opacity-70"
+        className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 p-3.5 active:opacity-70"
       >
         <img
           src={event.image}
@@ -25,20 +25,22 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           width={1024}
           height={768}
           loading={featured ? undefined : "lazy"}
-          className="size-14 shrink-0 rounded-xl object-cover ring-1 ring-hairline"
+          className="size-14 shrink-0 rounded-xl object-cover"
         />
-        <div className="min-w-0 flex-1">
-          <span className="eyebrow-brand text-[10px]">
-            {event.match ? `${event.match}% match` : event.category}
-          </span>
-          <h3 className="mt-0.5 line-clamp-2 text-[15px] font-semibold leading-[1.18] text-foreground">
+        <div className="min-w-0">
+          <p className="line-clamp-2 text-[15px] font-semibold leading-[1.2] text-foreground">
             {event.title}
-          </h3>
-          <p className="mt-1 truncate text-[12px] leading-4 text-muted-foreground">
-            {formatWhen(event)} · {event.city} · {isFree(event) ? "Free entry" : event.price}
+          </p>
+          <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
+            {formatWhen(event)} · {event.city}
           </p>
         </div>
-        <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="text-[12px] font-semibold text-brand">
+            {isFree(event) ? "Free" : event.price}
+          </span>
+          <ChevronRight className="size-4 text-muted-foreground" />
+        </div>
       </Link>
 
       {event.reason && (
@@ -49,8 +51,11 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
               ? "Thanks — more like this."
               : vote === "down"
                 ? "Got it — fewer like this."
-                : event.reason}
+                : event.match
+                  ? `${event.match}% match · ${event.reason}`
+                  : event.reason}
           </p>
+
           <div className="flex shrink-0 items-center gap-0.5">
             <VoteButton
               label="Good pick"
