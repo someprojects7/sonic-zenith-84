@@ -17,6 +17,9 @@ export type EventItem = {
   address: string;
   price: string;
   image: string;
+  /** Extra photos shown after the cover in the event gallery. */
+  gallery?: string[];
+
   ageLimit: string;
   source: string;
   about: string;
