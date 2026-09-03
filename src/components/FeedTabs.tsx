@@ -35,7 +35,7 @@ export function FeedTabs({
             aria-selected={value === id}
             onClick={() => onChange(id)}
             className={cn(
-              "relative flex h-12 min-w-0 items-center justify-center gap-2 border-b-2 border-transparent text-[14px] font-semibold leading-none transition-colors",
+              "relative flex h-11 min-w-0 items-center justify-center gap-2 border-b-2 border-transparent text-[14px] font-semibold leading-none transition-colors",
               value === id ? "border-brand text-foreground" : "text-muted-foreground",
             )}
           >

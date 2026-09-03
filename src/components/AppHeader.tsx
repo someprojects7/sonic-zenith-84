@@ -16,7 +16,7 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "px-5 pb-5 pt-[calc(1rem+env(safe-area-inset-top))] transition-all duration-300",
+        "px-5 pb-4 pt-[calc(0.75rem+env(safe-area-inset-top))] transition-all duration-300",
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
@@ -25,7 +25,7 @@ export function AppHeader({
           <h1 className="truncate text-[22px] font-bold uppercase leading-none tracking-[0.08em] text-foreground">
             Sponsa
           </h1>
-          <p className="mt-2 truncate text-[13px] leading-4 text-muted-foreground">
+          <p className="mt-1.5 truncate text-[13px] leading-4 text-muted-foreground">
             Your city shortcut
           </p>
         </div>
@@ -37,9 +37,9 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "icon-button size-11",
+            "icon-button size-11 ring-1 ring-hairline",
             profileActive
-              ? "bg-surface-2 text-brand ring-1 ring-hairline"
+              ? "bg-surface-2 text-brand"
               : "text-muted-foreground hover:bg-surface-2",
           )}
         >

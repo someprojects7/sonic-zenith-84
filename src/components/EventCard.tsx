@@ -11,11 +11,11 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
   const free = isFree(event);
 
   return (
-    <article className="rounded-2xl bg-card p-4 ring-1 ring-hairline">
+    <article className="rounded-2xl bg-card p-3.5 ring-1 ring-hairline">
       <Link
         to="/event/$id"
         params={{ id: event.id }}
-        className="grid grid-cols-[60px_minmax(0,1fr)] items-center gap-3.5"
+        className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3"
       >
         <img
           src={event.image}
@@ -23,16 +23,16 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           width={1024}
           height={768}
           loading={featured ? undefined : "lazy"}
-          className="size-[60px] shrink-0 rounded-xl object-cover ring-1 ring-hairline"
+          className="size-[52px] shrink-0 rounded-xl object-cover ring-1 ring-hairline"
         />
         <div className="min-w-0">
           <span className="eyebrow-brand text-[10px]">
             {event.match ? `${event.match}% match` : event.category}
           </span>
-          <h3 className="mt-1 line-clamp-2 text-[16px] font-semibold leading-[1.18] text-foreground">
+          <h3 className="mt-0.5 line-clamp-2 text-[15px] font-semibold leading-[1.18] text-foreground">
             {event.title}
           </h3>
-          <div className="mt-1.5 flex min-w-0 items-center gap-1.5 text-[13px] leading-4 text-muted-foreground">
+          <div className="mt-1 flex min-w-0 items-center gap-1.5 text-[12px] leading-4 text-muted-foreground">
             <MapPin className="size-3.5 shrink-0 text-brand" />
             <span className="truncate">
               {formatWhen(event)} · {event.city}
@@ -42,9 +42,9 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
       </Link>
 
       {event.reason && (
-        <div className="mt-4 flex min-w-0 items-start gap-2.5 border-t border-hairline pt-3">
-          <Sparkles className="mt-0.5 size-3.5 shrink-0 text-brand" />
-          <p className="line-clamp-2 min-w-0 text-[13px] leading-[1.4] text-muted-foreground">
+        <div className="mt-3 flex min-w-0 items-center gap-2 border-t border-hairline pt-2.5">
+          <Sparkles className="size-3.5 shrink-0 text-brand" />
+          <p className="min-w-0 truncate text-[12px] leading-4 text-muted-foreground">
             {vote === "up"
               ? "Thanks — more like this."
               : vote === "down"
@@ -54,11 +54,11 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
         </div>
       )}
 
-      <div className="mt-3 flex items-center gap-3">
+      <div className="mt-2.5 flex items-center gap-2">
         <Link
           to="/event/$id"
           params={{ id: event.id }}
-          className="btn-brand h-10 shrink-0 px-4 text-[13px]"
+          className="btn-brand h-10 shrink-0 px-3.5 text-[13px]"
         >
           <span>{free ? "View event" : `Tickets · ${event.price}`}</span>
           <ArrowUpRight className="size-3.5" />
