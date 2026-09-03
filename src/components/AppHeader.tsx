@@ -1,6 +1,6 @@
 import { MapPin, User } from "lucide-react";
 
-import { ThemeToggle } from "@/components/ThemeToggle";
+
 import { cn } from "@/lib/utils";
 
 /** Brand row: scrolls away, so it holds identity and settings only — no navigation. */
