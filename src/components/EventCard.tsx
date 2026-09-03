@@ -32,7 +32,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
             {event.title}
           </p>
           <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
-            {formatWhen(event)} · {event.city}
+            {formatWhen(event)} · {event.category}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
