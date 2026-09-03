@@ -124,17 +124,28 @@ function EventPage() {
         </section>
 
         <main className="space-y-8 px-5 pt-5">
-          <header>
-            <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
-              {event.category}
-            </span>
-            <h1 className="mt-3 text-[26px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
-              {event.title}
-            </h1>
-            <p className="mt-2 text-[14px] leading-5 text-muted-foreground">
-              {formatWhen(event)} · {event.city}
-            </p>
+          <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+            <div className="min-w-0">
+              <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-surface-2 px-3">
+                {event.category}
+              </span>
+              <h1 className="mt-3 text-[26px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
+                {event.title}
+              </h1>
+              <p className="mt-2 text-[14px] leading-5 text-muted-foreground">
+                {formatWhen(event)} · {event.city}
+              </p>
+            </div>
+            <button
+              type="button"
+              aria-label="Share event"
+              onClick={shareEvent}
+              className="icon-button mt-1 size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
+            >
+              <Share2 className="size-[18px]" />
+            </button>
           </header>
+
 
           {event.match && event.reason && (
             <section className="rounded-3xl bg-surface-2 p-4">
