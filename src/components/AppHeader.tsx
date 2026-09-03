@@ -16,14 +16,22 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "px-5 pb-4 pt-[calc(0.75rem+env(safe-area-inset-top))] transition-all duration-300",
+        "relative overflow-hidden border-b border-hairline bg-surface-2/60 px-5 pb-4 pt-[calc(0.875rem+env(safe-area-inset-top))] transition-all duration-300",
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
-      <div className="flex items-center gap-3">
+      <div
+        className="pointer-events-none absolute inset-0 bg-brand opacity-[0.08]"
+        aria-hidden
+      />
+
+      <div className="relative flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-[3px]">
-            <h1 className="truncate text-[24px] font-bold uppercase leading-none tracking-[0.1em] text-foreground">
+            <h1
+              className="truncate text-[26px] uppercase leading-none tracking-[0.06em] text-brand"
+              style={{ fontFamily: "var(--font-wordmark)", fontWeight: 800 }}
+            >
               Sponsa
             </h1>
             <span className="size-[5px] shrink-0 rounded-full bg-brand" aria-hidden />
@@ -42,7 +50,7 @@ export function AppHeader({
             "icon-button size-11 ring-1 ring-hairline",
             profileActive
               ? "bg-brand text-brand-foreground"
-              : "bg-surface-2/80 text-foreground/70 hover:bg-surface-3",
+              : "bg-background/70 text-foreground/70 hover:bg-surface-3",
           )}
         >
           <User className="size-[19px]" />
@@ -50,4 +58,5 @@ export function AppHeader({
       </div>
     </header>
   );
+
 }
