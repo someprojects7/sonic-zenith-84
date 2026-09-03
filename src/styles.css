@@ -24,6 +24,9 @@
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", ui-sans-serif,
     system-ui, sans-serif;
   --font-display: var(--font-sans);
+  /* Wordmark only — heavier grotesque for the brand lockup */
+  --font-wordmark: "Archivo", var(--font-sans);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
