@@ -16,7 +16,7 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "border-b border-hairline bg-background/80 px-5 pb-3 pt-[calc(0.9rem+env(safe-area-inset-top))] backdrop-blur-xl transition-all duration-300",
+        "bg-background/80 px-5 pb-3 pt-[calc(0.9rem+env(safe-area-inset-top))] backdrop-blur-xl transition-all duration-300",
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
@@ -34,8 +34,9 @@ export function AppHeader({
           </h1>
           <p className="mt-[9px] flex items-center gap-[5px] text-[10px] font-medium uppercase leading-3 tracking-[0.16em] text-muted-foreground">
             <MapPin className="size-3 shrink-0" aria-hidden />
-            <span className="truncate">Vilnius — your city shortcut</span>
+            <span className="truncate">your city shortcut</span>
           </p>
+
         </div>
 
         <button
