@@ -22,6 +22,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "A weekly shortlist of city events, picked for your taste.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
