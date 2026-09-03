@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
@@ -13,7 +12,7 @@ import {
 } from "lucide-react";
 
 
-import { eventPhotos, formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -72,8 +71,6 @@ function EventMissing() {
 function EventPage() {
   const { event } = Route.useLoaderData();
   const free = isFree(event);
-  const photos = eventPhotos(event);
-  const [activePhoto, setActivePhoto] = useState(0);
 
   const shareEvent = async () => {
     const url = window.location.href;
@@ -95,33 +92,16 @@ function EventPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        <section aria-label="Event photos">
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
-            <img
-              src={photos[activePhoto]}
-              alt={`${event.title} photo ${activePhoto + 1} of ${photos.length}`}
-              width={1024}
-              height={768}
-              className="size-full object-cover"
-            />
-          </div>
-          {photos.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto px-5 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {photos.map((photo, index) => (
-                <button
-                  key={photo}
-                  type="button"
-                  aria-label={`Show photo ${index + 1}`}
-                  aria-pressed={activePhoto === index}
-                  onClick={() => setActivePhoto(index)}
-                  className="size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-hairline transition-opacity aria-pressed:ring-2 aria-pressed:ring-brand"
-                >
-                  <img src={photo} alt="" width={112} height={112} className="size-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <img
+            src={event.image}
+            alt={event.title}
+            width={1024}
+            height={768}
+            className="size-full object-cover"
+          />
+        </div>
+
 
         <main className="space-y-8 px-5 pt-5">
           <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
