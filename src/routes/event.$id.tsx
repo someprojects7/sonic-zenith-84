@@ -199,10 +199,17 @@ function EventPage() {
         </main>
       </div>
 
-      {/* One decision, always reachable */}
+      {/* One decision, always reachable; back stays under the thumb on mobile. */}
       <div className="fixed inset-x-0 bottom-0 z-30 bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-md items-center gap-3">
-          <div className="min-w-0 flex-1">
+        <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+          <Link
+            to="/"
+            aria-label="Back to events"
+            className="icon-button size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
+          >
+            <ChevronLeft className="size-[21px]" />
+          </Link>
+          <div className="min-w-0">
             <p className="truncate text-[15px] font-semibold leading-5 text-foreground">
               {event.price}
             </p>
@@ -210,7 +217,7 @@ function EventPage() {
               {formatWhen(event)}
             </p>
           </div>
-          <button className="btn-brand shrink-0 px-6">
+          <button type="button" className="btn-brand shrink-0 px-5">
             {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
             {free ? "Open page" : "Get tickets"}
           </button>
