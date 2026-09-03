@@ -61,70 +61,72 @@
 /* Light theme = daytime default. The .dark class (set by the theme controller
    in src/lib/theme.tsx) swaps every value below for the night palette. */
 :root {
-  --radius: 0.875rem;
-  --background: oklch(0.985 0.003 60);
-  --foreground: oklch(0.2 0.01 285);
+  --radius: 1rem;
+  /* Apple neutrals: near-white canvas, pure white cards, no colour cast */
+  --background: oklch(0.968 0 0);
+  --foreground: oklch(0.17 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.01 285);
+  --card-foreground: oklch(0.17 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.01 285);
-  --primary: oklch(0.24 0.01 285);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.95 0.004 60);
-  --secondary-foreground: oklch(0.24 0.01 285);
-  --muted: oklch(0.95 0.004 60);
-  --muted-foreground: oklch(0.52 0.012 285);
-  --accent: oklch(0.93 0.006 60);
-  --accent-foreground: oklch(0.24 0.01 285);
+  --popover-foreground: oklch(0.17 0 0);
+  --primary: oklch(0.17 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.94 0 0);
+  --secondary-foreground: oklch(0.17 0 0);
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.92 0 0);
+  --accent-foreground: oklch(0.17 0 0);
   --destructive: oklch(0.58 0.21 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.2 0.01 285 / 10%);
-  --input: oklch(0.2 0.01 285 / 14%);
-  --ring: oklch(0.66 0.19 45);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0 / 9%);
+  --input: oklch(0 0 0 / 12%);
+  --ring: oklch(0.62 0.2 42);
 
-  --brand: oklch(0.62 0.21 45);
-  --brand-foreground: oklch(0.99 0 0);
-  --surface-2: oklch(0.955 0.004 60);
-  --surface-3: oklch(0.915 0.006 60);
-  --hairline: oklch(0.2 0.01 285 / 9%);
+  --brand: oklch(0.6 0.2 42);
+  --brand-foreground: oklch(1 0 0);
+  --surface-2: oklch(0.945 0 0);
+  --surface-3: oklch(0.9 0 0);
+  --hairline: oklch(0 0 0 / 8%);
 
-  --gradient-brand: linear-gradient(100deg, oklch(0.72 0.18 62), oklch(0.6 0.22 32));
-  --glass: oklch(0.99 0.002 60 / 0.78);
-  --shadow-elevated: 0 18px 40px -26px oklch(0.2 0.02 285 / 0.28);
-  --shadow-brand: 0 12px 26px -14px oklch(0.66 0.2 45 / 0.42);
+  /* Flat, single-tone brand fill — no decorative gradients */
+  --gradient-brand: linear-gradient(oklch(0.6 0.2 42), oklch(0.6 0.2 42));
+  --glass: oklch(0.968 0 0 / 0.72);
+  --shadow-elevated: 0 1px 2px oklch(0 0 0 / 0.05), 0 8px 24px -16px oklch(0 0 0 / 0.16);
+  --shadow-brand: none;
 }
 
 .dark {
-  --background: oklch(0.16 0.006 285);
+  --background: oklch(0.14 0 0);
   --foreground: oklch(0.98 0 0);
-  --card: oklch(0.21 0.008 285);
+  --card: oklch(0.195 0 0);
   --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.21 0.008 285);
+  --popover: oklch(0.195 0 0);
   --popover-foreground: oklch(0.98 0 0);
   --primary: oklch(0.98 0 0);
-  --primary-foreground: oklch(0.16 0.006 285);
-  --secondary: oklch(0.26 0.008 285);
+  --primary-foreground: oklch(0.14 0 0);
+  --secondary: oklch(0.25 0 0);
   --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.26 0.008 285);
-  --muted-foreground: oklch(0.72 0.008 285);
-  --accent: oklch(0.3 0.01 285);
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.68 0 0);
+  --accent: oklch(0.29 0 0);
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.6 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.72 0.18 45);
 
-  --brand: oklch(0.75 0.18 55);
-  --brand-foreground: oklch(0.17 0.01 40);
-  --surface-2: oklch(0.26 0.008 285);
-  --surface-3: oklch(0.32 0.01 285);
-  --hairline: oklch(1 0 0 / 9%);
+  --brand: oklch(0.72 0.18 48);
+  --brand-foreground: oklch(0.14 0 0);
+  --surface-2: oklch(0.235 0 0);
+  --surface-3: oklch(0.3 0 0);
+  --hairline: oklch(1 0 0 / 10%);
 
-  --gradient-brand: linear-gradient(100deg, oklch(0.78 0.17 68), oklch(0.65 0.22 32));
-  --glass: oklch(0.2 0.008 285 / 0.72);
-  --shadow-elevated: 0 18px 40px -24px oklch(0 0 0 / 0.9);
-  --shadow-brand: 0 12px 26px -14px oklch(0.7 0.2 45 / 0.7);
+  --gradient-brand: linear-gradient(oklch(0.72 0.18 48), oklch(0.72 0.18 48));
+  --glass: oklch(0.14 0 0 / 0.72);
+  --shadow-elevated: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 30px -20px oklch(0 0 0 / 0.7);
+  --shadow-brand: none;
 }
 
 @utility bg-brand-gradient {
