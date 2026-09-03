@@ -16,13 +16,13 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "px-5 pb-3 pt-[calc(1.25rem+env(safe-area-inset-top))] transition-all duration-300",
+        "px-5 pb-5 pt-[calc(1rem+env(safe-area-inset-top))] transition-all duration-300",
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-1">
         <div className="min-w-0">
-          <h1 className="truncate text-[24px] font-bold uppercase leading-none tracking-[0.08em] text-foreground">
+          <h1 className="truncate text-[22px] font-bold uppercase leading-none tracking-[0.08em] text-foreground">
             Sponsa
           </h1>
           <p className="mt-2 truncate text-[13px] leading-4 text-muted-foreground">
@@ -37,11 +37,13 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "icon-button size-11 ring-1 ring-hairline",
-            profileActive ? "bg-surface-2 text-brand" : "bg-surface-2/60 text-muted-foreground",
+            "icon-button size-11",
+            profileActive
+              ? "bg-surface-2 text-brand ring-1 ring-hairline"
+              : "text-muted-foreground hover:bg-surface-2",
           )}
         >
-          <User className="size-[21px]" />
+          <User className="size-[20px]" />
         </button>
       </div>
     </header>

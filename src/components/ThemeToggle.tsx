@@ -9,7 +9,7 @@ const labels = {
   dark: "Theme: dark",
 } as const;
 
-/** 44px tap target that cycles auto → light → dark */
+/** 44px tap target that cycles auto → light → dark. */
 export function ThemeToggle({ className }: { className?: string }) {
   const { mode, cycleMode } = useTheme();
   const Icon = mode === "auto" ? SunMoon : mode === "light" ? Sun : Moon;
@@ -21,12 +21,12 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={labels[mode]}
       title={labels[mode]}
       className={cn(
-        "icon-button size-11 bg-surface-2/60 text-muted-foreground ring-1 ring-hairline",
+        "icon-button size-11 text-muted-foreground hover:bg-surface-2",
         mode !== "auto" && "text-brand",
         className,
       )}
     >
-      <Icon className="size-[20px]" />
+      <Icon className="size-[19px]" />
     </button>
   );
 }
