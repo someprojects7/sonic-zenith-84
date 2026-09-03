@@ -145,34 +145,29 @@
 
 /* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */
 
-/* Elevated block: stats card, details list, profile card */
+/* Restrained Apple-like geometry: subtle rounding, almost no elevation */
 @utility surface-card {
-  @apply rounded-3xl bg-card ring-1 ring-hairline;
+  @apply rounded-2xl bg-card ring-1 ring-hairline;
 }
 
-/* Quiet block inside a card: the "why this pick" panel */
 @utility surface-inset {
-  @apply rounded-2xl bg-surface-2;
+  @apply rounded-xl bg-surface-2;
 }
 
-/* Section heading above a list */
 @utility eyebrow {
-  @apply text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground;
+  @apply text-[12px] font-semibold uppercase tracking-[0.14em] text-muted-foreground;
 }
 
-/* Small brand label: category chip, match percentage */
 @utility eyebrow-brand {
-  @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-brand;
+  @apply text-[11px] font-semibold uppercase tracking-[0.1em] text-brand;
 }
 
-/* Round tap target — set the size at the call site (size-11 = 44px default) */
 @utility icon-button {
   @apply grid shrink-0 place-items-center rounded-full transition-transform active:scale-95;
 }
 
-/* The single primary action on a screen */
 @utility btn-brand {
-  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[15px] font-semibold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
+  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[15px] font-semibold text-brand-foreground transition-transform active:scale-[0.98];
 }
 
 @utility text-balance-tight {
@@ -199,7 +194,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 
   ::-webkit-scrollbar {
