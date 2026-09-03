@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, MapPin, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ChevronRight, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
 
 import { formatWhen, isFree, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
 
-/** A compact recommendation with one clear action and quiet feedback controls. */
+/**
+ * A recommendation card. The whole card is the tap target and opens the event
+ * page — tickets live there, so no competing button here.
+ */
 export function EventCard({ event, featured = false }: { event: EventItem; featured?: boolean }) {
   const [vote, setVote] = useState<"up" | "down" | null>(null);
-  const free = isFree(event);
 
   return (
-    <article className="rounded-2xl bg-card p-3.5 ring-1 ring-hairline">
+    <article className="rounded-2xl bg-card ring-1 ring-hairline">
       <Link
         to="/event/$id"
         params={{ id: event.id }}
-        className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3"
+        className="flex items-center gap-3 p-3.5 active:opacity-70"
       >
         <img
           src={event.image}
@@ -23,48 +25,33 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           width={1024}
           height={768}
           loading={featured ? undefined : "lazy"}
-          className="size-[52px] shrink-0 rounded-xl object-cover ring-1 ring-hairline"
+          className="size-14 shrink-0 rounded-xl object-cover ring-1 ring-hairline"
         />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <span className="eyebrow-brand text-[10px]">
             {event.match ? `${event.match}% match` : event.category}
           </span>
           <h3 className="mt-0.5 line-clamp-2 text-[15px] font-semibold leading-[1.18] text-foreground">
             {event.title}
           </h3>
-          <div className="mt-1 flex min-w-0 items-center gap-1.5 text-[12px] leading-4 text-muted-foreground">
-            <MapPin className="size-3.5 shrink-0 text-brand" />
-            <span className="truncate">
-              {formatWhen(event)} · {event.city}
-            </span>
-          </div>
+          <p className="mt-1 truncate text-[12px] leading-4 text-muted-foreground">
+            {formatWhen(event)} · {event.city} · {isFree(event) ? "Free entry" : event.price}
+          </p>
         </div>
+        <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
       </Link>
 
       {event.reason && (
-        <div className="mt-3 flex min-w-0 items-center gap-2 border-t border-hairline pt-2.5">
+        <div className="flex items-center gap-2 border-t border-hairline px-3.5 py-2">
           <Sparkles className="size-3.5 shrink-0 text-brand" />
-          <p className="min-w-0 truncate text-[12px] leading-4 text-muted-foreground">
+          <p className="min-w-0 flex-1 text-[12px] leading-4 text-muted-foreground">
             {vote === "up"
               ? "Thanks — more like this."
               : vote === "down"
                 ? "Got it — fewer like this."
                 : event.reason}
           </p>
-        </div>
-      )}
-
-      <div className="mt-2.5 flex items-center gap-2">
-        <Link
-          to="/event/$id"
-          params={{ id: event.id }}
-          className="btn-brand h-10 shrink-0 px-3.5 text-[13px]"
-        >
-          <span>{free ? "View event" : `Tickets · ${event.price}`}</span>
-          <ArrowUpRight className="size-3.5" />
-        </Link>
-        {event.reason && (
-          <div className="ml-auto flex shrink-0 items-center gap-0.5">
+          <div className="flex shrink-0 items-center gap-0.5">
             <VoteButton
               label="Good pick"
               icon={ThumbsUp}
@@ -80,8 +67,8 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
               onClick={() => setVote(vote === "down" ? null : "down")}
             />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </article>
   );
 }
