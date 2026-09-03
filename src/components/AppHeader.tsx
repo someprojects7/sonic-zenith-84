@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { MapPin, User } from "lucide-react";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
@@ -20,31 +20,38 @@ export function AppHeader({
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-1">
-        <div className="min-w-0">
-          <h1 className="truncate text-[22px] font-bold uppercase leading-none tracking-[0.08em] text-foreground">
-            Sponsa
-          </h1>
-          <p className="mt-1.5 truncate text-[13px] leading-4 text-muted-foreground">
-            Your city shortcut
+      <div className="flex items-center gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-baseline gap-[3px]">
+            <h1 className="truncate text-[24px] font-bold uppercase leading-none tracking-[0.1em] text-foreground">
+              Sponsa
+            </h1>
+            <span className="size-[5px] shrink-0 rounded-full bg-brand" aria-hidden />
+          </div>
+          <p className="mt-2 flex items-center gap-1 text-[13px] leading-4 text-muted-foreground">
+            <MapPin className="size-[13px] shrink-0 text-brand" aria-hidden />
+            <span className="truncate">Vilnius · your city shortcut</span>
           </p>
         </div>
 
-        <ThemeToggle />
-        {/* Profile lives here, so the tabs stay a pure feed switch */}
-        <button
-          onClick={onProfileClick}
-          aria-label="Profile"
-          aria-current={profileActive ? "page" : undefined}
-          className={cn(
-            "icon-button size-11 ring-1 ring-hairline",
-            profileActive
-              ? "bg-surface-2 text-brand"
-              : "text-muted-foreground hover:bg-surface-2",
-          )}
-        >
-          <User className="size-[20px]" />
-        </button>
+        {/* One grouped control cluster keeps the row balanced instead of two loose icons */}
+        <div className="flex shrink-0 items-center gap-1 rounded-full bg-surface-2/80 p-1 ring-1 ring-hairline">
+          <ThemeToggle />
+          <span className="h-5 w-px bg-hairline" aria-hidden />
+          <button
+            onClick={onProfileClick}
+            aria-label="Profile"
+            aria-current={profileActive ? "page" : undefined}
+            className={cn(
+              "icon-button size-10",
+              profileActive
+                ? "bg-brand text-brand-foreground"
+                : "text-foreground/70 hover:bg-surface-3",
+            )}
+          >
+            <User className="size-[19px]" />
+          </button>
+        </div>
       </div>
     </header>
   );
