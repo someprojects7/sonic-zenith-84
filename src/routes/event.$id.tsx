@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
@@ -11,7 +12,8 @@ import {
   Users,
 } from "lucide-react";
 
-import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+
+import { eventPhotos, formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
