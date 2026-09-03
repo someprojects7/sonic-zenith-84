@@ -17,7 +17,7 @@ export function EventRow({ event }: { event: EventItem }) {
         className="size-14 shrink-0 rounded-xl object-cover"
       />
       <div className="min-w-0">
-        <p className="truncate text-[15px] font-semibold leading-5 text-foreground">
+        <p className="line-clamp-2 text-[15px] font-semibold leading-[1.2] text-foreground">
           {event.title}
         </p>
         <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
