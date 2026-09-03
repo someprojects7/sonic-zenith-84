@@ -23,7 +23,7 @@ export function ForYouFeed() {
             </p>
             <p className="text-[12px] leading-4 text-muted-foreground">
               {SCAN.savedHours}h of scrolling saved
-              <span className="mx-1.5 text-hairline">·</span>
+              <span className="mx-1.5 text-muted-foreground/50">·</span>
               next scan in {SCAN.nextScanInDays} days
             </p>
           </div>
