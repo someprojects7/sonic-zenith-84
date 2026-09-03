@@ -5,24 +5,23 @@ import { EventRow } from "@/components/EventRow";
 import { allEvents, picks } from "@/data/events";
 
 /** How the weekly shortlist was produced — the promise the feed delivers on. */
-const SCAN = { events: 746, sources: 15, updated: "2 h ago", saved: "about 3 h saved" };
+const SCAN = { events: 746, sources: 15 };
 
 /** The weekly shortlist, ordered from highest-attention picks to compact extras. */
 export function ForYouFeed() {
   return (
     <main className="space-y-6 pt-5">
       <section className="px-5">
-        <div className="surface-card flex items-start gap-3 p-3.5">
+        <div className="surface-card flex items-center gap-3 p-3.5">
           <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand/12 text-brand">
             <Hourglass className="size-4" />
           </span>
           <div className="min-w-0">
-            <p className="text-[12px] leading-5 text-foreground">
-              Scanned <span className="font-semibold text-brand">{SCAN.events} events</span> across{" "}
-              <span className="font-semibold text-brand">{SCAN.sources} sources</span> · picked {picks.length} for you.
+            <p className="text-[13px] font-semibold leading-5 text-foreground">
+              Scanned {SCAN.events} events across {SCAN.sources} sources
             </p>
-            <p className="mt-0.5 text-[11px] leading-4 text-muted-foreground">
-              Updated {SCAN.updated} · {SCAN.saved}
+            <p className="text-[12px] leading-4 text-muted-foreground">
+              3 hours of scrolling saved
             </p>
           </div>
         </div>
