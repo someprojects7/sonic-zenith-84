@@ -9,10 +9,7 @@ const TABS = [
   { id: "all", label: "All events", icon: LayoutGrid },
 ] as const;
 
-/**
- * Sticky feed switch: it survives the header collapsing. The sliding pill is
- * the only filled shape — the track stays transparent.
- */
+/** Quiet, sticky feed switch with a single active underline. */
 export function FeedTabs({
   value,
   onChange,
@@ -25,16 +22,12 @@ export function FeedTabs({
   return (
     <div
       role="tablist"
-      className={cn("sticky top-0 z-20 bg-glass px-5 pb-3 pt-2 backdrop-blur-xl", hidden && "hidden")}
+      className={cn(
+        "sticky top-0 z-20 border-b border-hairline bg-glass px-5 backdrop-blur-xl",
+        hidden && "hidden",
+      )}
     >
-      <div className="relative grid grid-cols-2">
-        <span
-          aria-hidden
-          className={cn(
-            "pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-surface-2 ring-1 ring-hairline transition-transform duration-300 ease-out",
-            value === "all" && "translate-x-full",
-          )}
-        />
+      <div className="grid grid-cols-2">
         {TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -42,11 +35,11 @@ export function FeedTabs({
             aria-selected={value === id}
             onClick={() => onChange(id)}
             className={cn(
-              "relative z-10 flex h-11 min-w-0 items-center justify-center gap-2 rounded-full text-[14px] font-semibold leading-none transition-colors",
-              value === id ? "text-foreground" : "text-muted-foreground",
+              "relative flex h-11 min-w-0 items-center justify-center gap-2 border-b-2 border-transparent text-[14px] font-semibold leading-none transition-colors",
+              value === id ? "border-brand text-foreground" : "text-muted-foreground",
             )}
           >
-            <Icon className={cn("size-[18px] shrink-0", value === id && "text-brand")} />
+            <Icon className={cn("size-4 shrink-0", value === id && "text-brand")} />
             <span className="truncate">{label}</span>
           </button>
         ))}
