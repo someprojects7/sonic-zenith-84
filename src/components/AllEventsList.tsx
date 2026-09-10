@@ -15,9 +15,9 @@ export function AllEventsList() {
   );
 
   return (
-    <main className="space-y-5 pt-5">
+    <main className="space-y-5 pb-4 pt-4">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2.5 px-5">
-        <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-surface-2 px-4">
+        <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-card px-4 ring-1 ring-hairline">
           <Search className="size-4 shrink-0 text-muted-foreground" />
           <input
             placeholder="Search events, venues, artists"
@@ -26,9 +26,9 @@ export function AllEventsList() {
         </label>
         <button
           aria-label="Filters"
-          className="grid size-12 shrink-0 place-items-center rounded-full text-muted-foreground ring-1 ring-hairline"
+          className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-soft text-brand"
         >
-          <SlidersHorizontal className="size-[18px]" />
+          <SlidersHorizontal className="size-[18px]" strokeWidth={2.2} />
         </button>
       </div>
 
@@ -39,9 +39,9 @@ export function AllEventsList() {
             key={c}
             onClick={() => setCategory(c)}
             className={cn(
-              "h-10 shrink-0 rounded-full px-4 text-[13px] font-semibold transition-colors",
+              "h-9 shrink-0 rounded-full px-4 text-[13px] font-bold transition-colors",
               category === c
-                ? "bg-brand-gradient text-brand-foreground"
+                ? "bg-brand-gradient text-brand-foreground shadow-brand"
                 : "bg-surface-2 text-muted-foreground",
             )}
           >
@@ -50,7 +50,7 @@ export function AllEventsList() {
         ))}
       </div>
 
-      <div className="divide-y divide-hairline px-5">
+      <div className="space-y-2.5 px-5">
         {events.map((event) => (
           <EventRow key={event.id} event={event} />
         ))}

@@ -9,7 +9,7 @@ const TABS = [
   { id: "all", label: "All events", icon: LayoutGrid },
 ] as const;
 
-/** Quiet, sticky feed switch with a single active underline. */
+/** Sticky feed switch: a soft pill track with one filled active segment. */
 export function FeedTabs({
   value,
   onChange,
@@ -22,12 +22,9 @@ export function FeedTabs({
   return (
     <div
       role="tablist"
-      className={cn(
-        "sticky top-0 z-20 border-b border-hairline bg-glass px-5 backdrop-blur-xl",
-        hidden && "hidden",
-      )}
+      className={cn("sticky top-0 z-20 bg-glass px-5 py-2.5 backdrop-blur-xl", hidden && "hidden")}
     >
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-1 rounded-full bg-surface-2 p-1">
         {TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -35,11 +32,13 @@ export function FeedTabs({
             aria-selected={value === id}
             onClick={() => onChange(id)}
             className={cn(
-              "relative flex h-11 min-w-0 items-center justify-center gap-2 border-b-2 border-transparent text-[14px] font-semibold leading-none transition-colors",
-              value === id ? "border-brand text-foreground" : "text-muted-foreground",
+              "flex h-10 min-w-0 items-center justify-center gap-2 rounded-full text-[13.5px] font-bold leading-none transition-all",
+              value === id
+                ? "bg-brand-gradient text-brand-foreground shadow-brand"
+                : "text-muted-foreground",
             )}
           >
-            <Icon className={cn("size-4 shrink-0", value === id && "text-brand")} />
+            <Icon className="size-4 shrink-0" strokeWidth={2.2} />
             <span className="truncate">{label}</span>
           </button>
         ))}
