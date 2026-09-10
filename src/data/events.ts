@@ -60,7 +60,7 @@ export const picks: EventItem[] = [
       "Free seating, arrive 20 min early",
     ],
     match: 96,
-    reason: "You like festivals and live classical — this one is the week's standout.",
+    reason: "You like festivals and live classical, and this one is the week's standout.",
   },
   {
     id: "club",
@@ -109,7 +109,7 @@ export const allEvents: EventItem[] = [
   ...picks,
   {
     id: "art",
-    title: "Soft Machines — group show opening",
+    title: "Soft Machines: group show opening",
     category: "Art",
     day: "Sun 20 Sep",
     time: "17:00",
@@ -122,7 +122,7 @@ export const allEvents: EventItem[] = [
     ageLimit: "All ages",
     source: "mo.lt",
     about:
-      "Opening night of a group show on soft technology and the body — textile, sound and video works by seven Baltic artists. The artists are present for the first two hours.",
+      "Opening night of a group show on soft technology and the body, with textile, sound and video works by seven Baltic artists. The artists are present for the first two hours.",
     highlights: ["Free entry all evening", "Curator tour at 18:00", "Drinks in the atrium"],
   },
   {
