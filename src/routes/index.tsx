@@ -570,11 +570,19 @@ function FinalCta() {
 function Footer() {
   return (
     <footer className="border-t border-hairline px-5 py-8">
-      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
         <Wordmark />
-        <p className="text-[13px] text-muted-foreground">
-          © {new Date().getFullYear()} Sponsa.net, your shortcut to the city
-        </p>
+        <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
+          <Link
+            to="/terms"
+            className="text-[13px] font-medium text-foreground transition-opacity active:opacity-70"
+          >
+            Terms
+          </Link>
+          <p className="text-[13px] text-muted-foreground">
+            © {new Date().getFullYear()} Sponsa.net, your shortcut to the city
+          </p>
+        </div>
       </div>
     </footer>
   );
