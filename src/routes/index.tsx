@@ -140,16 +140,18 @@ function Hero() {
             Your shortcut to the city
           </h1>
           <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-muted-foreground">
-            Stop scrolling five apps to find one decent night.
+            Facebook events, ticket sites, Telegram, Instagram. An hour of scrolling for one night
+            out.
           </p>
 
           <div className="mt-6 max-w-md rounded-xl border border-hairline bg-card p-1">
             <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
               {[
-                { k: "50+", v: "sources" },
-                { k: "700+", v: "events / week" },
-                { k: "10", v: "yours" },
+                { k: "50+", v: "sources we read" },
+                { k: "700+", v: "events a week" },
+                { k: "10", v: "picked for you" },
               ].map((s, i) => (
+
                 <React.Fragment key={s.v}>
                   {i > 0 && (
                     <ArrowRight className="size-4 shrink-0 text-muted-foreground" strokeWidth={2.5} />
