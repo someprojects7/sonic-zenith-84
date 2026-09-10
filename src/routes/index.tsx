@@ -136,7 +136,7 @@ function Hero() {
   return (
     <section className="bg-background">
       <div className="sticky top-0 z-10 border-b border-hairline bg-background/90 backdrop-blur-md">
-        <div className="mx-auto flex min-h-16 max-w-5xl items-center justify-between px-5 pb-1 pt-[calc(0.5rem+env(safe-area-inset-top))]">
+        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 sm:h-16">
           <Wordmark />
           <Link
             to="/app"
