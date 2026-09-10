@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { CalendarDays, Hourglass, Search, X } from "lucide-react";
+import { CalendarDays, Search, X } from "lucide-react";
 import { format, isWithinInterval, startOfDay } from "date-fns";
 
 import { EventRow } from "@/components/EventRow";
@@ -8,9 +8,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { allEvents, categories, eventDate, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
-
-/** How the week was assembled, shown above the full calendar. */
-const SCAN = { events: 746, sources: 15, savedHours: 3 };
 
 /** The full calendar: dates and categories, search behind a magnifier, events by day. */
 export function AllEventsList() {
@@ -59,18 +56,20 @@ export function AllEventsList() {
 
   return (
     <main className="space-y-5 pb-6 pt-6">
-      <section className="px-5">
-        <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          All events
-        </h2>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
-          {SCAN.events} events, {SCAN.sources} sources, {SCAN.savedHours}h saved
-        </p>
-      </section>
+      {/* Dates and search stay put; categories get their own scroll track below. */}
+      <div className="flex items-center justify-between gap-3 px-5">
+        <div className="min-w-0">
+          <h2 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+            All events
+          </h2>
+          <p className="mt-0.5 text-[14px] leading-[1.43] text-muted-foreground">
+            {days.count === 0
+              ? "Nothing matches"
+              : `${days.count} ${days.count === 1 ? "event" : "events"}`}
+          </p>
+        </div>
 
-      {/* One quiet row: dates, search, then categories. Both filters open on demand. */}
-      <div className="flex items-center gap-2 px-5">
+        <div className="flex shrink-0 items-center gap-2">
         <Popover open={datesOpen} onOpenChange={setDatesOpen}>
           <PopoverTrigger asChild>
             <button
@@ -140,8 +139,11 @@ export function AllEventsList() {
             <Search className="size-4" strokeWidth={2.5} />
           )}
         </button>
+        </div>
+      </div>
 
-        <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
+      {/* Own scroll track, edge to edge, so pills never slide under the controls. */}
+      <div className="flex gap-2 overflow-x-auto px-5 pb-0.5">
           {categories.map((c) => (
             <button
               key={c}
@@ -156,7 +158,6 @@ export function AllEventsList() {
               {c}
             </button>
           ))}
-        </div>
       </div>
 
       {searchOpen && (
@@ -183,12 +184,6 @@ export function AllEventsList() {
           </label>
         </div>
       )}
-
-      <p className="px-5 text-[13px] leading-[1.4] text-muted-foreground">
-        {days.count === 0
-          ? "Nothing matches"
-          : `${days.count} ${days.count === 1 ? "event" : "events"}`}
-      </p>
 
       <div className="space-y-6 px-5">
         {days.groups.map(([day, events]) => (
