@@ -33,9 +33,7 @@ export function AppHeader({
           aria-current={profileActive ? "page" : undefined}
           className={cn(
             "icon-button size-10 shrink-0 transition-colors",
-            profileActive
-              ? "bg-foreground text-background"
-              : "bg-surface-2 text-muted-foreground",
+            profileActive ? "bg-foreground text-background" : "bg-surface-2 text-muted-foreground",
           )}
         >
           <User className="size-[20px]" strokeWidth={2} />

@@ -39,33 +39,135 @@ type Question = {
 };
 
 const QUESTIONS: Question[] = [
-  { id: "city", title: "Which city are you in?", options: ["Vilnius", "Warsaw", "Berlin", "Somewhere else"] },
-  { id: "newcomer", title: "How long have you been here?", options: ["Just arrived", "A few months", "A few years", "All my life"] },
+  {
+    id: "city",
+    title: "Which city are you in?",
+    options: ["Vilnius", "Warsaw", "Berlin", "Somewhere else"],
+  },
+  {
+    id: "newcomer",
+    title: "How long have you been here?",
+    options: ["Just arrived", "A few months", "A few years", "All my life"],
+  },
   {
     id: "scenes",
     title: "What pulls you out of the house?",
     note: "Pick as many as you like",
     multi: true,
     interests: true,
-    options: ["Music", "Art", "Clubs", "Food", "Film", "Theatre", "Sports", "Talks", "Outdoors", "Markets"],
+    options: [
+      "Music",
+      "Art",
+      "Clubs",
+      "Food",
+      "Film",
+      "Theatre",
+      "Sports",
+      "Talks",
+      "Outdoors",
+      "Markets",
+    ],
   },
-  { id: "music", title: "Your sound?", multi: true, options: ["Techno", "House", "Live bands", "Jazz", "Classical", "Hip hop", "Ambient"] },
-  { id: "energy", title: "Ideal night?", options: ["Loud and late", "Warm and social", "Quiet and curious", "Depends on the week"] },
-  { id: "nights", title: "Which nights are yours?", multi: true, options: ["Thursday", "Friday", "Saturday", "Sunday", "Weekdays too"] },
-  { id: "start", title: "When do you like to start?", options: ["Before 18:00", "18:00 to 21:00", "After 21:00", "After midnight"] },
-  { id: "frequency", title: "How often do you go out?", options: ["Once a week", "Two or three times", "Almost daily", "Once a month"] },
-  { id: "company", title: "Who is usually with you?", options: ["Alone", "Partner", "Close friends", "A big group"] },
-  { id: "budget", title: "Comfortable ticket price?", options: ["Free only", "Up to €15", "Up to €40", "Price is not the issue"] },
-  { id: "distance", title: "How far will you travel?", options: ["Walking distance", "Up to 20 min", "Anywhere in the city", "Nearby towns too"] },
-  { id: "size", title: "Room size you enjoy?", options: ["Under 50 people", "Small venue", "Big hall", "Festival scale"] },
-  { id: "discovery", title: "New or known?", options: ["Names I know", "Mostly new things", "Half and half"] },
-  { id: "food", title: "Food and drinks matter?", options: ["Essential", "Nice to have", "Not really"] },
-  { id: "plan", title: "How do you plan?", options: ["Weeks ahead", "A few days", "Same day", "Never plan"] },
-  { id: "language", title: "Language for events?", multi: true, options: ["English", "Lithuanian", "Russian", "No talking needed"] },
-  { id: "avoid", title: "Anything you would rather skip?", multi: true, options: ["Crowds", "Standing all night", "Smoke", "Loud bass", "Nothing"] },
-  { id: "source", title: "How do you find events today?", multi: true, options: ["Instagram", "Friends", "Facebook events", "Ticket sites", "I mostly miss them"] },
-  { id: "pain", title: "What annoys you most?", options: ["Finding out too late", "Endless scrolling", "Same places every time", "Nothing good nearby"] },
-  { id: "goal", title: "What would a good week look like?", options: ["Two solid nights out", "One perfect night", "Something new every day", "Just never bored"] },
+  {
+    id: "music",
+    title: "Your sound?",
+    multi: true,
+    options: ["Techno", "House", "Live bands", "Jazz", "Classical", "Hip hop", "Ambient"],
+  },
+  {
+    id: "energy",
+    title: "Ideal night?",
+    options: ["Loud and late", "Warm and social", "Quiet and curious", "Depends on the week"],
+  },
+  {
+    id: "nights",
+    title: "Which nights are yours?",
+    multi: true,
+    options: ["Thursday", "Friday", "Saturday", "Sunday", "Weekdays too"],
+  },
+  {
+    id: "start",
+    title: "When do you like to start?",
+    options: ["Before 18:00", "18:00 to 21:00", "After 21:00", "After midnight"],
+  },
+  {
+    id: "frequency",
+    title: "How often do you go out?",
+    options: ["Once a week", "Two or three times", "Almost daily", "Once a month"],
+  },
+  {
+    id: "company",
+    title: "Who is usually with you?",
+    options: ["Alone", "Partner", "Close friends", "A big group"],
+  },
+  {
+    id: "budget",
+    title: "Comfortable ticket price?",
+    options: ["Free only", "Up to €15", "Up to €40", "Price is not the issue"],
+  },
+  {
+    id: "distance",
+    title: "How far will you travel?",
+    options: ["Walking distance", "Up to 20 min", "Anywhere in the city", "Nearby towns too"],
+  },
+  {
+    id: "size",
+    title: "Room size you enjoy?",
+    options: ["Under 50 people", "Small venue", "Big hall", "Festival scale"],
+  },
+  {
+    id: "discovery",
+    title: "New or known?",
+    options: ["Names I know", "Mostly new things", "Half and half"],
+  },
+  {
+    id: "food",
+    title: "Food and drinks matter?",
+    options: ["Essential", "Nice to have", "Not really"],
+  },
+  {
+    id: "plan",
+    title: "How do you plan?",
+    options: ["Weeks ahead", "A few days", "Same day", "Never plan"],
+  },
+  {
+    id: "language",
+    title: "Language for events?",
+    multi: true,
+    options: ["English", "Lithuanian", "Russian", "No talking needed"],
+  },
+  {
+    id: "avoid",
+    title: "Anything you would rather skip?",
+    multi: true,
+    options: ["Crowds", "Standing all night", "Smoke", "Loud bass", "Nothing"],
+  },
+  {
+    id: "source",
+    title: "How do you find events today?",
+    multi: true,
+    options: ["Instagram", "Friends", "Facebook events", "Ticket sites", "I mostly miss them"],
+  },
+  {
+    id: "pain",
+    title: "What annoys you most?",
+    options: [
+      "Finding out too late",
+      "Endless scrolling",
+      "Same places every time",
+      "Nothing good nearby",
+    ],
+  },
+  {
+    id: "goal",
+    title: "What would a good week look like?",
+    options: [
+      "Two solid nights out",
+      "One perfect night",
+      "Something new every day",
+      "Just never bored",
+    ],
+  },
 ];
 
 function Quiz() {
@@ -150,7 +252,9 @@ function Quiz() {
                 }`}
               >
                 <span className="min-w-0">{option}</span>
-                {active ? <Check className="size-5 shrink-0 text-rausch" strokeWidth={2.5} /> : null}
+                {active ? (
+                  <Check className="size-5 shrink-0 text-rausch" strokeWidth={2.5} />
+                ) : null}
               </button>
             );
           })}
@@ -246,9 +350,7 @@ function Result({ answers }: { answers: Record<string, string[]> }) {
               <Lock className="size-4 shrink-0" />
               Go Pro
             </Link>
-            <p className="mt-2 text-center text-[13px] text-muted-foreground">
-              Cancel any time.
-            </p>
+            <p className="mt-2 text-center text-[13px] text-muted-foreground">Cancel any time.</p>
           </div>
         </div>
       </div>

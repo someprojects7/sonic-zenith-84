@@ -51,7 +51,6 @@ export function AllEventsList() {
       : format(range.from, "d MMM")
     : null;
 
-
   const reset = () => {
     setQuery("");
     setCategory("All");
@@ -74,98 +73,99 @@ export function AllEventsList() {
                 ? `${days.count} ${days.count === 1 ? "event" : "events"}`
                 : `${days.count} events, ${SCAN.sources} sources, ${SCAN.timeSaved} saved`}
           </p>
-
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-        <Popover open={datesOpen} onOpenChange={setDatesOpen}>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              aria-label="Pick dates"
-              className={cn(
-                "flex h-9 shrink-0 items-center gap-1.5 rounded-full text-[13px] font-medium transition-colors",
-                dateLabel ? "bg-foreground px-3.5 text-background" : "w-9 justify-center bg-card text-foreground ring-1 ring-hairline",
-              )}
-            >
-              <CalendarDays className="size-4 shrink-0" strokeWidth={2.5} />
-              {dateLabel && <span className="whitespace-nowrap">{dateLabel}</span>}
-            </button>
-          </PopoverTrigger>
-          <PopoverContent align="start" className="w-auto p-0">
-            <Calendar
-              mode="range"
-              selected={range}
-              onSelect={setRange}
-              defaultMonth={range?.from ?? eventDate(allEvents[0]!)}
-              numberOfMonths={1}
-              // Days between the two picked dates read as one filled band.
-              className="pointer-events-auto p-3 [&_[data-range-end=true]]:!bg-rausch [&_[data-range-end=true]]:!text-white [&_[data-range-middle=true]]:!bg-rausch/12 [&_[data-range-middle=true]]:!text-foreground [&_[data-range-start=true]]:!bg-rausch [&_[data-range-start=true]]:!text-white [&_[data-selected-single=true]]:!bg-rausch [&_[data-selected-single=true]]:!text-white"
-              classNames={{
-                range_middle: "bg-rausch/12 rounded-none",
-                range_start: "bg-rausch/12 rounded-l-full",
-                range_end: "bg-rausch/12 rounded-r-full",
-              }}
-            />
-            <div className="flex items-center justify-between gap-2 border-t border-hairline p-3">
+          <Popover open={datesOpen} onOpenChange={setDatesOpen}>
+            <PopoverTrigger asChild>
               <button
                 type="button"
-                onClick={() => setRange(undefined)}
-                className="h-9 rounded-full px-3 text-[13px] font-medium text-muted-foreground"
+                aria-label="Pick dates"
+                className={cn(
+                  "flex h-9 shrink-0 items-center gap-1.5 rounded-full text-[13px] font-medium transition-colors",
+                  dateLabel
+                    ? "bg-foreground px-3.5 text-background"
+                    : "w-9 justify-center bg-card text-foreground ring-1 ring-hairline",
+                )}
               >
-                Clear
+                <CalendarDays className="size-4 shrink-0" strokeWidth={2.5} />
+                {dateLabel && <span className="whitespace-nowrap">{dateLabel}</span>}
               </button>
-              <button
-                type="button"
-                onClick={() => setDatesOpen(false)}
-                className="h-9 rounded-full bg-brand px-4 text-[13px] font-semibold text-brand-foreground"
-              >
-                Done
-              </button>
-            </div>
-          </PopoverContent>
-        </Popover>
+            </PopoverTrigger>
+            <PopoverContent align="start" className="w-auto p-0">
+              <Calendar
+                mode="range"
+                selected={range}
+                onSelect={setRange}
+                defaultMonth={range?.from ?? eventDate(allEvents[0]!)}
+                numberOfMonths={1}
+                // Days between the two picked dates read as one filled band.
+                className="pointer-events-auto p-3 [&_[data-range-end=true]]:!bg-rausch [&_[data-range-end=true]]:!text-white [&_[data-range-middle=true]]:!bg-rausch/12 [&_[data-range-middle=true]]:!text-foreground [&_[data-range-start=true]]:!bg-rausch [&_[data-range-start=true]]:!text-white [&_[data-selected-single=true]]:!bg-rausch [&_[data-selected-single=true]]:!text-white"
+                classNames={{
+                  range_middle: "bg-rausch/12 rounded-none",
+                  range_start: "bg-rausch/12 rounded-l-full",
+                  range_end: "bg-rausch/12 rounded-r-full",
+                }}
+              />
+              <div className="flex items-center justify-between gap-2 border-t border-hairline p-3">
+                <button
+                  type="button"
+                  onClick={() => setRange(undefined)}
+                  className="h-9 rounded-full px-3 text-[13px] font-medium text-muted-foreground"
+                >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDatesOpen(false)}
+                  className="h-9 rounded-full bg-brand px-4 text-[13px] font-semibold text-brand-foreground"
+                >
+                  Done
+                </button>
+              </div>
+            </PopoverContent>
+          </Popover>
 
-        <button
-          type="button"
-          aria-label={searchOpen ? "Close search" : "Search events"}
-          aria-expanded={searchOpen}
-          onClick={() => {
-            setSearchOpen((open) => !open);
-            if (searchOpen) setQuery("");
-          }}
-          className={cn(
-            "icon-button size-9 shrink-0 transition-colors",
-            searchOpen || query
-              ? "bg-foreground text-background"
-              : "bg-card text-foreground ring-1 ring-hairline",
-          )}
-        >
-          {searchOpen ? (
-            <X className="size-4" strokeWidth={2.5} />
-          ) : (
-            <Search className="size-4" strokeWidth={2.5} />
-          )}
-        </button>
+          <button
+            type="button"
+            aria-label={searchOpen ? "Close search" : "Search events"}
+            aria-expanded={searchOpen}
+            onClick={() => {
+              setSearchOpen((open) => !open);
+              if (searchOpen) setQuery("");
+            }}
+            className={cn(
+              "icon-button size-9 shrink-0 transition-colors",
+              searchOpen || query
+                ? "bg-foreground text-background"
+                : "bg-card text-foreground ring-1 ring-hairline",
+            )}
+          >
+            {searchOpen ? (
+              <X className="size-4" strokeWidth={2.5} />
+            ) : (
+              <Search className="size-4" strokeWidth={2.5} />
+            )}
+          </button>
         </div>
       </div>
 
       {/* Own scroll track, edge to edge, so pills never slide under the controls. */}
       <div className="flex gap-2 overflow-x-auto px-5 pb-0.5">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCategory(c)}
-              className={cn(
-                "h-9 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors",
-                category === c
-                  ? "bg-brand text-brand-foreground"
-                  : "bg-card text-muted-foreground ring-1 ring-hairline",
-              )}
-            >
-              {c}
-            </button>
-          ))}
+        {categories.map((c) => (
+          <button
+            key={c}
+            onClick={() => setCategory(c)}
+            className={cn(
+              "h-9 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors",
+              category === c
+                ? "bg-brand text-brand-foreground"
+                : "bg-card text-muted-foreground ring-1 ring-hairline",
+            )}
+          >
+            {c}
+          </button>
+        ))}
       </div>
 
       {searchOpen && (

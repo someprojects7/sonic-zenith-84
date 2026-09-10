@@ -12,7 +12,6 @@ import {
   Users,
 } from "lucide-react";
 
-
 import { SaveButton } from "@/components/SaveButton";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { canonicalUrl } from "@/config/site";
@@ -33,10 +32,8 @@ export const Route = createFileRoute("/event/$id")({
     }
     const { event } = loaderData;
     const title = `${event.title}, ${event.day}, ${event.city}`;
-    const description = `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(
-      0,
-      158,
-    );
+    const description =
+      `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(0, 158);
     const url = canonicalUrl(`/event/${event.id}`);
     return {
       meta: [
@@ -62,7 +59,11 @@ export const Route = createFileRoute("/event/$id")({
             location: {
               "@type": "Place",
               name: event.venue,
-              address: { "@type": "PostalAddress", streetAddress: event.address, addressLocality: event.city },
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: event.address,
+                addressLocality: event.city,
+              },
             },
             offers: {
               "@type": "Offer",

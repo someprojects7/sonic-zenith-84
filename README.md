@@ -10,15 +10,15 @@ is wiring real sources, a database, real quiz logic and real photos.
 
 ## Stack
 
-| Concern | Choice |
-| --- | --- |
-| Framework | TanStack Start v1 (React 19, SSR) |
-| Build | Vite 7 |
-| Routing | TanStack Router, file-based (`src/routes`) |
-| Data fetching | TanStack Query (already provided at the router root) |
-| Styling | Tailwind CSS v4 via `src/styles.css` (design tokens, no config file) |
-| UI primitives | shadcn/ui + Radix (`src/components/ui`) |
-| Icons | lucide-react |
+| Concern       | Choice                                                               |
+| ------------- | -------------------------------------------------------------------- |
+| Framework     | TanStack Start v1 (React 19, SSR)                                    |
+| Build         | Vite 7                                                               |
+| Routing       | TanStack Router, file-based (`src/routes`)                           |
+| Data fetching | TanStack Query (already provided at the router root)                 |
+| Styling       | Tailwind CSS v4 via `src/styles.css` (design tokens, no config file) |
+| UI primitives | shadcn/ui + Radix (`src/components/ui`)                              |
+| Icons         | lucide-react                                                         |
 
 ```sh
 npm i
@@ -55,14 +55,14 @@ src/
 All colours, radii and type sizes follow an Airbnb-style reference and live as
 tokens in `src/styles.css`:
 
-| Token | Value | Use |
-| --- | --- | --- |
-| `background` | `#f7f7f7` | page canvas |
-| `card` | `#ffffff` | cards, sheets, header |
-| `foreground` | `#222222` | primary text |
-| `muted-foreground` | `#6a6a6a` | secondary text |
-| `hairline` | `#ebebeb` | 1px borders |
-| `rausch` | `#ff385c` | accent, primary actions only |
+| Token              | Value     | Use                          |
+| ------------------ | --------- | ---------------------------- |
+| `background`       | `#f7f7f7` | page canvas                  |
+| `card`             | `#ffffff` | cards, sheets, header        |
+| `foreground`       | `#222222` | primary text                 |
+| `muted-foreground` | `#6a6a6a` | secondary text               |
+| `hairline`         | `#ebebeb` | 1px borders                  |
+| `rausch`           | `#ff385c` | accent, primary actions only |
 
 Rules that keep screens consistent:
 
@@ -75,16 +75,16 @@ Rules that keep screens consistent:
 
 ## Where real data plugs in
 
-| What | Where | Notes |
-| --- | --- | --- |
-| Events | `src/data/events.ts` | Keep the `EventItem` type and the helpers; swap the array for an API/database read. `picks` is the personalised shortlist, `allEvents` the full calendar. |
-| Scan numbers | `src/config/site.ts` (`SCAN`) | Events scanned, sources, time saved and landing claims — one place, used by feed and landing. |
-| City | `src/config/site.ts` (`CITY`) | Currently Vilnius; should come from the signed-in user. |
-| Quiz | `src/routes/quiz.tsx` (`QUESTIONS`) | 20 questions with placeholder copy; answers land in `PreferencesProvider`. Persist them server-side. |
-| Preferences | `src/lib/preferences.tsx` | localStorage today; replace the read/write calls with API calls, keep the hook shape. |
-| Photos | `src/assets/*` | Generated placeholders. Replace with real event/venue/team images and keep the same import pattern. |
-| Auth, payments, Pro plan | landing + quiz result | CTAs route to `/quiz` and `/app`; there is no auth or billing yet. |
-| Canonical domain | `src/config/site.ts` (`SITE_URL`), `public/sitemap.xml`, `public/robots.txt` | Update all three when the real domain is live. |
+| What                     | Where                                                                        | Notes                                                                                                                                                     |
+| ------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Events                   | `src/data/events.ts`                                                         | Keep the `EventItem` type and the helpers; swap the array for an API/database read. `picks` is the personalised shortlist, `allEvents` the full calendar. |
+| Scan numbers             | `src/config/site.ts` (`SCAN`)                                                | Events scanned, sources, time saved and landing claims — one place, used by feed and landing.                                                             |
+| City                     | `src/config/site.ts` (`CITY`)                                                | Currently Vilnius; should come from the signed-in user.                                                                                                   |
+| Quiz                     | `src/routes/quiz.tsx` (`QUESTIONS`)                                          | 20 questions with placeholder copy; answers land in `PreferencesProvider`. Persist them server-side.                                                      |
+| Preferences              | `src/lib/preferences.tsx`                                                    | localStorage today; replace the read/write calls with API calls, keep the hook shape.                                                                     |
+| Photos                   | `src/assets/*`                                                               | Generated placeholders. Replace with real event/venue/team images and keep the same import pattern.                                                       |
+| Auth, payments, Pro plan | landing + quiz result                                                        | CTAs route to `/quiz` and `/app`; there is no auth or billing yet.                                                                                        |
+| Canonical domain         | `src/config/site.ts` (`SITE_URL`), `public/sitemap.xml`, `public/robots.txt` | Update all three when the real domain is live.                                                                                                            |
 
 ## Recommended backend steps
 
