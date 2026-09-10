@@ -20,16 +20,16 @@ import sceneMarket from "@/assets/scene-market.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa: your event curator in Vilnius" },
+      { title: "Sponsa: your shortcut to the city" },
       {
         name: "description",
         content:
-          "We scan 1,000+ city events a day and hand you the ten worth your evening. One minute to set your taste.",
+          "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.",
       },
-      { property: "og:title", content: "Sponsa: your event curator" },
+      { property: "og:title", content: "Sponsa: your shortcut to the city" },
       {
         property: "og:description",
-        content: "1,000+ events scanned daily. Ten picks a week, chosen for you.",
+        content: "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const CTA = "Get my picks";
+const CTA = "Find my week";
 
 function Wordmark({ light = false }: { light?: boolean }) {
   return (
@@ -55,7 +55,7 @@ function Wordmark({ light = false }: { light?: boolean }) {
 function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
   return (
     <Link
-      to="/app"
+      to="/quiz"
       className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-opacity active:opacity-80 ${
         variant === "coral" ? "bg-rausch text-white" : "bg-foreground text-background"
       }`}
@@ -65,6 +65,7 @@ function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
     </Link>
   );
 }
+
 
 function Section({
   className = "",
