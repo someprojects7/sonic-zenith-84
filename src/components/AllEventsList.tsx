@@ -63,7 +63,7 @@ export function AllEventsList() {
         <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
           All events
         </h2>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[13px] leading-[1.4] text-muted-foreground">
+        <p className="mt-1.5 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
           <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
           {SCAN.events} events, {SCAN.sources} sources, {SCAN.savedHours}h saved
         </p>
@@ -207,7 +207,7 @@ export function AllEventsList() {
         {days.count === 0 && (
           <div className="py-12 text-center">
             <p className="text-[16px] font-medium text-foreground">Nothing matches</p>
-            <p className="mt-1.5 text-[14px] text-muted-foreground">
+            <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
               Try other dates.
             </p>
             <button

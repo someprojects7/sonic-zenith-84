@@ -208,7 +208,7 @@ function EventPage() {
             <ChevronLeft className="size-[21px]" />
           </Link>
           <div className="min-w-0">
-            <p className="truncate text-[15px] font-semibold leading-5 text-foreground">
+            <p className="truncate text-[16px] font-semibold leading-5 text-foreground">
               {event.price}
             </p>
             <p className="truncate text-[12px] leading-4 text-muted-foreground">
