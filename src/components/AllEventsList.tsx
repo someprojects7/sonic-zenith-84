@@ -59,18 +59,8 @@ export function AllEventsList() {
 
   return (
     <main className="space-y-5 pb-6 pt-6">
-      <section className="px-5">
-        <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          All events
-        </h2>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
-          {SCAN.events} events, {SCAN.sources} sources, {SCAN.savedHours}h saved
-        </p>
-      </section>
-
-      {/* One quiet row: dates, search, then categories. Both filters open on demand. */}
-      <div className="flex items-center gap-2 px-5">
+      {/* Dates and search stay put; categories get their own scroll track below. */}
+      <div className="flex items-center justify-between gap-3 px-5">
         <Popover open={datesOpen} onOpenChange={setDatesOpen}>
           <PopoverTrigger asChild>
             <button
