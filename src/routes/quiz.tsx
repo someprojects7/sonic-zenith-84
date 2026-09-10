@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Lock, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { canonicalUrl } from "@/config/site";
 import { usePreferences } from "@/lib/preferences";
 
 export const Route = createFileRoute("/quiz")({
@@ -19,8 +20,10 @@ export const Route = createFileRoute("/quiz")({
         content: "Twenty quick taps and your week in the city is planned.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonicalUrl("/quiz") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: canonicalUrl("/quiz") }],
   }),
   component: Quiz,
 });

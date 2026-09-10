@@ -6,6 +6,7 @@ import { AppHeader } from "@/components/AppHeader";
 import { FeedTabs, type FeedTab } from "@/components/FeedTabs";
 import { ForYouFeed } from "@/components/ForYouFeed";
 import { ProfileView } from "@/components/ProfileView";
+import { CITY, SCAN, SITE_NAME, canonicalUrl } from "@/config/site";
 import { allEvents, picks, type EventItem } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 import { useHideOnScroll } from "@/lib/use-hide-on-scroll";
@@ -13,20 +14,23 @@ import { useHideOnScroll } from "@/lib/use-hide-on-scroll";
 export const Route = createFileRoute("/app")({
   head: () => ({
     meta: [
-      { title: "Your week in Vilnius | Sponsa" },
+      { title: `Your week in ${CITY} | ${SITE_NAME}` },
       {
         name: "description",
-        content:
-          "We scanned 746 events in Vilnius this week and picked the ones worth your time. Concerts, clubs, art and food, curated for you.",
+        content: `We scanned ${SCAN.eventsScanned} events in ${CITY} this week and picked the ones worth your time. Concerts, clubs, art and food, curated for you.`,
       },
-      { property: "og:title", content: "Your week in Vilnius" },
+      { property: "og:title", content: `Your week in ${CITY}` },
       {
         property: "og:description",
         content: "A weekly shortlist of city events, picked for your taste.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonicalUrl("/app") },
       { name: "twitter:card", content: "summary_large_image" },
+      // Personal feed: useful to share, not useful in search results.
+      { name: "robots", content: "noindex, follow" },
     ],
+    links: [{ rel: "canonical", href: canonicalUrl("/app") }],
   }),
   component: AppScreen,
 });
