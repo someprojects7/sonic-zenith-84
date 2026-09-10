@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
    - one horizontal gutter: px-5 (20px); only scrollers go edge to edge
    - vertical rhythm: 32px between sections, 16px between cards, 8px inside a text block
    - every tappable element is at least 44px high
-   - recurring shapes come from the utilities in styles.css (surface-card, eyebrow, btn-brand…) */
+   - recurring shapes come from the utilities in styles.css (eyebrow, icon-button…) */
 type View = FeedTab | "profile";
 
 function Index() {

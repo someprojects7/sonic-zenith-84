@@ -48,17 +48,12 @@
   /* brand = the near-black ink used for primary actions and emphasis */
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
-  --color-brand-soft: var(--brand-soft);
   /* rausch = the single coral accent, for icons and one action per surface */
   --color-rausch: var(--rausch);
-  --color-amber: var(--rausch);
-  --color-tone-cool: var(--tone-cool);
-  --color-tone-warm: var(--tone-warm);
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
   --color-hairline: var(--hairline);
   --shadow-elevated: var(--shadow-elevated);
-  --shadow-brand: var(--shadow-brand);
 }
 
 :root {
@@ -86,22 +81,16 @@
 
   --brand: #222222;
   --brand-foreground: #ffffff;
-  --brand-soft: #f7f7f7;
   --rausch: #ff385c;
 
-  --tone-cool: #f7f7f7;
-  --tone-warm: #f7f7f7;
   --surface-2: #f7f7f7;
   --surface-3: #ebebeb;
   --hairline: #ebebeb;
 
-  --gradient-brand: linear-gradient(#222222, #222222);
-  --gradient-accent: linear-gradient(#ff385c, #ff385c);
   --glass: rgb(255 255 255 / 0.92);
   --shadow-elevated:
     rgba(0, 0, 0, 0.02) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 6px 0px,
     rgba(0, 0, 0, 0.1) 0px 4px 8px 0px;
-  --shadow-brand: none;
 }
 
 .dark {
@@ -127,65 +116,30 @@
 
   --brand: #f7f7f7;
   --brand-foreground: #161616;
-  --brand-soft: #262626;
   --rausch: #ff5a76;
 
-  --tone-cool: #1c1c1c;
-  --tone-warm: #1c1c1c;
   --surface-2: #242424;
   --surface-3: #2f2f2f;
   --hairline: rgb(255 255 255 / 0.1);
 
-  --gradient-brand: linear-gradient(#f7f7f7, #f7f7f7);
-  --gradient-accent: linear-gradient(#ff5a76, #ff5a76);
   --glass: rgb(22 22 22 / 0.92);
   --shadow-elevated: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 28px -18px rgb(0 0 0 / 0.7);
-  --shadow-brand: none;
-}
-
-@utility bg-brand-gradient {
-  background-image: var(--gradient-brand);
-}
-
-@utility bg-accent-gradient {
-  background-image: var(--gradient-accent);
 }
 
 @utility bg-glass {
   background-color: var(--glass);
 }
 
-/* Glass that sits on top of a photo: always dark, in both themes */
-@utility bg-glass-media {
-  background-color: rgb(0 0 0 / 0.55);
-  color: #ffffff;
-}
-
 /* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */
-
-@utility surface-card {
-  @apply rounded-xl bg-card;
-}
-
-@utility surface-inset {
-  @apply rounded-lg bg-surface-2;
-}
 
 @utility eyebrow {
   @apply text-[12px] font-medium tracking-normal text-muted-foreground;
-}
-
-@utility eyebrow-brand {
-  @apply text-[12px] font-semibold tracking-normal text-foreground;
 }
 
 @utility icon-button {
   @apply grid shrink-0 place-items-center rounded-full transition-colors;
 }
 
-@utility btn-brand {
-  @apply flex h-12 items-center justify-center gap-2 rounded-lg bg-brand text-[14px] font-medium text-brand-foreground transition-colors;
-}
 
 @utility text-balance-tight {
   text-wrap: balance;
