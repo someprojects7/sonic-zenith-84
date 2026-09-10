@@ -23,7 +23,7 @@ export function FeedTabs({
     <div
       role="tablist"
       className={cn(
-        "sticky top-0 z-20 border-b border-hairline bg-glass px-5 backdrop-blur-xl",
+        "sticky top-0 z-20 border-b border-hairline bg-card/95 px-5 backdrop-blur-xl",
         hidden && "hidden",
       )}
     >
