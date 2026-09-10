@@ -53,7 +53,7 @@ export function FeedTabs({
               {count > 0 && (
                 <span
                   aria-label={`${count} new`}
-                  className="inline-flex h-5 shrink-0 items-center rounded-full bg-rausch px-1.5 text-[11px] font-semibold leading-none text-white"
+                  className="inline-flex h-[18px] shrink-0 items-center rounded-full bg-rausch px-1.5 text-[11px] font-semibold leading-none text-white"
                 >
                   +{count}
                 </span>
