@@ -17,6 +17,7 @@ import {
 
 import founderArtem from "@/assets/founder-artem.jpg";
 import founderEduard from "@/assets/founder-eduard.jpg";
+import heroCity from "@/assets/hero-city.jpg";
 import sceneConcert from "@/assets/scene-concert.jpg";
 import sceneGallery from "@/assets/scene-gallery.jpg";
 import sceneMarket from "@/assets/scene-market.jpg";
