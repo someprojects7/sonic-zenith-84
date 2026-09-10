@@ -17,8 +17,8 @@ export function ForYouFeed() {
         </h2>
         <p className="mt-2 max-w-[22rem] text-[14px] leading-[1.43] text-muted-foreground">
           Scanned <span className="font-semibold text-foreground">{SCAN.events} events</span> across{" "}
-          <span className="font-semibold text-foreground">{SCAN.sources} sources</span> — here is
-          what's worth your time.
+          <span className="font-semibold text-foreground">{SCAN.sources} sources</span>.
+
         </p>
         <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-[13px] font-medium text-foreground">
           <Hourglass className="size-3.5 text-rausch" strokeWidth={2} />
