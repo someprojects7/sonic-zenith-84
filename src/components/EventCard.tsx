@@ -12,7 +12,7 @@ import { usePreferences } from "@/lib/preferences";
  */
 export function EventCard({ event, featured = false }: { event: EventItem; featured?: boolean }) {
   const { vote, isSeen } = usePreferences();
-  const isNew = event.isNew && !isSeen(event.id);
+  const isNew = Boolean(event.isNew) && !isSeen(event.id);
 
   return (
     <article className="overflow-hidden rounded-xl bg-card">

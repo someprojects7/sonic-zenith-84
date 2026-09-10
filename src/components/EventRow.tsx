@@ -8,7 +8,7 @@ import { usePreferences } from "@/lib/preferences";
 /** One compact calendar line, the same shape and height as a recommendation card. */
 export function EventRow({ event }: { event: EventItem }) {
   const { isSeen } = usePreferences();
-  const isNew = event.isNew && !isSeen(event.id);
+  const isNew = Boolean(event.isNew) && !isSeen(event.id);
 
   return (
     <Link
