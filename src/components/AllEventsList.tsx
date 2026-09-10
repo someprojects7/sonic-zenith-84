@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { CalendarDays, Search, X } from "lucide-react";
+import { CalendarDays, Hourglass, Search, X } from "lucide-react";
 import { format, isWithinInterval, startOfDay } from "date-fns";
 
 import { EventRow } from "@/components/EventRow";
@@ -42,11 +42,14 @@ export function AllEventsList() {
     return { groups: [...grouped], count: matches.length };
   }, [category, query, range]);
 
+  const filtered = category !== "All" || query.trim() !== "" || Boolean(range?.from);
+
   const dateLabel = range?.from
     ? range.to && range.to.getTime() !== range.from.getTime()
       ? `${format(range.from, "d MMM")} – ${format(range.to, "d MMM")}`
       : format(range.from, "d MMM")
     : null;
+
 
   const reset = () => {
     setQuery("");
