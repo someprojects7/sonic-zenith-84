@@ -1,4 +1,4 @@
-import { Menu, User } from "lucide-react";
+import { User } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -32,21 +32,13 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "flex h-10 shrink-0 items-center gap-2 rounded-full border pl-3 pr-1 transition-shadow",
-            profileActive ? "border-foreground" : "border-hairline",
+            "icon-button size-10 shrink-0 transition-colors",
+            profileActive
+              ? "bg-foreground text-background"
+              : "bg-surface-2 text-muted-foreground",
           )}
         >
-          <Menu className="size-4 text-foreground" strokeWidth={2} />
-          <span
-            className={cn(
-              "icon-button size-8",
-              profileActive
-                ? "bg-foreground text-background"
-                : "bg-surface-2 text-muted-foreground",
-            )}
-          >
-            <User className="size-[18px]" strokeWidth={2} />
-          </span>
+          <User className="size-[20px]" strokeWidth={2} />
         </button>
       </div>
     </header>

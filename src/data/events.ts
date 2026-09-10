@@ -153,6 +153,9 @@ export const allEvents: EventItem[] = [
 /** Filter chips on the "All events" tab; "All" means no filter. */
 export const categories = ["All", ...new Set(allEvents.map((e) => e.category))];
 
+/** The days of the week that hold events, in calendar order. */
+export const eventDays = [...new Set(allEvents.map((e) => e.day))];
+
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
 
 /** Events added in the latest scan, used for the "new" flags in the tabs. */
