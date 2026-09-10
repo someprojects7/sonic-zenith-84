@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Sparkles } from "lucide-react";
 
-import { EventCategory, EventMeta, NewBadge } from "@/components/EventMeta";
+import { EventCategory, EventMeta } from "@/components/EventMeta";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { priceLabel, type EventItem } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -30,13 +30,8 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           className="size-[60px] shrink-0 rounded-xl object-cover"
         />
         <div className="min-w-0">
-          <EventCategory event={event} />
+          <EventCategory event={event} isNew={isNew} />
           <p className="truncate text-[16px] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
-            {isNew && (
-              <>
-                <NewBadge />{" "}
-              </>
-            )}
             {event.title}
           </p>
           <EventMeta event={event} />
