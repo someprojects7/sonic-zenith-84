@@ -6,6 +6,8 @@ import { AppHeader } from "@/components/AppHeader";
 import { FeedTabs, type FeedTab } from "@/components/FeedTabs";
 import { ForYouFeed } from "@/components/ForYouFeed";
 import { ProfileView } from "@/components/ProfileView";
+import { allEvents, picks, type EventItem } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 import { useHideOnScroll } from "@/lib/use-hide-on-scroll";
 
 export const Route = createFileRoute("/")({
@@ -39,6 +41,12 @@ type View = FeedTab | "profile";
 function Index() {
   const [view, setView] = useState<View>("foryou");
   const headerHidden = useHideOnScroll();
+  const { isSeen } = usePreferences();
+
+  // "New" means found in the latest scan and not opened yet.
+  const unseen = (list: EventItem[]) =>
+    list.filter((event) => event.isNew && !isSeen(event.id)).length;
+  const newCounts = { foryou: unseen(picks), all: unseen(allEvents) };
 
   return (
     <div className="min-h-screen bg-background">
