@@ -17,7 +17,7 @@ import {
 
 import founderArtem from "@/assets/founder-artem.jpg";
 import founderEduard from "@/assets/founder-eduard.jpg";
-import heroCity from "@/assets/hero-city.jpg";
+import heroCity from "@/assets/hero-event.jpg";
 import sceneConcert from "@/assets/scene-concert.jpg";
 import sceneGallery from "@/assets/scene-gallery.jpg";
 import sceneMarket from "@/assets/scene-market.jpg";
@@ -187,7 +187,7 @@ function Hero() {
         <div className="relative overflow-hidden rounded-xl">
           <img
             src={heroCity}
-            alt="Friends walking through a sunlit old town street"
+            alt="Crowd with hands up at a live concert in a small city venue"
             width={900}
             height={1200}
             className="h-64 w-full object-cover sm:h-[460px]"
