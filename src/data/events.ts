@@ -164,6 +164,3 @@ export const eventDate = (event: EventItem) => {
 };
 
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
-
-/** Events added in the latest scan, used for the "new" flags in the tabs. */
-export const newEventIds = allEvents.filter((e) => e.isNew).map((e) => e.id);
