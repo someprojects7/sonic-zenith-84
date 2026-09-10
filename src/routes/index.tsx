@@ -119,71 +119,76 @@ function Landing() {
 
 function Hero() {
   return (
-    <section className="relative isolate flex min-h-[92svh] flex-col justify-between overflow-hidden">
-      <img
-        src={sceneConcert}
-        alt="Crowd at a live show in Vilnius"
-        width={900}
-        height={1200}
-        className="absolute inset-0 -z-10 size-full object-cover"
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/35 to-black/85" />
-
-      <div className="flex h-16 items-center justify-between px-5 pt-[env(safe-area-inset-top)]">
-        <Wordmark light />
-        <Link
-          to="/app"
-          className="text-[14px] font-semibold text-white/85 transition-colors hover:text-white"
-        >
-          Sign in
-        </Link>
+    <section className="bg-background">
+      <div className="sticky top-0 z-10 border-b border-hairline bg-background/90 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5 pt-[env(safe-area-inset-top)]">
+          <Wordmark />
+          <Link
+            to="/app"
+            className="text-[14px] font-semibold text-foreground transition-opacity active:opacity-70"
+          >
+            Sign in
+          </Link>
+        </div>
       </div>
 
-      <div className="px-5 pb-12">
-        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white/70">
-          Vilnius, this week
-        </p>
-        <h1 className="mt-3 max-w-2xl text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-white sm:text-6xl">
-          Your shortcut to the city
-        </h1>
-        <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-white/85">
-          Stop scrolling five apps to find one decent night.
-        </p>
+      <div className="mx-auto grid max-w-5xl gap-8 px-5 pb-14 pt-10 sm:grid-cols-2 sm:items-center sm:pb-20 sm:pt-16">
+        <div>
+          <Eyebrow>Vilnius, this week</Eyebrow>
+          <h1 className="mt-2 text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[56px]">
+            Your shortcut to the city
+          </h1>
+          <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-muted-foreground">
+            Stop scrolling five apps to find one decent night.
+          </p>
 
-        <div className="mt-6 max-w-md rounded-2xl bg-white/10 p-1 backdrop-blur-md">
-          <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
-            {[
-              { k: "50+", v: "sources" },
-              { k: "700+", v: "events / week" },
-              { k: "10", v: "yours" },
-            ].map((s, i) => (
-              <React.Fragment key={s.v}>
-                {i > 0 && <ArrowRight className="size-4 shrink-0 text-white/50" strokeWidth={2.5} />}
-                <div className="rounded-xl px-2 py-3 text-center">
-                  <p
-                    className={`text-[22px] font-semibold leading-none tracking-[-0.02em] ${
-                      i === 2 ? "text-rausch" : "text-white"
-                    }`}
-                  >
-                    {s.k}
-                  </p>
-                  <p className="mt-1 text-[12px] leading-tight text-white/70">{s.v}</p>
-                </div>
-              </React.Fragment>
-            ))}
+          <div className="mt-6 max-w-md rounded-xl border border-hairline bg-card p-1">
+            <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
+              {[
+                { k: "50+", v: "sources" },
+                { k: "700+", v: "events / week" },
+                { k: "10", v: "yours" },
+              ].map((s, i) => (
+                <React.Fragment key={s.v}>
+                  {i > 0 && (
+                    <ArrowRight className="size-4 shrink-0 text-muted-foreground" strokeWidth={2.5} />
+                  )}
+                  <div className="px-2 py-3 text-center">
+                    <p
+                      className={`text-[22px] font-semibold leading-none tracking-[-0.02em] ${
+                        i === 2 ? "text-rausch" : "text-foreground"
+                      }`}
+                    >
+                      {s.k}
+                    </p>
+                    <p className="mt-1 text-[12px] leading-tight text-muted-foreground">{s.v}</p>
+                  </div>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center gap-1.5 text-[14px] text-muted-foreground">
+            <Star className="size-4 shrink-0 fill-rausch text-rausch" />
+            <span className="font-semibold text-foreground">4.8</span> from 12,800 people
+          </div>
+
+          <div className="mt-7">
+            <Cta />
+            <p className="mt-3 text-[13px] text-muted-foreground">
+              60 seconds. First picks free, Pro from €7.99 a month.
+            </p>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center gap-1.5 text-[14px] text-white/80">
-          <Star className="size-4 shrink-0 fill-rausch text-rausch" />
-          <span className="font-semibold text-white">4.8</span> from 12,800 people
-        </div>
-
-        <div className="mt-7">
-          <Cta />
-          <p className="mt-3 text-[13px] text-white/70">
-            60 seconds. First picks free, Pro from €7.99 a month.
-          </p>
+        <div className="relative overflow-hidden rounded-xl">
+          <img
+            src={sceneConcert}
+            alt="Crowd at a live show in Vilnius"
+            width={900}
+            height={1200}
+            className="h-64 w-full object-cover sm:h-[460px]"
+          />
         </div>
       </div>
     </section>
