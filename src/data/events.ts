@@ -154,9 +154,6 @@ export const allEvents: EventItem[] = [
 /** Filter chips on the "All events" tab; "All" means no filter. */
 export const categories = ["All", ...new Set(allEvents.map((e) => e.category))];
 
-/** The days of the week that hold events, in calendar order. */
-export const eventDays = [...new Set(allEvents.map((e) => e.day))];
-
 /** The calendar year the listed week belongs to. */
 const EVENT_YEAR = 2026;
 
