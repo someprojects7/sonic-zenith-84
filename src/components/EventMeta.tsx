@@ -6,12 +6,10 @@ import { formatWhen, type EventItem } from "@/data/events";
  */
 export function EventMeta({ event }: { event: EventItem }) {
   return (
-    <p className="mt-1 flex min-w-0 items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-      <span className="truncate">{formatWhen(event)}</span>
-      <span aria-hidden className="shrink-0">
-        ·
-      </span>
-      <span className="shrink-0">{event.category}</span>
+    <p className="mt-1 flex min-w-0 flex-wrap items-center gap-x-1.5 text-[14px] leading-[1.43] text-muted-foreground">
+      <span>{formatWhen(event)}</span>
+      <span aria-hidden>·</span>
+      <span>{event.category}</span>
     </p>
   );
 }
