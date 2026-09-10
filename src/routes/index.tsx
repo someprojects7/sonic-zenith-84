@@ -184,8 +184,8 @@ function Hero() {
 
         <div className="relative overflow-hidden rounded-xl">
           <img
-            src={sceneConcert}
-            alt="Crowd at a live show in Vilnius"
+            src={heroCity}
+            alt="Friends walking through a sunlit old town street"
             width={900}
             height={1200}
             className="h-64 w-full object-cover sm:h-[460px]"
