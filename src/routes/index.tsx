@@ -15,6 +15,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import founderArtem from "@/assets/founder-artem.jpg";
 import founderEduard from "@/assets/founder-eduard.jpg";
 import heroCity from "@/assets/hero-event.jpg";
@@ -22,22 +23,42 @@ import sceneConcert from "@/assets/scene-concert.jpg";
 import sceneGallery from "@/assets/scene-gallery.jpg";
 import sceneMarket from "@/assets/scene-market.jpg";
 
+const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
+const DESCRIPTION =
+  "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa: your shortcut to the city" },
-      {
-        name: "description",
-        content:
-          "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.",
-      },
-      { property: "og:title", content: "Sponsa: your shortcut to the city" },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
       {
         property: "og:description",
-        content: "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
+        content:
+          "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonicalUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: canonicalUrl("/") }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE_NAME,
+          url: canonicalUrl("/"),
+          description: DESCRIPTION,
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${canonicalUrl("/app")}?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
     ],
   }),
   component: Landing,
