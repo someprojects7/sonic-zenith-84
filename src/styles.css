@@ -5,30 +5,20 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * Design system — Joiner-family visual language:
+ * warm off-white paper, white cards, deep violet brand, one violet→amber
+ * gradient accent, pastel section tones, pill buttons, generous rounding.
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * All colors use oklch and are registered below as Tailwind utilities.
  */
 
 @theme inline {
-  /* SF Pro on Apple devices, Inter as the identical-metric fallback elsewhere */
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", ui-sans-serif,
-    system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-sans);
-  /* Wordmark only — heavier grotesque for the brand lockup */
-  --font-wordmark: "Archivo", var(--font-sans);
+  --font-wordmark: var(--font-sans);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
@@ -54,6 +44,10 @@
   --color-ring: var(--ring);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-amber: var(--amber);
+  --color-tone-cool: var(--tone-cool);
+  --color-tone-warm: var(--tone-warm);
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
   --color-hairline: var(--hairline);
@@ -65,75 +59,103 @@
    in src/lib/theme.tsx) swaps every value below for the night palette. */
 :root {
   --radius: 1rem;
-  /* Apple neutrals: near-white canvas, pure white cards, no colour cast */
-  --background: oklch(0.968 0 0);
-  --foreground: oklch(0.17 0 0);
+
+  /* Warm paper canvas, pure white cards */
+  --background: oklch(0.981 0.004 85);
+  --foreground: oklch(0.22 0.005 285);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.17 0 0);
+  --card-foreground: oklch(0.22 0.005 285);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.17 0 0);
-  --primary: oklch(0.17 0 0);
+  --popover-foreground: oklch(0.22 0.005 285);
+  --primary: oklch(0.38 0.16 299);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.94 0 0);
-  --secondary-foreground: oklch(0.17 0 0);
-  --muted: oklch(0.94 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --accent: oklch(0.92 0 0);
-  --accent-foreground: oklch(0.17 0 0);
-  --destructive: oklch(0.58 0.21 25);
+  --secondary: oklch(0.955 0.012 295);
+  --secondary-foreground: oklch(0.32 0.09 299);
+  --muted: oklch(0.955 0.008 90);
+  --muted-foreground: oklch(0.575 0.012 290);
+  --accent: oklch(0.95 0.016 295);
+  --accent-foreground: oklch(0.32 0.09 299);
+  --destructive: oklch(0.6 0.19 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0 0 0 / 9%);
-  --input: oklch(0 0 0 / 12%);
-  --ring: oklch(0.62 0.2 42);
+  --border: oklch(0.915 0.006 85);
+  --input: oklch(0.9 0.006 85);
+  --ring: oklch(0.55 0.22 296);
 
-  --brand: oklch(0.6 0.2 42);
+  /* Brand: deep violet ink, violet→amber gradient for accents */
+  --brand: oklch(0.38 0.16 299);
   --brand-foreground: oklch(1 0 0);
-  --surface-2: oklch(0.945 0 0);
-  --surface-3: oklch(0.9 0 0);
-  --hairline: oklch(0 0 0 / 8%);
+  --brand-soft: oklch(0.955 0.02 296);
+  --amber: oklch(0.79 0.13 76);
 
-  /* Flat, single-tone brand fill — no decorative gradients */
-  --gradient-brand: linear-gradient(oklch(0.6 0.2 42), oklch(0.6 0.2 42));
-  --glass: oklch(0.968 0 0 / 0.72);
-  --shadow-elevated: 0 1px 2px oklch(0 0 0 / 0.05), 0 8px 24px -16px oklch(0 0 0 / 0.16);
-  --shadow-brand: none;
+  --tone-cool: oklch(0.965 0.012 265);
+  --tone-warm: oklch(0.968 0.018 80);
+  --surface-2: oklch(0.965 0.008 90);
+  --surface-3: oklch(0.93 0.01 90);
+  --hairline: oklch(0.9 0.008 85);
+
+  --gradient-brand: linear-gradient(135deg, oklch(0.45 0.2 298) 0%, oklch(0.38 0.16 299) 100%);
+  --gradient-accent: linear-gradient(
+    90deg,
+    oklch(0.55 0.22 296) 0%,
+    oklch(0.7 0.15 300) 55%,
+    oklch(0.79 0.13 76) 100%
+  );
+  --glass: oklch(0.981 0.004 85 / 0.82);
+  --shadow-elevated:
+    0 1px 3px oklch(0.22 0.01 290 / 0.05), 0 10px 28px -14px oklch(0.35 0.08 295 / 0.16);
+  --shadow-brand: 0 10px 26px -12px oklch(0.45 0.2 298 / 0.45);
 }
 
 .dark {
-  --background: oklch(0.14 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.195 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.195 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.98 0 0);
-  --primary-foreground: oklch(0.14 0 0);
-  --secondary: oklch(0.25 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.68 0 0);
-  --accent: oklch(0.29 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.6 0.22 25);
+  --background: oklch(0.16 0.014 292);
+  --foreground: oklch(0.965 0.006 90);
+  --card: oklch(0.21 0.018 293);
+  --card-foreground: oklch(0.965 0.006 90);
+  --popover: oklch(0.21 0.018 293);
+  --popover-foreground: oklch(0.965 0.006 90);
+  --primary: oklch(0.72 0.16 297);
+  --primary-foreground: oklch(0.16 0.014 292);
+  --secondary: oklch(0.26 0.024 294);
+  --secondary-foreground: oklch(0.95 0.01 295);
+  --muted: oklch(0.26 0.02 294);
+  --muted-foreground: oklch(0.7 0.018 292);
+  --accent: oklch(0.3 0.03 295);
+  --accent-foreground: oklch(0.96 0.01 295);
+  --destructive: oklch(0.62 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.72 0.18 45);
+  --ring: oklch(0.72 0.16 297);
 
-  --brand: oklch(0.72 0.18 48);
-  --brand-foreground: oklch(0.14 0 0);
-  --surface-2: oklch(0.235 0 0);
-  --surface-3: oklch(0.3 0 0);
+  --brand: oklch(0.75 0.15 298);
+  --brand-foreground: oklch(0.16 0.014 292);
+  --brand-soft: oklch(0.28 0.04 296);
+  --amber: oklch(0.82 0.13 78);
+
+  --tone-cool: oklch(0.24 0.024 275);
+  --tone-warm: oklch(0.24 0.026 60);
+  --surface-2: oklch(0.24 0.02 293);
+  --surface-3: oklch(0.3 0.026 294);
   --hairline: oklch(1 0 0 / 10%);
 
-  --gradient-brand: linear-gradient(oklch(0.72 0.18 48), oklch(0.72 0.18 48));
-  --glass: oklch(0.14 0 0 / 0.72);
-  --shadow-elevated: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 30px -20px oklch(0 0 0 / 0.7);
-  --shadow-brand: none;
+  --gradient-brand: linear-gradient(135deg, oklch(0.62 0.2 297) 0%, oklch(0.5 0.18 300) 100%);
+  --gradient-accent: linear-gradient(
+    90deg,
+    oklch(0.68 0.19 296) 0%,
+    oklch(0.76 0.14 300) 55%,
+    oklch(0.82 0.13 78) 100%
+  );
+  --glass: oklch(0.16 0.014 292 / 0.82);
+  --shadow-elevated: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 30px -18px oklch(0 0 0 / 0.7);
+  --shadow-brand: 0 10px 26px -14px oklch(0.6 0.2 298 / 0.5);
 }
 
 @utility bg-brand-gradient {
   background-image: var(--gradient-brand);
+}
+
+@utility bg-accent-gradient {
+  background-image: var(--gradient-accent);
 }
 
 @utility bg-glass {
@@ -142,27 +164,26 @@
 
 /* Glass that sits on top of a photo: always dark, in both themes */
 @utility bg-glass-media {
-  background-color: oklch(0.18 0.008 285 / 0.55);
+  background-color: oklch(0.18 0.02 292 / 0.55);
   color: oklch(0.99 0 0);
 }
 
 /* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */
 
-/* Restrained Apple-like geometry: subtle rounding, almost no elevation */
 @utility surface-card {
-  @apply rounded-2xl bg-card ring-1 ring-hairline;
+  @apply rounded-3xl bg-card ring-1 ring-hairline shadow-elevated;
 }
 
 @utility surface-inset {
-  @apply rounded-xl bg-surface-2;
+  @apply rounded-2xl bg-surface-2;
 }
 
 @utility eyebrow {
-  @apply text-[12px] font-semibold uppercase tracking-[0.14em] text-muted-foreground;
+  @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
 }
 
 @utility eyebrow-brand {
-  @apply text-[11px] font-semibold uppercase tracking-[0.1em] text-brand;
+  @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-brand;
 }
 
 @utility icon-button {
@@ -170,7 +191,7 @@
 }
 
 @utility btn-brand {
-  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[15px] font-semibold text-brand-foreground transition-transform active:scale-[0.98];
+  @apply flex h-12 items-center justify-center gap-2 rounded-full bg-brand-gradient text-[14px] font-bold text-brand-foreground shadow-brand transition-transform active:scale-[0.98];
 }
 
 @utility text-balance-tight {
@@ -197,11 +218,10 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
   }
 
   ::-webkit-scrollbar {
     display: none;
   }
 }
-
