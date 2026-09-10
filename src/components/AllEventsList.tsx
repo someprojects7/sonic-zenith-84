@@ -5,6 +5,14 @@ import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, eventDays, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
 
+/** The selected days as inclusive indexes into eventDays, in either tap order. */
+function rangeBounds(range: { from: string; to: string } | null) {
+  if (!range) return null;
+  const a = eventDays.indexOf(range.from);
+  const b = eventDays.indexOf(range.to);
+  return { from: Math.min(a, b), to: Math.max(a, b) };
+}
+
 /** How the week was assembled, shown above the full calendar. */
 const SCAN = { events: 746, sources: 15, savedHours: 3 };
 
@@ -18,15 +26,13 @@ export function AllEventsList() {
 
   const days = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const bounds = range
-      ? [eventDays.indexOf(range.from), eventDays.indexOf(range.to)].sort((a, b) => a - b)
-      : null;
+    const bounds = rangeBounds(range);
 
     const matches = allEvents.filter((event) => {
       const inCategory = category === "All" || event.category === category;
       const inRange =
         !bounds ||
-        (eventDays.indexOf(event.day) >= bounds[0] && eventDays.indexOf(event.day) <= bounds[1]);
+        (eventDays.indexOf(event.day) >= bounds.from && eventDays.indexOf(event.day) <= bounds.to);
       const inQuery =
         q === "" ||
         [event.title, event.venue, event.category, event.city].some((field) =>
@@ -44,12 +50,10 @@ export function AllEventsList() {
   }, [category, query, range]);
 
   const inRange = (day: string) => {
-    if (!range) return false;
-    const [a, b] = [eventDays.indexOf(range.from), eventDays.indexOf(range.to)].sort(
-      (x, y) => x - y,
-    );
+    const bounds = rangeBounds(range);
+    if (!bounds) return false;
     const i = eventDays.indexOf(day);
-    return i >= a && i <= b;
+    return i >= bounds.from && i <= bounds.to;
   };
 
   const pickDay = (day: string) => {
