@@ -21,10 +21,11 @@ export function AppHeader({
     >
       <div className="flex items-center justify-between gap-3 px-5 pb-3.5 pt-[calc(1rem+env(safe-area-inset-top))]">
         <div className="min-w-0">
-          <h1 className="truncate text-[22px] font-bold leading-none tracking-[-0.02em] text-rausch">
-            sponsa
+          <h1 className="truncate text-[22px] font-bold uppercase leading-none tracking-[0.06em] text-rausch">
+            Sponsa
           </h1>
-          <p className="eyebrow mt-1.5 block leading-4">your city shortcut</p>
+          <p className="eyebrow mt-1.5 block leading-4">Your city shortcut</p>
+
         </div>
 
         <button
