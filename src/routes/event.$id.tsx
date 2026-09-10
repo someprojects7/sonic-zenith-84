@@ -203,7 +203,10 @@ function EventPage() {
               {formatWhen(event)}
             </p>
           </div>
-          <button type="button" className="btn-brand shrink-0 px-5">
+          <button
+            type="button"
+            className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-rausch px-5 text-[14px] font-medium text-white"
+          >
             {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
             {free ? "Open page" : "Get tickets"}
           </button>
