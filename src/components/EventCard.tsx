@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
 
+import { SaveButton } from "@/components/SaveButton";
 import { formatWhen, isFree, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +40,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           <span className="text-[14px] font-semibold text-foreground">
             {isFree(event) ? "Free" : event.price}
           </span>
-          <ChevronRight className="size-[18px] text-muted-foreground" strokeWidth={2} />
+          <SaveButton id={event.id} />
         </div>
       </Link>
 
@@ -52,7 +53,6 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
               : vote === "down"
                 ? "Fewer like this"
                 : `${event.match}% match`}
-
           </p>
 
           <div className="flex shrink-0 items-center gap-0.5">

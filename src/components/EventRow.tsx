@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronRight } from "lucide-react";
-import { formatWhen, type EventItem } from "@/data/events";
+
+import { SaveButton } from "@/components/SaveButton";
+import { formatWhen, isFree, type EventItem } from "@/data/events";
 
 export function EventRow({ event }: { event: EventItem }) {
   return (
@@ -26,8 +27,10 @@ export function EventRow({ event }: { event: EventItem }) {
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-1">
-        <span className="text-[14px] font-semibold text-foreground">{event.price}</span>
-        <ChevronRight className="size-[18px] text-muted-foreground" strokeWidth={2} />
+        <span className="text-[14px] font-semibold text-foreground">
+          {isFree(event) ? "Free" : event.price}
+        </span>
+        <SaveButton id={event.id} />
       </div>
     </Link>
   );
