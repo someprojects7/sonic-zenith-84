@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
@@ -13,7 +14,9 @@ import {
 
 
 import { SaveButton } from "@/components/SaveButton";
+import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -61,7 +64,7 @@ function EventMissing() {
       <p className="text-[15px] text-muted-foreground">This event is no longer listed.</p>
       <Link
         to="/"
-        className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground ring-1 ring-hairline"
+        className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground"
       >
         Back to events
       </Link>
@@ -71,7 +74,11 @@ function EventMissing() {
 
 function EventPage() {
   const { event } = Route.useLoaderData();
+  const { vote, markSeen } = usePreferences();
   const free = isFree(event);
+
+  // Opening the page counts as looking at it, so the "new" flag clears.
+  useEffect(() => markSeen(event.id), [event.id, markSeen]);
 
   const shareEvent = async () => {
     const url = window.location.href;
@@ -117,15 +124,12 @@ function EventPage() {
               </p>
             </div>
             <div className="mt-1 flex shrink-0 items-center gap-2">
-              <SaveButton
-                id={event.id}
-                className="size-11 bg-card ring-1 ring-hairline"
-              />
+              <SaveButton id={event.id} className="size-11 bg-surface-2" />
               <button
                 type="button"
                 aria-label="Share event"
                 onClick={shareEvent}
-                className="icon-button size-11 shrink-0 bg-card text-foreground ring-1 ring-hairline"
+                className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
               >
                 <Share2 className="size-[18px]" strokeWidth={2} />
               </button>
@@ -136,9 +140,10 @@ function EventPage() {
             <section className="rounded-xl bg-card p-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="size-3.5 shrink-0 text-rausch" />
-                <span className="text-[13px] font-semibold text-foreground">
-                  {event.match}% match
+                <span className="min-w-0 flex-1 text-[13px] font-semibold text-foreground">
+                  {voteLabel(vote(event.id), event.match)}
                 </span>
+                <VoteButtons id={event.id} />
               </div>
               <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
                 {event.reason}
@@ -198,7 +203,7 @@ function EventPage() {
           <Link
             to="/"
             aria-label="Back to events"
-            className="icon-button size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
+            className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
           >
             <ChevronLeft className="size-[21px]" />
           </Link>

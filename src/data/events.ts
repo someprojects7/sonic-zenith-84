@@ -22,6 +22,8 @@ export type EventItem = {
   source: string;
   about: string;
   highlights: string[];
+  /** Added in the latest scan; flagged until the person opens it. */
+  isNew?: boolean;
   /** Present only for recommended events (the "For you" feed). */
   match?: number;
   reason?: string;
@@ -79,6 +81,7 @@ export const picks: EventItem[] = [
     about:
       "Smala’s late room turned over to a single long techno set, with a slower dub-leaning opening and a hard close until sunrise. Small capacity, no photos on the floor.",
     highlights: ["Resident + guest, 6 h set", "Cash-free bar", "No photos on the dancefloor"],
+    isNew: true,
     match: 91,
     reason: "Late techno close to you, and you went to two club nights this month.",
   },
@@ -121,6 +124,7 @@ export const allEvents: EventItem[] = [
     image: art,
     ageLimit: "All ages",
     source: "mo.lt",
+    isNew: true,
     about:
       "Opening night of a group show on soft technology and the body, with textile, sound and video works by seven Baltic artists. The artists are present for the first two hours.",
     highlights: ["Free entry all evening", "Curator tour at 18:00", "Drinks in the atrium"],
@@ -139,6 +143,7 @@ export const allEvents: EventItem[] = [
     image: food,
     ageLimit: "All ages",
     source: "vilnius-events.lt",
+    isNew: true,
     about:
       "A weekend street market along Vokiėčių: regional wine growers, cheese and bread producers, plus a dozen kitchens cooking on the street until the evening.",
     highlights: ["~40 producers", "Free entry, pay per stall", "Best before 14:00"],
@@ -149,3 +154,6 @@ export const allEvents: EventItem[] = [
 export const categories = ["All", ...new Set(allEvents.map((e) => e.category))];
 
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
+
+/** Events added in the latest scan, used for the "new" flags in the tabs. */
+export const newEventIds = allEvents.filter((e) => e.isNew).map((e) => e.id);

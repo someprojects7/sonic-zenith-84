@@ -1,9 +1,12 @@
 import { useMemo, useState } from "react";
-import { Search, X } from "lucide-react";
+import { Hourglass, Search, X } from "lucide-react";
 
 import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
+
+/** How the week was assembled, shown above the full calendar. */
+const SCAN = { events: 746, sources: 15, savedHours: 3 };
 
 /** The full calendar: search, category chips, then events grouped by day. */
 export function AllEventsList() {
@@ -31,7 +34,17 @@ export function AllEventsList() {
   }, [category, query]);
 
   return (
-    <main className="space-y-5 pb-6 pt-5">
+    <main className="space-y-5 pb-6 pt-6">
+      <section className="px-5">
+        <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
+          All events in Vilnius
+        </h2>
+        <p className="mt-1.5 flex items-center gap-1.5 text-[13px] leading-[1.4] text-muted-foreground">
+          <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
+          {SCAN.events} events, {SCAN.sources} sources, {SCAN.savedHours}h saved
+        </p>
+      </section>
+
       <div className="px-5">
         <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-card px-4 shadow-elevated">
           <Search className="size-4 shrink-0 text-muted-foreground" strokeWidth={2} />

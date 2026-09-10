@@ -1,10 +1,15 @@
 import { Link } from "@tanstack/react-router";
 
+import { EventMeta, NewBadge } from "@/components/EventMeta";
 import { SaveButton } from "@/components/SaveButton";
-import { formatWhen, isFree, type EventItem } from "@/data/events";
+import { isFree, type EventItem } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 
 /** One compact calendar line. The row navigates; the heart stays outside it. */
 export function EventRow({ event }: { event: EventItem }) {
+  const { isSeen } = usePreferences();
+  const isNew = event.isNew && !isSeen(event.id);
+
   return (
     <div className="grid min-h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center rounded-xl bg-card pr-2">
       <Link
@@ -22,11 +27,14 @@ export function EventRow({ event }: { event: EventItem }) {
         />
         <div className="min-w-0">
           <p className="line-clamp-1 text-[16px] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
+            {isNew && (
+              <>
+                <NewBadge />{" "}
+              </>
+            )}
             {event.title}
           </p>
-          <p className="mt-1 truncate text-[14px] leading-[1.43] text-muted-foreground">
-            {formatWhen(event)} · {event.category}
-          </p>
+          <EventMeta event={event} />
         </div>
         <span className="shrink-0 text-[14px] font-semibold text-foreground">
           {isFree(event) ? "Free" : event.price}
