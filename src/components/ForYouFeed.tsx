@@ -24,10 +24,10 @@ export function ForYouFeed() {
     <main className="space-y-8 pb-6 pt-6">
       <section className="px-5">
         <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          Your week in Vilnius
+          Your week
         </h2>
         <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          {picks.length} picks chosen for your taste.
+          {picks.length} picks in Vilnius.
         </p>
       </section>
 
@@ -45,7 +45,7 @@ export function ForYouFeed() {
 
       <section className="px-5">
         <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
-          Also this weekend
+          More
         </h3>
         <div className="space-y-2">
           {order.rest.map((event) => (
@@ -55,7 +55,7 @@ export function ForYouFeed() {
       </section>
 
       <p className="px-5 text-[13px] leading-[1.43] text-muted-foreground">
-        That's everything worth your time this week.
+        That's the week.
       </p>
     </main>
   );

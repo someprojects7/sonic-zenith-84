@@ -61,7 +61,7 @@ export function AllEventsList() {
     <main className="space-y-5 pb-6 pt-6">
       <section className="px-5">
         <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          All events in Vilnius
+          All events
         </h2>
         <p className="mt-1.5 flex items-center gap-1.5 text-[13px] leading-[1.4] text-muted-foreground">
           <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
@@ -167,7 +167,7 @@ export function AllEventsList() {
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search events, venues, categories"
+              placeholder="Search"
               className="h-12 w-full min-w-0 bg-transparent text-[14px] text-foreground outline-none placeholder:text-muted-foreground"
             />
             {query && (
@@ -186,8 +186,8 @@ export function AllEventsList() {
 
       <p className="px-5 text-[13px] leading-[1.4] text-muted-foreground">
         {days.count === 0
-          ? "Nothing matches yet."
-          : `${days.count} ${days.count === 1 ? "event" : "events"}${dateLabel ? ` on ${dateLabel}` : " this week"}`}
+          ? "Nothing matches"
+          : `${days.count} ${days.count === 1 ? "event" : "events"}`}
       </p>
 
       <div className="space-y-6 px-5">
@@ -206,15 +206,15 @@ export function AllEventsList() {
 
         {days.count === 0 && (
           <div className="py-12 text-center">
-            <p className="text-[16px] font-medium text-foreground">No events like that this week</p>
+            <p className="text-[16px] font-medium text-foreground">Nothing matches</p>
             <p className="mt-1.5 text-[14px] text-muted-foreground">
-              Try other dates or another category.
+              Try other dates.
             </p>
             <button
               onClick={reset}
               className="mt-4 h-11 rounded-full bg-brand px-5 text-[14px] font-semibold text-brand-foreground"
             >
-              Show everything
+              Reset
             </button>
           </div>
         )}
