@@ -217,7 +217,7 @@ function Problem() {
   return (
     <Section>
       <Eyebrow>Sound familiar</Eyebrow>
-      <Heading>Finding a good night should take a minute, not an evening.</Heading>
+      <Heading>A good night should take a minute to find.</Heading>
 
       <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
         {PROBLEMS.map((p) => (
