@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { Hourglass } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";

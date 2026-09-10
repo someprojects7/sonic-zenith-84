@@ -23,10 +23,9 @@ export function AppHeader({
       )}
     >
       <div className="flex h-16 items-center justify-between gap-3 px-5 pt-[env(safe-area-inset-top)]">
-        <h1 className="truncate font-wordmark text-[21px] font-bold uppercase leading-none tracking-[0.1em] text-rausch">
-          Sponsa
+        <h1 className="truncate font-wordmark text-[21px] font-bold uppercase leading-none tracking-[0.1em] text-foreground">
+          Sponsa<span className="text-rausch">.</span>net
         </h1>
-
 
         <button
           onClick={onProfileClick}
