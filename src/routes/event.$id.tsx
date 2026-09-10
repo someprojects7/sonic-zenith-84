@@ -63,7 +63,7 @@ function EventMissing() {
     <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-5 text-center">
       <p className="text-[15px] text-muted-foreground">Event not listed.</p>
       <Link
-        to="/"
+        to="/app"
         className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground"
       >
         Back
@@ -201,7 +201,7 @@ function EventPage() {
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
         <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Link
-            to="/"
+            to="/app"
             aria-label="Back"
             className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
           >
