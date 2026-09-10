@@ -2,9 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   CalendarCheck,
+  Check,
+  Clock,
   Crown,
   Filter,
   Instagram,
+  MapPin,
   Radar,
   Sparkles,
   Star,
@@ -20,16 +23,16 @@ import sceneMarket from "@/assets/scene-market.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa: your event curator in Vilnius" },
+      { title: "Sponsa: your shortcut to the city" },
       {
         name: "description",
         content:
-          "We scan 1,000+ city events a day and hand you the ten worth your evening. One minute to set your taste.",
+          "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.",
       },
-      { property: "og:title", content: "Sponsa: your event curator" },
+      { property: "og:title", content: "Sponsa: your shortcut to the city" },
       {
         property: "og:description",
-        content: "1,000+ events scanned daily. Ten picks a week, chosen for you.",
+        content: "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,7 +41,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const CTA = "Get my picks";
+const CTA = "Find my week";
 
 function Wordmark({ light = false }: { light?: boolean }) {
   return (
@@ -55,7 +58,7 @@ function Wordmark({ light = false }: { light?: boolean }) {
 function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
   return (
     <Link
-      to="/app"
+      to="/quiz"
       className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-opacity active:opacity-80 ${
         variant === "coral" ? "bg-rausch text-white" : "bg-foreground text-background"
       }`}
@@ -65,6 +68,7 @@ function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
     </Link>
   );
 }
+
 
 function Section({
   className = "",
@@ -100,9 +104,11 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Hero />
+      <Problem />
       <Steps />
       <Preview />
       <Scenes />
+      <Pricing />
       <Team />
       <FinalCta />
       <Footer />
@@ -128,16 +134,20 @@ function Hero() {
           to="/app"
           className="text-[14px] font-semibold text-white/85 transition-colors hover:text-white"
         >
-          Open app
+          Sign in
         </Link>
       </div>
 
       <div className="px-5 pb-12">
-        <h1 className="max-w-2xl text-[38px] font-medium leading-[1.06] tracking-[-0.03em] text-white sm:text-6xl">
-          Your event curator in Vilnius
+        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white/70">
+          Vilnius, this week
+        </p>
+        <h1 className="mt-3 max-w-2xl text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-white sm:text-6xl">
+          Your shortcut to the city
         </h1>
-        <p className="mt-4 max-w-md text-[16px] leading-[1.5] text-white/80">
-          We read 1,000+ events a day and hand you the ten worth your evening.
+        <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-white/85">
+          Stop scrolling five apps to find one decent night. Answer 20 taps, get the ten events
+          in your city that fit you.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[14px] text-white/80">
@@ -150,28 +160,71 @@ function Hero() {
 
         <div className="mt-7">
           <Cta />
-          <p className="mt-3 text-[13px] text-white/70">Free. One minute. No spam.</p>
+          <p className="mt-3 text-[13px] text-white/70">
+            60 seconds. First picks free, Pro from €7.99 a month.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
+const PROBLEMS = [
+  {
+    icon: Clock,
+    title: "You hear about it on Monday",
+    note: "The gig was Saturday. Again.",
+  },
+  {
+    icon: Filter,
+    title: "Five apps, none of them yours",
+    note: "Instagram stories, ticket sites, a friend of a friend.",
+  },
+  {
+    icon: MapPin,
+    title: "The same three bars",
+    note: "A city of a thousand nights and you keep repeating one.",
+  },
+];
+
+function Problem() {
+  return (
+    <Section>
+      <Eyebrow>Sound familiar</Eyebrow>
+      <Heading>Finding a good night should take a minute, not an evening.</Heading>
+
+      <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
+        {PROBLEMS.map((p) => (
+          <article key={p.title} className="rounded-xl bg-card p-4">
+            <span className="icon-button size-9 bg-surface-2 text-rausch">
+              <p.icon className="size-4" strokeWidth={2.2} />
+            </span>
+            <h3 className="mt-3 text-[16px] font-medium leading-[1.25] text-foreground">
+              {p.title}
+            </h3>
+            <p className="mt-1 text-[14px] leading-[1.43] text-muted-foreground">{p.note}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 const STEPS = [
-  { icon: Radar, value: "1,000+", label: "events found daily", note: "Venues, promoters, ticketing." },
-  { icon: Filter, value: "120", label: "fit your taste", note: "Genre, budget, distance, free nights." },
+  { icon: Sparkles, value: "20 taps", label: "you tell us your taste", note: "Sound, budget, nights, distance." },
+  { icon: Radar, value: "1,000+", label: "events we read daily", note: "Venues, promoters, ticketing." },
   { icon: Crown, value: "10", label: "become your week", note: "Each one with a reason." },
 ];
 
 function Steps() {
   return (
-    <Section>
-      <Eyebrow>How we pick</Eyebrow>
-      <Heading>A thousand options in, ten out.</Heading>
+    <Section className="bg-card">
+      <Eyebrow>How it works</Eyebrow>
+      <Heading>One minute now, planned weeks after.</Heading>
 
       <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
         {STEPS.map((s) => (
-          <article key={s.label} className="rounded-xl bg-card p-4">
+          <article key={s.label} className="rounded-xl bg-background p-4">
             <span className="icon-button size-9 bg-surface-2 text-rausch">
               <s.icon className="size-4" strokeWidth={2.2} />
             </span>
@@ -186,12 +239,13 @@ function Steps() {
         ))}
       </div>
 
-      <p className="mt-6 text-[14px] leading-[1.43] text-muted-foreground">
-        By hand that is hours every week. Sponsa takes a minute, once.
-      </p>
+      <div className="mt-6">
+        <Cta variant="ink" />
+      </div>
     </Section>
   );
 }
+
 
 const SAMPLE = [
   { time: "Thu 19:00", title: "Nils Frahm, live piano", place: "Old Power Plant", match: "94%", why: "You saved two ambient gigs" },
@@ -201,13 +255,14 @@ const SAMPLE = [
 
 function Preview() {
   return (
-    <Section className="bg-card">
+    <Section>
       <Eyebrow>Your week</Eyebrow>
       <Heading>Ten picks, each with a reason.</Heading>
 
       <div className="mt-6 space-y-2 sm:max-w-lg">
         {SAMPLE.map((p) => (
-          <div key={p.title} className="rounded-xl bg-background p-3">
+          <div key={p.title} className="rounded-xl bg-card p-3">
+
             <p className="flex items-center justify-between gap-3">
               <span className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
                 {p.title}
@@ -273,6 +328,69 @@ function Scenes() {
   );
 }
 
+const PLANS = [
+  {
+    name: "Free",
+    price: "€0",
+    unit: "",
+    perks: ["3 picks a week", "One city", "Basic filters"],
+    accent: false,
+  },
+  {
+    name: "Pro",
+    price: "€7.99",
+    unit: "/ month",
+    perks: [
+      "All 10 picks every week",
+      "New events the hour we find them",
+      "Saved lists and calendar sync",
+      "Every city we cover",
+    ],
+    accent: true,
+  },
+];
+
+function Pricing() {
+  return (
+    <Section className="bg-card">
+      <Eyebrow>Pricing</Eyebrow>
+      <Heading>Start free. Go Pro when your calendar fills up.</Heading>
+
+      <div className="mt-6 grid gap-2 sm:max-w-2xl sm:grid-cols-2 sm:gap-4">
+        {PLANS.map((plan) => (
+          <article
+            key={plan.name}
+            className={`rounded-xl bg-background p-4 ${
+              plan.accent ? "border-2 border-rausch" : "border border-hairline"
+            }`}
+          >
+            <p className="flex items-baseline justify-between gap-3">
+              <span className="text-[17px] font-medium text-foreground">{plan.name}</span>
+              <span className="text-[14px] text-muted-foreground">
+                <span className="text-[17px] font-semibold text-foreground">{plan.price}</span>{" "}
+                {plan.unit}
+              </span>
+            </p>
+            <ul className="mt-3 space-y-1.5">
+              {plan.perks.map((perk) => (
+                <li key={perk} className="flex items-center gap-2 text-[14px] text-muted-foreground">
+                  <Check
+                    className={`size-4 shrink-0 ${plan.accent ? "text-rausch" : "text-foreground"}`}
+                  />
+                  {perk}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <p className="mt-4 text-[14px] text-muted-foreground">Cancel any time.</p>
+    </Section>
+  );
+}
+
+
 const STATS = [
   { icon: CalendarCheck, k: "4 years", v: "in events" },
   { icon: Star, k: "600+", v: "events attended" },
@@ -287,7 +405,7 @@ const FOUNDERS = [
 
 function Team() {
   return (
-    <Section className="bg-card">
+    <Section>
       <Eyebrow>Team</Eyebrow>
       <Heading>Built by two people who live in events.</Heading>
       <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-muted-foreground">
@@ -296,7 +414,7 @@ function Team() {
 
       <dl className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
         {STATS.map((s) => (
-          <div key={s.v} className="rounded-xl bg-background p-4">
+          <div key={s.v} className="rounded-xl bg-card p-4">
             <span className="icon-button size-9 bg-surface-2 text-rausch">
               <s.icon className="size-4" strokeWidth={2.2} />
             </span>
@@ -310,7 +428,7 @@ function Team() {
         {FOUNDERS.map((f) => (
           <div
             key={f.name}
-            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-xl bg-background p-4"
+            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-xl bg-card p-4"
           >
             <img
               src={f.img}
@@ -347,10 +465,10 @@ function FinalCta() {
     <Section>
       <div className="rounded-xl bg-foreground px-5 py-12 text-center sm:py-16">
         <h2 className="mx-auto max-w-xl text-[28px] font-medium leading-[1.12] tracking-[-0.02em] text-background sm:text-[40px]">
-          Next week you already have a plan.
+          This weekend is already sorted.
         </h2>
         <p className="mx-auto mt-3 max-w-sm text-[16px] leading-[1.5] text-background/70">
-          One minute to set your taste. Ten events a week, picked for you.
+          20 taps now. Your picks waiting when you open the app.
         </p>
         <div className="mt-7">
           <Cta />
@@ -366,7 +484,7 @@ function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
         <Wordmark />
         <p className="text-[13px] text-muted-foreground">
-          © {new Date().getFullYear()} Sponsa.net, your event curator in Vilnius
+          © {new Date().getFullYear()} Sponsa.net, your shortcut to the city
         </p>
       </div>
     </footer>
