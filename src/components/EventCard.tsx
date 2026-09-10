@@ -13,7 +13,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
   const [vote, setVote] = useState<"up" | "down" | null>(null);
 
   return (
-    <article className="rounded-2xl bg-card ring-1 ring-hairline">
+    <article className="surface-card overflow-hidden">
       <Link
         to="/event/$id"
         params={{ id: event.id }}
@@ -25,26 +25,26 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           width={1024}
           height={768}
           loading={featured ? undefined : "lazy"}
-          className="size-14 shrink-0 rounded-xl object-cover"
+          className="size-[54px] shrink-0 rounded-2xl object-cover"
         />
         <div className="min-w-0">
-          <p className="line-clamp-2 text-[15px] font-semibold leading-[1.2] text-foreground">
+          <p className="line-clamp-2 text-[15px] font-bold leading-[1.3] tracking-[-0.01em] text-foreground">
             {event.title}
           </p>
-          <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
+          <p className="mt-[3px] truncate text-[12px] leading-snug text-muted-foreground">
             {formatWhen(event)} · {event.category}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
-          <span className="text-[12px] font-semibold text-brand">
+          <span className="text-[12px] font-bold text-brand">
             {isFree(event) ? "Free" : event.price}
           </span>
-          <ChevronRight className="size-4 text-muted-foreground" />
+          <ChevronRight className="size-[18px] text-muted-foreground" strokeWidth={2.2} />
         </div>
       </Link>
 
       {event.reason && (
-        <div className="flex items-center gap-2 border-t border-hairline px-3.5 py-2">
+        <div className="flex items-center gap-2 bg-tone-cool px-3.5 py-2">
           <Sparkles className="size-3.5 shrink-0 text-brand" />
           <p className="min-w-0 flex-1 text-[12px] leading-4 text-muted-foreground">
             {vote === "up"
@@ -98,7 +98,7 @@ function VoteButton({
       onClick={onClick}
       className={cn(
         "grid size-9 place-items-center rounded-full text-muted-foreground transition-colors",
-        active ? activeClass : "active:bg-surface-3",
+        active ? activeClass : "active:bg-card",
       )}
     >
       <Icon className="size-4" />

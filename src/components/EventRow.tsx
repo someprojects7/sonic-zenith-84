@@ -7,26 +7,26 @@ export function EventRow({ event }: { event: EventItem }) {
     <Link
       to="/event/$id"
       params={{ id: event.id }}
-      className="-mx-2 grid min-h-[76px] w-[calc(100%+1rem)] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 rounded-2xl px-2 py-3 text-left transition-colors active:bg-surface-2">
+      className="grid min-h-[76px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 rounded-2xl bg-card px-3.5 py-3 text-left ring-1 ring-hairline transition-colors active:bg-surface-2">
       <img
         src={event.image}
         alt={event.title}
         width={1024}
         height={768}
         loading="lazy"
-        className="size-14 shrink-0 rounded-xl object-cover"
+        className="size-[54px] shrink-0 rounded-2xl object-cover"
       />
       <div className="min-w-0">
-        <p className="line-clamp-2 text-[15px] font-semibold leading-[1.2] text-foreground">
+        <p className="line-clamp-2 text-[15px] font-bold leading-[1.3] tracking-[-0.01em] text-foreground">
           {event.title}
         </p>
-        <p className="mt-1 truncate text-[13px] leading-[1.35] text-muted-foreground">
+        <p className="mt-[3px] truncate text-[12px] leading-snug text-muted-foreground">
           {formatWhen(event)} · {event.category}
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-1.5">
-        <span className="text-[12px] font-semibold text-brand">{event.price}</span>
-        <ChevronRight className="size-4 text-muted-foreground" />
+        <span className="text-[12px] font-bold text-brand">{event.price}</span>
+        <ChevronRight className="size-[18px] text-muted-foreground" strokeWidth={2.2} />
       </div>
     </Link>
   );
