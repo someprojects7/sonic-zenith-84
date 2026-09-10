@@ -246,7 +246,7 @@ function Steps() {
   return (
     <Section className="bg-card">
       <Eyebrow>How it works</Eyebrow>
-      <Heading>One minute now, planned weeks after.</Heading>
+      <Heading>One minute now. Every week sorted.</Heading>
 
       <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
         {STEPS.map((s) => (
@@ -380,7 +380,7 @@ function Pricing() {
   return (
     <Section className="bg-card">
       <Eyebrow>Pricing</Eyebrow>
-      <Heading>Start free. Go Pro when your calendar fills up.</Heading>
+      <Heading>Start free. Go Pro when you are out every week.</Heading>
 
       <div className="mt-6 grid gap-2 sm:max-w-2xl sm:grid-cols-2 sm:gap-4">
         {PLANS.map((plan) => (
@@ -491,7 +491,7 @@ function FinalCta() {
     <Section>
       <div className="rounded-xl bg-foreground px-5 py-12 text-center sm:py-16">
         <h2 className="mx-auto max-w-xl text-[28px] font-medium leading-[1.12] tracking-[-0.02em] text-background sm:text-[40px]">
-          This weekend is already sorted.
+          Your weekend, already picked.
         </h2>
         <p className="mx-auto mt-3 max-w-sm text-[16px] leading-[1.5] text-background/70">
           20 taps now. Your picks waiting when you open the app.
