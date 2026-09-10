@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Search, X } from "lucide-react";
+import { Hourglass, Search, X } from "lucide-react";
 
 import { EventRow } from "@/components/EventRow";
 import { allEvents, categories, type EventItem } from "@/data/events";
