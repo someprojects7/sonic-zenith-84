@@ -2,9 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   CalendarCheck,
+  Check,
+  Clock,
   Crown,
   Filter,
   Instagram,
+  MapPin,
   Radar,
   Sparkles,
   Star,
@@ -402,7 +405,7 @@ const FOUNDERS = [
 
 function Team() {
   return (
-    <Section className="bg-card">
+    <Section>
       <Eyebrow>Team</Eyebrow>
       <Heading>Built by two people who live in events.</Heading>
       <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-muted-foreground">
@@ -411,7 +414,7 @@ function Team() {
 
       <dl className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
         {STATS.map((s) => (
-          <div key={s.v} className="rounded-xl bg-background p-4">
+          <div key={s.v} className="rounded-xl bg-card p-4">
             <span className="icon-button size-9 bg-surface-2 text-rausch">
               <s.icon className="size-4" strokeWidth={2.2} />
             </span>
@@ -425,7 +428,7 @@ function Team() {
         {FOUNDERS.map((f) => (
           <div
             key={f.name}
-            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-xl bg-background p-4"
+            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-xl bg-card p-4"
           >
             <img
               src={f.img}
@@ -462,10 +465,10 @@ function FinalCta() {
     <Section>
       <div className="rounded-xl bg-foreground px-5 py-12 text-center sm:py-16">
         <h2 className="mx-auto max-w-xl text-[28px] font-medium leading-[1.12] tracking-[-0.02em] text-background sm:text-[40px]">
-          Next week you already have a plan.
+          This weekend is already sorted.
         </h2>
         <p className="mx-auto mt-3 max-w-sm text-[16px] leading-[1.5] text-background/70">
-          One minute to set your taste. Ten events a week, picked for you.
+          20 taps now. Your picks waiting when you open the app.
         </p>
         <div className="mt-7">
           <Cta />
@@ -481,7 +484,7 @@ function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
         <Wordmark />
         <p className="text-[13px] text-muted-foreground">
-          © {new Date().getFullYear()} Sponsa.net, your event curator in Vilnius
+          © {new Date().getFullYear()} Sponsa.net, your shortcut to the city
         </p>
       </div>
     </footer>
