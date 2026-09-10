@@ -252,13 +252,14 @@ const SAMPLE = [
 
 function Preview() {
   return (
-    <Section className="bg-card">
+    <Section>
       <Eyebrow>Your week</Eyebrow>
       <Heading>Ten picks, each with a reason.</Heading>
 
       <div className="mt-6 space-y-2 sm:max-w-lg">
         {SAMPLE.map((p) => (
-          <div key={p.title} className="rounded-xl bg-background p-3">
+          <div key={p.title} className="rounded-xl bg-card p-3">
+
             <p className="flex items-center justify-between gap-3">
               <span className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
                 {p.title}
