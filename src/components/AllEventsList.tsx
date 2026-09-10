@@ -1,44 +1,40 @@
 import { useMemo, useState } from "react";
-import { Hourglass, Search, X } from "lucide-react";
+import type { DateRange } from "react-day-picker";
+import { CalendarDays, Hourglass, Search, X } from "lucide-react";
+import { format, isWithinInterval, startOfDay } from "date-fns";
 
 import { EventRow } from "@/components/EventRow";
-import { allEvents, categories, eventDays, type EventItem } from "@/data/events";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { allEvents, categories, eventDate, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
-
-/** The selected days as inclusive indexes into eventDays, in either tap order. */
-function rangeBounds(range: { from: string; to: string } | null) {
-  if (!range) return null;
-  const a = eventDays.indexOf(range.from);
-  const b = eventDays.indexOf(range.to);
-  return { from: Math.min(a, b), to: Math.max(a, b) };
-}
 
 /** How the week was assembled, shown above the full calendar. */
 const SCAN = { events: 746, sources: 15, savedHours: 3 };
 
-/** The full calendar: dates, categories, optional search, then events by day. */
+/** The full calendar: dates and categories, search behind a magnifier, events by day. */
 export function AllEventsList() {
   const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  // A range is picked by tapping a first day, then a last day.
-  const [range, setRange] = useState<{ from: string; to: string } | null>(null);
+  const [datesOpen, setDatesOpen] = useState(false);
+  const [range, setRange] = useState<DateRange | undefined>();
 
   const days = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const bounds = rangeBounds(range);
+    const from = range?.from ? startOfDay(range.from) : null;
+    const to = range?.to ? startOfDay(range.to) : from;
 
     const matches = allEvents.filter((event) => {
       const inCategory = category === "All" || event.category === category;
-      const inRange =
-        !bounds ||
-        (eventDays.indexOf(event.day) >= bounds.from && eventDays.indexOf(event.day) <= bounds.to);
+      const inDates =
+        !from || !to || isWithinInterval(startOfDay(eventDate(event)), { start: from, end: to });
       const inQuery =
         q === "" ||
         [event.title, event.venue, event.category, event.city].some((field) =>
           field.toLowerCase().includes(q),
         );
-      return inCategory && inRange && inQuery;
+      return inCategory && inDates && inQuery;
     });
 
     // One heading per day, so a newcomer reads the week, not a flat list.
@@ -49,26 +45,16 @@ export function AllEventsList() {
     return { groups: [...grouped], count: matches.length };
   }, [category, query, range]);
 
-  const inRange = (day: string) => {
-    const bounds = rangeBounds(range);
-    if (!bounds) return false;
-    const i = eventDays.indexOf(day);
-    return i >= bounds.from && i <= bounds.to;
-  };
-
-  const pickDay = (day: string) => {
-    setRange((current) => {
-      if (!current) return { from: day, to: day };
-      if (current.from === current.to && current.from !== day) return { ...current, to: day };
-      if (current.from === day && current.to === day) return null; // tapping again clears it
-      return { from: day, to: day };
-    });
-  };
+  const dateLabel = range?.from
+    ? range.to && range.to.getTime() !== range.from.getTime()
+      ? `${format(range.from, "d MMM")} – ${format(range.to, "d MMM")}`
+      : format(range.from, "d MMM")
+    : null;
 
   const reset = () => {
     setQuery("");
     setCategory("All");
-    setRange(null);
+    setRange(undefined);
   };
 
   return (
@@ -83,47 +69,50 @@ export function AllEventsList() {
         </p>
       </section>
 
-      {/* Pick the days you are free: tap a first day, then a last day. */}
-      <div className="flex gap-2 overflow-x-auto px-5">
-        {eventDays.map((day) => {
-          const [weekday, date, month] = day.split(" ");
-          const active = inRange(day);
-          return (
+      {/* One quiet row: dates, search, then categories. Both filters open on demand. */}
+      <div className="flex items-center gap-2 px-5">
+        <Popover open={datesOpen} onOpenChange={setDatesOpen}>
+          <PopoverTrigger asChild>
             <button
-              key={day}
-              onClick={() => pickDay(day)}
-              aria-pressed={active}
+              type="button"
+              aria-label="Pick dates"
               className={cn(
-                "flex h-[62px] w-[56px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors",
-                active
-                  ? "bg-foreground text-background"
-                  : "bg-card text-foreground ring-1 ring-hairline",
+                "flex h-9 shrink-0 items-center gap-1.5 rounded-full text-[13px] font-medium transition-colors",
+                dateLabel ? "bg-foreground px-3.5 text-background" : "w-9 justify-center bg-card text-foreground ring-1 ring-hairline",
               )}
             >
-              <span
-                className={cn(
-                  "text-[11px] uppercase tracking-[0.04em]",
-                  active ? "text-background/70" : "text-muted-foreground",
-                )}
-              >
-                {weekday}
-              </span>
-              <span className="text-[17px] font-semibold leading-tight">{date}</span>
-              <span
-                className={cn(
-                  "text-[11px]",
-                  active ? "text-background/70" : "text-muted-foreground",
-                )}
-              >
-                {month}
-              </span>
+              <CalendarDays className="size-4 shrink-0" strokeWidth={2.5} />
+              {dateLabel && <span className="whitespace-nowrap">{dateLabel}</span>}
             </button>
-          );
-        })}
-      </div>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="w-auto p-0">
+            <Calendar
+              mode="range"
+              selected={range}
+              onSelect={setRange}
+              defaultMonth={range?.from ?? eventDate(allEvents[0]!)}
+              numberOfMonths={1}
+              className="pointer-events-auto p-3"
+            />
+            <div className="flex items-center justify-between gap-2 border-t border-hairline p-3">
+              <button
+                type="button"
+                onClick={() => setRange(undefined)}
+                className="h-9 rounded-full px-3 text-[13px] font-medium text-muted-foreground"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                onClick={() => setDatesOpen(false)}
+                className="h-9 rounded-full bg-brand px-4 text-[13px] font-semibold text-brand-foreground"
+              >
+                Done
+              </button>
+            </div>
+          </PopoverContent>
+        </Popover>
 
-      {/* Categories, with search tucked behind a magnifier so it costs no space */}
-      <div className="flex items-center gap-2 px-5">
         <button
           type="button"
           aria-label={searchOpen ? "Close search" : "Search events"}
@@ -192,7 +181,7 @@ export function AllEventsList() {
       <p className="px-5 text-[13px] leading-[1.4] text-muted-foreground">
         {days.count === 0
           ? "Nothing matches yet."
-          : `${days.count} ${days.count === 1 ? "event" : "events"}${range ? " on those days" : " this week"}`}
+          : `${days.count} ${days.count === 1 ? "event" : "events"}${dateLabel ? ` on ${dateLabel}` : " this week"}`}
       </p>
 
       <div className="space-y-6 px-5">
@@ -213,7 +202,7 @@ export function AllEventsList() {
           <div className="py-12 text-center">
             <p className="text-[16px] font-medium text-foreground">No events like that this week</p>
             <p className="mt-1.5 text-[14px] text-muted-foreground">
-              Try other days or another category.
+              Try other dates or another category.
             </p>
             <button
               onClick={reset}
