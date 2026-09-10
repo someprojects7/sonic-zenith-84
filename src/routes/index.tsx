@@ -101,9 +101,11 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Hero />
+      <Problem />
       <Steps />
       <Preview />
       <Scenes />
+      <Pricing />
       <Team />
       <FinalCta />
       <Footer />
@@ -129,16 +131,20 @@ function Hero() {
           to="/app"
           className="text-[14px] font-semibold text-white/85 transition-colors hover:text-white"
         >
-          Open app
+          Sign in
         </Link>
       </div>
 
       <div className="px-5 pb-12">
-        <h1 className="max-w-2xl text-[38px] font-medium leading-[1.06] tracking-[-0.03em] text-white sm:text-6xl">
-          Your event curator in Vilnius
+        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white/70">
+          Vilnius, this week
+        </p>
+        <h1 className="mt-3 max-w-2xl text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-white sm:text-6xl">
+          Your shortcut to the city
         </h1>
-        <p className="mt-4 max-w-md text-[16px] leading-[1.5] text-white/80">
-          We read 1,000+ events a day and hand you the ten worth your evening.
+        <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-white/85">
+          Stop scrolling five apps to find one decent night. Answer 20 taps, get the ten events
+          in your city that fit you.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[14px] text-white/80">
@@ -151,28 +157,71 @@ function Hero() {
 
         <div className="mt-7">
           <Cta />
-          <p className="mt-3 text-[13px] text-white/70">Free. One minute. No spam.</p>
+          <p className="mt-3 text-[13px] text-white/70">
+            60 seconds. First picks free, Pro from €7.99 a month.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
+const PROBLEMS = [
+  {
+    icon: Clock,
+    title: "You hear about it on Monday",
+    note: "The gig was Saturday. Again.",
+  },
+  {
+    icon: Filter,
+    title: "Five apps, none of them yours",
+    note: "Instagram stories, ticket sites, a friend of a friend.",
+  },
+  {
+    icon: MapPin,
+    title: "The same three bars",
+    note: "A city of a thousand nights and you keep repeating one.",
+  },
+];
+
+function Problem() {
+  return (
+    <Section>
+      <Eyebrow>Sound familiar</Eyebrow>
+      <Heading>Finding a good night should take a minute, not an evening.</Heading>
+
+      <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
+        {PROBLEMS.map((p) => (
+          <article key={p.title} className="rounded-xl bg-card p-4">
+            <span className="icon-button size-9 bg-surface-2 text-rausch">
+              <p.icon className="size-4" strokeWidth={2.2} />
+            </span>
+            <h3 className="mt-3 text-[16px] font-medium leading-[1.25] text-foreground">
+              {p.title}
+            </h3>
+            <p className="mt-1 text-[14px] leading-[1.43] text-muted-foreground">{p.note}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 const STEPS = [
-  { icon: Radar, value: "1,000+", label: "events found daily", note: "Venues, promoters, ticketing." },
-  { icon: Filter, value: "120", label: "fit your taste", note: "Genre, budget, distance, free nights." },
+  { icon: Sparkles, value: "20 taps", label: "you tell us your taste", note: "Sound, budget, nights, distance." },
+  { icon: Radar, value: "1,000+", label: "events we read daily", note: "Venues, promoters, ticketing." },
   { icon: Crown, value: "10", label: "become your week", note: "Each one with a reason." },
 ];
 
 function Steps() {
   return (
-    <Section>
-      <Eyebrow>How we pick</Eyebrow>
-      <Heading>A thousand options in, ten out.</Heading>
+    <Section className="bg-card">
+      <Eyebrow>How it works</Eyebrow>
+      <Heading>One minute now, planned weeks after.</Heading>
 
       <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
         {STEPS.map((s) => (
-          <article key={s.label} className="rounded-xl bg-card p-4">
+          <article key={s.label} className="rounded-xl bg-background p-4">
             <span className="icon-button size-9 bg-surface-2 text-rausch">
               <s.icon className="size-4" strokeWidth={2.2} />
             </span>
@@ -187,12 +236,13 @@ function Steps() {
         ))}
       </div>
 
-      <p className="mt-6 text-[14px] leading-[1.43] text-muted-foreground">
-        By hand that is hours every week. Sponsa takes a minute, once.
-      </p>
+      <div className="mt-6">
+        <Cta variant="ink" />
+      </div>
     </Section>
   );
 }
+
 
 const SAMPLE = [
   { time: "Thu 19:00", title: "Nils Frahm, live piano", place: "Old Power Plant", match: "94%", why: "You saved two ambient gigs" },
