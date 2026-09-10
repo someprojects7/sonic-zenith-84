@@ -92,27 +92,26 @@ function EventPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
-        <div className="h-1 w-full bg-accent-gradient" />
         <div className="px-4 pt-4">
           <img
             src={event.image}
             alt={event.title}
             width={1024}
             height={768}
-            className="aspect-[4/3] w-full rounded-3xl object-cover"
+            className="aspect-[4/3] w-full rounded-xl object-cover"
           />
         </div>
 
         <main className="space-y-8 px-5 pt-5">
           <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
             <div className="min-w-0">
-              <span className="eyebrow-brand inline-flex h-7 items-center rounded-full bg-brand-soft px-3">
+              <span className="inline-flex h-7 items-center rounded-full bg-card px-3 text-[12px] font-semibold text-foreground">
                 {event.category}
               </span>
-              <h1 className="mt-3 text-[26px] font-extrabold leading-[1.2] tracking-[-0.03em] text-foreground text-balance-tight">
+              <h1 className="mt-3 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
                 {event.title}
               </h1>
-              <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
+              <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
                 {formatWhen(event)} · {event.city}
               </p>
             </div>
@@ -120,25 +119,31 @@ function EventPage() {
               type="button"
               aria-label="Share event"
               onClick={shareEvent}
-              className="icon-button mt-1 size-11 shrink-0 bg-brand-soft text-brand"
+              className="icon-button mt-1 size-11 shrink-0 bg-card text-foreground ring-1 ring-hairline"
             >
-              <Share2 className="size-[18px]" strokeWidth={2.1} />
+              <Share2 className="size-[18px]" strokeWidth={2} />
             </button>
           </header>
 
           {event.match && event.reason && (
-            <section className="rounded-3xl bg-tone-cool p-4">
+            <section className="rounded-xl bg-card p-4">
               <div className="flex items-center gap-2">
-                <Sparkles className="size-3.5 shrink-0 text-brand" />
-                <span className="eyebrow-brand">{event.match}% match</span>
+                <Sparkles className="size-3.5 shrink-0 text-rausch" />
+                <span className="text-[13px] font-semibold text-foreground">
+                  {event.match}% match
+                </span>
               </div>
-              <p className="mt-2 text-[13.5px] leading-[1.6] text-foreground/90">{event.reason}</p>
+              <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
+                {event.reason}
+              </p>
             </section>
           )}
 
           <section>
-            <h2 className="eyebrow mb-3">Details</h2>
-            <div className="surface-card divide-y divide-hairline overflow-hidden">
+            <h2 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+              Details
+            </h2>
+            <div className="divide-y divide-hairline overflow-hidden rounded-xl bg-card">
               {facts(event).map((fact) => (
                 <div
                   key={fact.label}
