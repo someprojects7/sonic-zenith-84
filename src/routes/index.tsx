@@ -1,3 +1,4 @@
+import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -145,17 +146,37 @@ function Hero() {
         <h1 className="mt-3 max-w-2xl text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-white sm:text-6xl">
           Your shortcut to the city
         </h1>
-        <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-white/85">
-          Stop scrolling five apps to find one decent night. We read 50+ sources and 700+ events
-          a week, and keep the ten that are yours.
+        <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-white/85">
+          Stop scrolling five apps to find one decent night.
         </p>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[14px] text-white/80">
-          <span className="inline-flex items-center gap-1.5">
-            <Star className="size-4 shrink-0 fill-rausch text-rausch" />
-            <span className="font-semibold text-white">4.8</span> from 12,800 people
-          </span>
-          <span>50+ sources</span>
+        <div className="mt-6 max-w-md rounded-2xl bg-white/10 p-1 backdrop-blur-md">
+          <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
+            {[
+              { k: "50+", v: "sources" },
+              { k: "700+", v: "events / week" },
+              { k: "10", v: "yours" },
+            ].map((s, i) => (
+              <React.Fragment key={s.v}>
+                {i > 0 && <ArrowRight className="size-4 shrink-0 text-white/50" strokeWidth={2.5} />}
+                <div className="rounded-xl px-2 py-3 text-center">
+                  <p
+                    className={`text-[22px] font-semibold leading-none tracking-[-0.02em] ${
+                      i === 2 ? "text-rausch" : "text-white"
+                    }`}
+                  >
+                    {s.k}
+                  </p>
+                  <p className="mt-1 text-[12px] leading-tight text-white/70">{s.v}</p>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-1.5 text-[14px] text-white/80">
+          <Star className="size-4 shrink-0 fill-rausch text-rausch" />
+          <span className="font-semibold text-white">4.8</span> from 12,800 people
         </div>
 
         <div className="mt-7">
