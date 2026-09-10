@@ -95,6 +95,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Curated city events, picked for you every week.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: "en" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
