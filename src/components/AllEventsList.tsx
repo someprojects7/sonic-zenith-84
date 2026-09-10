@@ -65,7 +65,7 @@ export function AllEventsList() {
           <p className="mt-0.5 text-[14px] leading-[1.43] text-muted-foreground">
             {days.count === 0
               ? "Nothing matches"
-              : `${days.count} ${days.count === 1 ? "event" : "events"}${dateLabel ? `, ${dateLabel}` : ""}`}
+              : `${days.count} ${days.count === 1 ? "event" : "events"}`}
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export function AllEventsList() {
       </div>
 
       {/* Own scroll track, edge to edge, so pills never slide under the controls. */}
-      <div className="-mx-0 flex gap-2 overflow-x-auto px-5 pb-0.5">
+      <div className="flex gap-2 overflow-x-auto px-5 pb-0.5">
           {categories.map((c) => (
             <button
               key={c}
