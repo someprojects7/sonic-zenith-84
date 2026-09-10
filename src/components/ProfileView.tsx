@@ -1,13 +1,15 @@
-import { Bell, ChevronRight, Heart, Sparkles, User } from "lucide-react";
+import { Heart, User } from "lucide-react";
 
-const TASTE_LINKS = [
-  { label: "Saved events", icon: Heart },
-  { label: "Interests", icon: Sparkles },
-  { label: "Notifications", icon: Bell },
-] as const;
+import { EventRow } from "@/components/EventRow";
+import { InterestPicker } from "@/components/InterestPicker";
+import { allEvents } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 
-/** Who Sponsa thinks you are, and the switches that shape the picks. */
+/** Who Sponsa thinks you are, and the events you kept. */
 export function ProfileView() {
+  const { saved, interests } = usePreferences();
+  const savedEvents = allEvents.filter((event) => saved.includes(event.id));
+
   return (
     <main className="space-y-8 pb-6 pt-8">
       <section className="px-5">
@@ -15,34 +17,38 @@ export function ProfileView() {
           <User className="size-7" strokeWidth={2} />
         </span>
         <h2 className="mt-4 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          Eduard
+          You in Vilnius
         </h2>
         <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          Vilnius · 12 picks liked
+          {savedEvents.length} saved · {interests.length} interests
         </p>
       </section>
 
+      <div className="px-5">
+        <InterestPicker />
+      </div>
+
       <section className="px-5">
         <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
-          Your taste
+          Saved
         </h3>
-        <div className="divide-y divide-hairline overflow-hidden rounded-xl bg-card">
-          {TASTE_LINKS.map(({ label, icon: Icon }) => (
-            <button
-              key={label}
-              className="flex min-h-[60px] w-full items-center gap-3 px-4 text-left active:bg-surface-2"
-            >
-              <Icon className="size-[18px] shrink-0 text-muted-foreground" strokeWidth={2} />
-              <span className="min-w-0 flex-1 truncate text-[16px] font-medium text-foreground">
-                {label}
-              </span>
-              <ChevronRight
-                className="size-[18px] shrink-0 text-muted-foreground"
-                strokeWidth={2}
-              />
-            </button>
-          ))}
-        </div>
+        {savedEvents.length > 0 ? (
+          <div className="space-y-2">
+            {savedEvents.map((event) => (
+              <EventRow key={event.id} event={event} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-xl bg-card p-6 text-center">
+            <span className="icon-button mx-auto size-11 bg-surface-2 text-muted-foreground">
+              <Heart className="size-[18px]" strokeWidth={2} />
+            </span>
+            <p className="mt-3 text-[16px] font-medium text-foreground">Nothing saved yet</p>
+            <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
+              Tap the heart on any event and it waits for you here.
+            </p>
+          </div>
+        )}
       </section>
     </main>
   );

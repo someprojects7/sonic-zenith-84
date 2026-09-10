@@ -1,14 +1,29 @@
+import { useMemo } from "react";
 import { Hourglass } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
+import { InterestPicker } from "@/components/InterestPicker";
 import { allEvents, picks } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 
 /** How the weekly shortlist was produced — the promise the feed delivers on. */
-const SCAN = { events: 746, sources: 15, savedHours: 3, nextScanInDays: 3 };
+const SCAN = { events: 746, sources: 15, savedHours: 3 };
 
 /** The weekly shortlist, ordered from highest-attention picks to compact extras. */
 export function ForYouFeed() {
+  const { interests } = usePreferences();
+
+  // Chosen interests float to the top; nothing is hidden, so the week stays whole.
+  const order = useMemo(() => {
+    const rank = (category: string) => (interests.includes(category) ? 0 : 1);
+    const sorted = [...picks].sort((a, b) => rank(a.category) - rank(b.category));
+    const rest = allEvents
+      .filter((e) => !picks.some((p) => p.id === e.id))
+      .sort((a, b) => rank(a.category) - rank(b.category));
+    return { sorted, rest };
+  }, [interests]);
+
   return (
     <main className="space-y-8 pb-6 pt-6">
       <section className="px-5">
@@ -21,13 +36,16 @@ export function ForYouFeed() {
         </p>
       </section>
 
+      <div className="px-5">
+        <InterestPicker />
+      </div>
 
       <section className="px-5">
         <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
           Picked for you
         </h3>
         <div className="space-y-2">
-          {picks.map((event, i) => (
+          {order.sorted.map((event, i) => (
             <EventCard key={event.id} event={event} featured={i === 0} />
           ))}
         </div>
@@ -38,7 +56,7 @@ export function ForYouFeed() {
           Also this weekend
         </h3>
         <div className="space-y-2">
-          {allEvents.slice(picks.length).map((event) => (
+          {order.rest.map((event) => (
             <EventRow key={event.id} event={event} />
           ))}
         </div>
