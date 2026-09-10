@@ -146,8 +146,8 @@ function Hero() {
           Your shortcut to the city
         </h1>
         <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-white/85">
-          Stop scrolling five apps to find one decent night. Answer 20 taps, get the ten events
-          in your city that fit you.
+          Stop scrolling five apps to find one decent night. We read 50+ sources and 700+ events
+          a week, and keep the ten that are yours.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[14px] text-white/80">
