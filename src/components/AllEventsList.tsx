@@ -71,7 +71,7 @@ export function AllEventsList() {
               ? "Nothing matches"
               : filtered
                 ? `${days.count} ${days.count === 1 ? "event" : "events"}`
-                : `${days.count} events, 15 sources, 3h saved`}
+                : `${days.count} events, ${SCAN.sources} sources, ${SCAN.timeSaved} saved`}
           </p>
 
         </div>

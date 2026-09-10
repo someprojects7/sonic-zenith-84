@@ -4,6 +4,7 @@ import { Hourglass } from "lucide-react";
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
 import { InterestPicker } from "@/components/InterestPicker";
+import { SCAN } from "@/config/site";
 import { allEvents, picks } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
@@ -33,7 +34,7 @@ export function ForYouFeed() {
         </h3>
         <p className="mb-3 mt-1 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
           <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
-          {order.sorted.length} of 746 events
+          {order.sorted.length} of {SCAN.eventsScanned} events
         </p>
 
         <div className="space-y-2">
