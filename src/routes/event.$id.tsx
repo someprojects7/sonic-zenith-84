@@ -23,11 +23,11 @@ export const Route = createFileRoute("/event/$id")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Event unavailable — Sponsa" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Event unavailable on Sponsa" }, { name: "robots", content: "noindex" }],
       };
     }
     const { event } = loaderData;
-    const title = `${event.title} — ${event.day}, ${event.city}`;
+    const title = `${event.title}, ${event.day}, ${event.city}`;
     const description = `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(
       0,
       158,

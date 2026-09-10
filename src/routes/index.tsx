@@ -11,13 +11,13 @@ import { useHideOnScroll } from "@/lib/use-hide-on-scroll";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa — events worth your time in Vilnius" },
+      { title: "Sponsa: events worth your time in Vilnius" },
       {
         name: "description",
         content:
           "We scanned 746 events in Vilnius this week and picked the ones worth your time. Concerts, clubs, art and food, curated for you.",
       },
-      { property: "og:title", content: "Sponsa — events worth your time" },
+      { property: "og:title", content: "Sponsa: events worth your time" },
       {
         property: "og:description",
         content: "A weekly shortlist of city events, picked for your taste.",
