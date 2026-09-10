@@ -1,13 +1,14 @@
 import { formatWhen, type EventItem } from "@/data/events";
 
 /**
- * Category above the title, day and time below it. The category sits on its own
- * full-width line, so any length fits, and the time is never dropped.
+ * Category above the title, day and time below it. The "new" flag rides on the
+ * category line, so the title keeps its full width.
  */
-export function EventCategory({ event }: { event: EventItem }) {
+export function EventCategory({ event, isNew = false }: { event: EventItem; isNew?: boolean }) {
   return (
-    <p className="truncate text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-      {event.category}
+    <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
+      <span className="truncate">{event.category}</span>
+      {isNew && <NewBadge />}
     </p>
   );
 }
