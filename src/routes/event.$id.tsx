@@ -64,7 +64,7 @@ function EventMissing() {
       <p className="text-[15px] text-muted-foreground">This event is no longer listed.</p>
       <Link
         to="/"
-        className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground ring-1 ring-hairline"
+        className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground"
       >
         Back to events
       </Link>
