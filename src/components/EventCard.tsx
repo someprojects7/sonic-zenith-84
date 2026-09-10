@@ -31,7 +31,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
         />
         <div className="min-w-0">
           <EventCategory event={event} isNew={isNew} />
-          <p className="truncate text-[16px] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
+          <p className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
             {event.title}
           </p>
           <EventMeta event={event} />

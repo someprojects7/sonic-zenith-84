@@ -24,7 +24,7 @@ export function EventMeta({ event }: { event: EventItem }) {
 /** Small red flag for events added since the last visit. */
 export function NewBadge() {
   return (
-    <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-rausch px-1.5 text-[11px] font-semibold uppercase tracking-[0.04em] text-white">
+    <span className="inline-flex h-4 shrink-0 items-center rounded-full bg-rausch px-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.06em] text-white">
       New
     </span>
   );
