@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { SITE_NAME, canonicalUrl } from "../config/site";
 import { ThemeProvider } from "../lib/theme";
 import { PreferencesProvider } from "../lib/preferences";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -95,6 +96,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Curated city events, picked for you every week.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: "en" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -114,6 +117,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
 
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: SITE_NAME,
+          url: canonicalUrl("/"),
+          description: "Curated city events, picked for you every week.",
+        }),
+      },
     ],
   }),
 

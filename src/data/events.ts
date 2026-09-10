@@ -38,9 +38,6 @@ export const isFree = (event: EventItem) => event.price.toLowerCase().startsWith
 export const priceLabel = (event: EventItem) =>
   isFree(event) ? "Free" : (event.price.match(/€\s?\d[\d.,]*/)?.[0] ?? event.price);
 
-
-
-
 /** The three recommended events, in match order. */
 export const picks: EventItem[] = [
   {

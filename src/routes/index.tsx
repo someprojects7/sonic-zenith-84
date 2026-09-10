@@ -15,6 +15,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import founderArtem from "@/assets/founder-artem.jpg";
 import founderEduard from "@/assets/founder-eduard.jpg";
 import heroCity from "@/assets/hero-event.jpg";
@@ -22,22 +23,42 @@ import sceneConcert from "@/assets/scene-concert.jpg";
 import sceneGallery from "@/assets/scene-gallery.jpg";
 import sceneMarket from "@/assets/scene-market.jpg";
 
+const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
+const DESCRIPTION =
+  "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa: your shortcut to the city" },
-      {
-        name: "description",
-        content:
-          "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.",
-      },
-      { property: "og:title", content: "Sponsa: your shortcut to the city" },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
       {
         property: "og:description",
-        content: "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
+        content:
+          "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonicalUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: canonicalUrl("/") }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE_NAME,
+          url: canonicalUrl("/"),
+          description: DESCRIPTION,
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${canonicalUrl("/app")}?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
     ],
   }),
   component: Landing,
@@ -71,14 +92,7 @@ function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
   );
 }
 
-
-function Section({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
+function Section({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return (
     <section className={`px-5 py-14 sm:py-20 ${className}`}>
       <div className="mx-auto w-full max-w-5xl">{children}</div>
@@ -135,7 +149,7 @@ function Hero() {
 
       <div className="mx-auto grid max-w-5xl gap-8 px-5 pb-14 pt-10 sm:grid-cols-2 sm:items-center sm:pb-20 sm:pt-16">
         <div>
-          <Eyebrow>Vilnius, this week</Eyebrow>
+          <Eyebrow>{CITY}, this week</Eyebrow>
           <h1 className="mt-2 text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[56px]">
             Your shortcut to the city
           </h1>
@@ -147,14 +161,16 @@ function Hero() {
           <div className="mt-6 max-w-md rounded-xl border border-hairline bg-card p-1">
             <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
               {[
-                { k: "50+", v: "sources we read" },
-                { k: "700+", v: "events a week" },
-                { k: "10", v: "picked for you" },
+                { k: SCAN.sourcesClaim, v: "sources we read" },
+                { k: SCAN.eventsPerWeekClaim, v: "events a week" },
+                { k: SCAN.picksPerWeekClaim, v: "picked for you" },
               ].map((s, i) => (
-
                 <React.Fragment key={s.v}>
                   {i > 0 && (
-                    <ArrowRight className="size-4 shrink-0 text-muted-foreground" strokeWidth={2.5} />
+                    <ArrowRight
+                      className="size-4 shrink-0 text-muted-foreground"
+                      strokeWidth={2.5}
+                    />
                   )}
                   <div className="px-2 py-3 text-center">
                     <p
@@ -240,8 +256,18 @@ function Problem() {
 }
 
 const STEPS = [
-  { icon: Sparkles, value: "20 taps", label: "you tell us your taste", note: "Sound, budget, nights, distance." },
-  { icon: Radar, value: "1,000+", label: "events we read daily", note: "Venues, promoters, ticketing." },
+  {
+    icon: Sparkles,
+    value: "20 taps",
+    label: "you tell us your taste",
+    note: "Sound, budget, nights, distance.",
+  },
+  {
+    icon: Radar,
+    value: "1,000+",
+    label: "events we read daily",
+    note: "Venues, promoters, ticketing.",
+  },
   { icon: Crown, value: "10", label: "become your week", note: "Each one with a reason." },
 ];
 
@@ -275,11 +301,28 @@ function Steps() {
   );
 }
 
-
 const SAMPLE = [
-  { time: "Thu 19:00", title: "Nils Frahm, live piano", place: "Old Power Plant", match: "94%", why: "You saved two ambient gigs" },
-  { time: "Fri 19:30", title: "Ceramics opening night", place: "Studio Kraft", match: "91%", why: "You go to openings" },
-  { time: "Sat 23:30", title: "Smala Nights: Ø Room", place: "Smala", match: "88%", why: "Late techno near you" },
+  {
+    time: "Thu 19:00",
+    title: "Nils Frahm, live piano",
+    place: "Old Power Plant",
+    match: "94%",
+    why: "You saved two ambient gigs",
+  },
+  {
+    time: "Fri 19:30",
+    title: "Ceramics opening night",
+    place: "Studio Kraft",
+    match: "91%",
+    why: "You go to openings",
+  },
+  {
+    time: "Sat 23:30",
+    title: "Smala Nights: Ø Room",
+    place: "Smala",
+    match: "88%",
+    why: "Late techno near you",
+  },
 ];
 
 function Preview() {
@@ -291,7 +334,6 @@ function Preview() {
       <div className="mt-6 space-y-2 sm:max-w-lg">
         {SAMPLE.map((p) => (
           <div key={p.title} className="rounded-xl bg-card p-3">
-
             <p className="flex items-center justify-between gap-3">
               <span className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
                 {p.title}
@@ -319,7 +361,16 @@ const SCENES = [
   { img: sceneMarket, title: "City", note: "Markets, dinners, open air" },
 ];
 
-const CITIES = ["Vilnius", "Warsaw", "Berlin", "Lisbon", "Barcelona", "Amsterdam", "Prague", "London"];
+const CITIES = [
+  "Vilnius",
+  "Warsaw",
+  "Berlin",
+  "Lisbon",
+  "Barcelona",
+  "Amsterdam",
+  "Prague",
+  "London",
+];
 
 function Scenes() {
   return (
@@ -402,7 +453,10 @@ function Pricing() {
             </p>
             <ul className="mt-3 space-y-1.5">
               {plan.perks.map((perk) => (
-                <li key={perk} className="flex items-center gap-2 text-[14px] text-muted-foreground">
+                <li
+                  key={perk}
+                  className="flex items-center gap-2 text-[14px] text-muted-foreground"
+                >
                   <Check
                     className={`size-4 shrink-0 ${plan.accent ? "text-rausch" : "text-foreground"}`}
                   />
@@ -419,7 +473,6 @@ function Pricing() {
   );
 }
 
-
 const STATS = [
   { icon: CalendarCheck, k: "4 years", v: "in events" },
   { icon: Star, k: "600+", v: "events attended" },
@@ -429,7 +482,12 @@ const STATS = [
 
 const FOUNDERS = [
   { name: "Eduard Titov", img: founderEduard, handle: "edititov", role: "Product and algorithm" },
-  { name: "Artem Derenchuk", img: founderArtem, handle: "artem.derenchuk", role: "Partners and venues" },
+  {
+    name: "Artem Derenchuk",
+    img: founderArtem,
+    handle: "artem.derenchuk",
+    role: "Partners and venues",
+  },
 ];
 
 function Team() {
@@ -447,7 +505,9 @@ function Team() {
             <span className="icon-button size-9 bg-surface-2 text-rausch">
               <s.icon className="size-4" strokeWidth={2.2} />
             </span>
-            <dt className="mt-3 text-[20px] font-medium tracking-[-0.02em] text-foreground">{s.k}</dt>
+            <dt className="mt-3 text-[20px] font-medium tracking-[-0.02em] text-foreground">
+              {s.k}
+            </dt>
             <dd className="mt-0.5 text-[14px] text-muted-foreground">{s.v}</dd>
           </div>
         ))}

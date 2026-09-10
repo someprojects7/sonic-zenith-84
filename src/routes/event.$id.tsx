@@ -12,9 +12,9 @@ import {
   Users,
 } from "lucide-react";
 
-
 import { SaveButton } from "@/components/SaveButton";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
+import { canonicalUrl } from "@/config/site";
 import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
@@ -32,10 +32,9 @@ export const Route = createFileRoute("/event/$id")({
     }
     const { event } = loaderData;
     const title = `${event.title}, ${event.day}, ${event.city}`;
-    const description = `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(
-      0,
-      158,
-    );
+    const description =
+      `${formatWhen(event)}, ${event.venue}. ${event.price}. ${event.about}`.slice(0, 158);
+    const url = canonicalUrl(`/event/${event.id}`);
     return {
       meta: [
         { title },
@@ -43,7 +42,37 @@ export const Route = createFileRoute("/event/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: event.title,
+            url,
+            description: event.about,
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            location: {
+              "@type": "Place",
+              name: event.venue,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: event.address,
+                addressLocality: event.city,
+              },
+            },
+            offers: {
+              "@type": "Offer",
+              price: isFree(event) ? "0" : event.price,
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          }),
+        },
       ],
     };
   },
