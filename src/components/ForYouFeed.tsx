@@ -33,8 +33,9 @@ export function ForYouFeed() {
         </h3>
         <p className="mb-3 mt-1 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
           <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
-          746 events, 15 sources, 3h saved
+          {order.sorted.length} of 746 events
         </p>
+
         <div className="space-y-2">
           {order.sorted.map((event, i) => (
             <EventCard key={event.id} event={event} featured={i === 0} />
