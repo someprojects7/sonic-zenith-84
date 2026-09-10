@@ -13,7 +13,9 @@ import {
 
 
 import { SaveButton } from "@/components/SaveButton";
+import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import { usePreferences } from "@/lib/preferences";
 
 export const Route = createFileRoute("/event/$id")({
   loader: ({ params }) => {
@@ -136,9 +138,10 @@ function EventPage() {
             <section className="rounded-xl bg-card p-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="size-3.5 shrink-0 text-rausch" />
-                <span className="text-[13px] font-semibold text-foreground">
-                  {event.match}% match
+                <span className="min-w-0 flex-1 text-[13px] font-semibold text-foreground">
+                  {voteLabel(vote(event.id), event.match)}
                 </span>
+                <VoteButtons id={event.id} />
               </div>
               <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
                 {event.reason}

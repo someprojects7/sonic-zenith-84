@@ -61,6 +61,7 @@ function Index() {
           value={view === "profile" ? "foryou" : view}
           onChange={setView}
           hidden={view === "profile"}
+          newCounts={newCounts}
         />
 
         {view === "foryou" && <ForYouFeed />}
