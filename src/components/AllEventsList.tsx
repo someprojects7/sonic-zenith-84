@@ -6,6 +6,7 @@ import { format, isWithinInterval, startOfDay } from "date-fns";
 import { EventRow } from "@/components/EventRow";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SCAN } from "@/config/site";
 import { allEvents, categories, eventDate, type EventItem } from "@/data/events";
 import { cn } from "@/lib/utils";
 

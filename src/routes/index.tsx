@@ -135,7 +135,7 @@ function Hero() {
 
       <div className="mx-auto grid max-w-5xl gap-8 px-5 pb-14 pt-10 sm:grid-cols-2 sm:items-center sm:pb-20 sm:pt-16">
         <div>
-          <Eyebrow>Vilnius, this week</Eyebrow>
+          <Eyebrow>{CITY}, this week</Eyebrow>
           <h1 className="mt-2 text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[56px]">
             Your shortcut to the city
           </h1>
@@ -147,9 +147,9 @@ function Hero() {
           <div className="mt-6 max-w-md rounded-xl border border-hairline bg-card p-1">
             <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
               {[
-                { k: "50+", v: "sources we read" },
-                { k: "700+", v: "events a week" },
-                { k: "10", v: "picked for you" },
+                { k: SCAN.sourcesClaim, v: "sources we read" },
+                { k: SCAN.eventsPerWeekClaim, v: "events a week" },
+                { k: SCAN.picksPerWeekClaim, v: "picked for you" },
               ].map((s, i) => (
 
                 <React.Fragment key={s.v}>
