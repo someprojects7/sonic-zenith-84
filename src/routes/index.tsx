@@ -325,6 +325,69 @@ function Scenes() {
   );
 }
 
+const PLANS = [
+  {
+    name: "Free",
+    price: "€0",
+    unit: "",
+    perks: ["3 picks a week", "One city", "Basic filters"],
+    accent: false,
+  },
+  {
+    name: "Pro",
+    price: "€7.99",
+    unit: "/ month",
+    perks: [
+      "All 10 picks every week",
+      "New events the hour we find them",
+      "Saved lists and calendar sync",
+      "Every city we cover",
+    ],
+    accent: true,
+  },
+];
+
+function Pricing() {
+  return (
+    <Section className="bg-card">
+      <Eyebrow>Pricing</Eyebrow>
+      <Heading>Start free. Go Pro when your calendar fills up.</Heading>
+
+      <div className="mt-6 grid gap-2 sm:max-w-2xl sm:grid-cols-2 sm:gap-4">
+        {PLANS.map((plan) => (
+          <article
+            key={plan.name}
+            className={`rounded-xl bg-background p-4 ${
+              plan.accent ? "border-2 border-rausch" : "border border-hairline"
+            }`}
+          >
+            <p className="flex items-baseline justify-between gap-3">
+              <span className="text-[17px] font-medium text-foreground">{plan.name}</span>
+              <span className="text-[14px] text-muted-foreground">
+                <span className="text-[17px] font-semibold text-foreground">{plan.price}</span>{" "}
+                {plan.unit}
+              </span>
+            </p>
+            <ul className="mt-3 space-y-1.5">
+              {plan.perks.map((perk) => (
+                <li key={perk} className="flex items-center gap-2 text-[14px] text-muted-foreground">
+                  <Check
+                    className={`size-4 shrink-0 ${plan.accent ? "text-rausch" : "text-foreground"}`}
+                  />
+                  {perk}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <p className="mt-4 text-[14px] text-muted-foreground">Cancel any time.</p>
+    </Section>
+  );
+}
+
+
 const STATS = [
   { icon: CalendarCheck, k: "4 years", v: "in events" },
   { icon: Star, k: "600+", v: "events attended" },
