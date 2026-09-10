@@ -43,17 +43,17 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
         </div>
       </Link>
 
-      {event.reason && (
+      {(event.match || event.reason) && (
         <div className="flex items-center gap-2 bg-tone-cool px-3.5 py-2">
           <Sparkles className="size-3.5 shrink-0 text-brand" />
-          <p className="min-w-0 flex-1 text-[12px] leading-4 text-muted-foreground">
+          <p className="min-w-0 flex-1 text-[12px] font-semibold leading-4 text-brand">
             {vote === "up"
               ? "Thanks — more like this."
               : vote === "down"
                 ? "Got it — fewer like this."
                 : event.match
-                  ? `${event.match}% match · ${event.reason}`
-                  : event.reason}
+                  ? `${event.match}% match`
+                  : "Recommended"}
           </p>
 
           <div className="flex shrink-0 items-center gap-0.5">
