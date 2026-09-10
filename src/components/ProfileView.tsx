@@ -20,7 +20,8 @@ export function ProfileView() {
           You in Vilnius
         </h2>
         <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          {savedEvents.length} saved · {interests.length} interests
+          {savedEvents.length} saved · {interests.length}{" "}
+          {interests.length === 1 ? "interest" : "interests"}
         </p>
       </section>
 
