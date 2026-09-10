@@ -162,15 +162,17 @@ function EventPage() {
           </section>
 
           <section>
-            <h2 className="eyebrow mb-3">About</h2>
-            <p className="text-[15px] leading-[1.55] text-foreground/90">{event.about}</p>
+            <h2 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+              About
+            </h2>
+            <p className="text-[14px] leading-[1.43] text-foreground">{event.about}</p>
             <ul className="mt-4 space-y-2">
               {event.highlights.map((highlight) => (
                 <li
                   key={highlight}
                   className="flex items-start gap-2.5 text-[14px] leading-5 text-muted-foreground"
                 >
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
+                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-rausch" />
                   <span className="min-w-0">{highlight}</span>
                 </li>
               ))}
@@ -184,7 +186,7 @@ function EventPage() {
       </div>
 
       {/* One decision, always reachable; back stays under the thumb on mobile. */}
-      <div className="fixed inset-x-0 bottom-0 z-30 bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
         <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Link
             to="/"
