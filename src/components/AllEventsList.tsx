@@ -15,10 +15,10 @@ export function AllEventsList() {
   );
 
   return (
-    <main className="space-y-5 pb-4 pt-4">
+    <main className="space-y-5 pb-6 pt-5">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2.5 px-5">
-        <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-card px-4 ring-1 ring-hairline">
-          <Search className="size-4 shrink-0 text-muted-foreground" />
+        <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-card px-4 shadow-elevated">
+          <Search className="size-4 shrink-0 text-muted-foreground" strokeWidth={2} />
           <input
             placeholder="Search events, venues, artists"
             className="h-12 w-full min-w-0 bg-transparent text-[14px] text-foreground outline-none placeholder:text-muted-foreground"
@@ -26,9 +26,9 @@ export function AllEventsList() {
         </label>
         <button
           aria-label="Filters"
-          className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-soft text-brand"
+          className="grid size-12 shrink-0 place-items-center rounded-full bg-card text-foreground shadow-elevated"
         >
-          <SlidersHorizontal className="size-[18px]" strokeWidth={2.2} />
+          <SlidersHorizontal className="size-[18px]" strokeWidth={2} />
         </button>
       </div>
 
@@ -39,10 +39,10 @@ export function AllEventsList() {
             key={c}
             onClick={() => setCategory(c)}
             className={cn(
-              "h-9 shrink-0 rounded-full px-4 text-[13px] font-bold transition-colors",
+              "h-9 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors",
               category === c
-                ? "bg-brand-gradient text-brand-foreground shadow-brand"
-                : "bg-surface-2 text-muted-foreground",
+                ? "bg-brand text-brand-foreground"
+                : "bg-card text-muted-foreground ring-1 ring-hairline",
             )}
           >
             {c}
@@ -50,7 +50,7 @@ export function AllEventsList() {
         ))}
       </div>
 
-      <div className="space-y-2.5 px-5">
+      <div className="space-y-2 px-5">
         {events.map((event) => (
           <EventRow key={event.id} event={event} />
         ))}
