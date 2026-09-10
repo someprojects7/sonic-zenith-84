@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Hourglass } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
 import { EventRow } from "@/components/EventRow";
@@ -22,20 +23,18 @@ export function ForYouFeed() {
 
   return (
     <main className="space-y-8 pb-6 pt-6">
-      <section className="px-5">
-        <h2 className="text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          Your week
-        </h2>
-        <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-          {picks.length} picks in Vilnius.
-        </p>
-      </section>
-
       <div className="px-5">
         <InterestPicker />
       </div>
 
       <section className="px-5">
+        <h3 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+          Picked for you
+        </h3>
+        <p className="mb-3 mt-1 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
+          <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
+          746 events, 15 sources, 3h saved
+        </p>
         <div className="space-y-2">
           {order.sorted.map((event, i) => (
             <EventCard key={event.id} event={event} featured={i === 0} />
@@ -45,7 +44,7 @@ export function ForYouFeed() {
 
       <section className="px-5">
         <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
-          More
+          More this week
         </h3>
         <div className="space-y-2">
           {order.rest.map((event) => (
