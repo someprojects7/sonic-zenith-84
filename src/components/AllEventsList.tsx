@@ -62,11 +62,15 @@ export function AllEventsList() {
           <h2 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
             All events
           </h2>
-          <p className="mt-0.5 text-[14px] leading-[1.43] text-muted-foreground">
+          <p className="mt-0.5 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
+            <Hourglass className="size-3.5 shrink-0 text-rausch" strokeWidth={2} />
             {days.count === 0
               ? "Nothing matches"
-              : `${days.count} ${days.count === 1 ? "event" : "events"}`}
+              : filtered
+                ? `${days.count} ${days.count === 1 ? "event" : "events"}`
+                : `${days.count} events, 15 sources, 3h saved`}
           </p>
+
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
