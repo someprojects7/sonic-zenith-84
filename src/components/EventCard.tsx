@@ -15,34 +15,34 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
 
   return (
     <article className="overflow-hidden rounded-xl bg-card">
-      <Link
-        to="/event/$id"
-        params={{ id: event.id }}
-        className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3 active:opacity-70"
-      >
-        <img
-          src={event.image}
-          alt={event.title}
-          width={1024}
-          height={768}
-          loading={featured ? undefined : "lazy"}
-          className="size-[56px] shrink-0 rounded-xl object-cover"
-        />
-        <div className="min-w-0">
-          <p className="line-clamp-2 text-[16px] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
-            {event.title}
-          </p>
-          <p className="mt-1 truncate text-[14px] leading-[1.43] text-muted-foreground">
-            {formatWhen(event)} · {event.category}
-          </p>
-        </div>
-        <div className="flex shrink-0 items-center gap-1">
-          <span className="text-[14px] font-semibold text-foreground">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center pr-2">
+        <Link
+          to="/event/$id"
+          params={{ id: event.id }}
+          className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3 active:opacity-70"
+        >
+          <img
+            src={event.image}
+            alt={event.title}
+            width={1024}
+            height={768}
+            loading={featured ? undefined : "lazy"}
+            className="size-[56px] shrink-0 rounded-xl object-cover"
+          />
+          <div className="min-w-0">
+            <p className="line-clamp-2 text-[16px] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
+              {event.title}
+            </p>
+            <p className="mt-1 truncate text-[14px] leading-[1.43] text-muted-foreground">
+              {formatWhen(event)} · {event.category}
+            </p>
+          </div>
+          <span className="shrink-0 text-[14px] font-semibold text-foreground">
             {isFree(event) ? "Free" : event.price}
           </span>
-          <SaveButton id={event.id} />
-        </div>
-      </Link>
+        </Link>
+        <SaveButton id={event.id} />
+      </div>
 
       {event.match && (
         <div className="flex items-center gap-2 border-t border-hairline px-3 py-2">
