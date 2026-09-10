@@ -92,7 +92,13 @@ export function AllEventsList() {
               onSelect={setRange}
               defaultMonth={range?.from ?? eventDate(allEvents[0]!)}
               numberOfMonths={1}
-              className="pointer-events-auto p-3"
+              // Days between the two picked dates read as one filled band.
+              className="pointer-events-auto p-3 [&_[data-range-end=true]]:!bg-rausch [&_[data-range-end=true]]:!text-white [&_[data-range-middle=true]]:!bg-rausch/12 [&_[data-range-middle=true]]:!text-foreground [&_[data-range-start=true]]:!bg-rausch [&_[data-range-start=true]]:!text-white [&_[data-selected-single=true]]:!bg-rausch [&_[data-selected-single=true]]:!text-white"
+              classNames={{
+                range_middle: "bg-rausch/12 rounded-none",
+                range_start: "bg-rausch/12 rounded-l-full",
+                range_end: "bg-rausch/12 rounded-r-full",
+              }}
             />
             <div className="flex items-center justify-between gap-2 border-t border-hairline p-3">
               <button
