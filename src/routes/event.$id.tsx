@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 
+import { SaveButton } from "@/components/SaveButton";
 import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
 
 export const Route = createFileRoute("/event/$id")({
@@ -115,14 +116,20 @@ function EventPage() {
                 {formatWhen(event)} · {event.city}
               </p>
             </div>
-            <button
-              type="button"
-              aria-label="Share event"
-              onClick={shareEvent}
-              className="icon-button mt-1 size-11 shrink-0 bg-card text-foreground ring-1 ring-hairline"
-            >
-              <Share2 className="size-[18px]" strokeWidth={2} />
-            </button>
+            <div className="mt-1 flex shrink-0 items-center gap-2">
+              <SaveButton
+                id={event.id}
+                className="size-11 bg-card ring-1 ring-hairline"
+              />
+              <button
+                type="button"
+                aria-label="Share event"
+                onClick={shareEvent}
+                className="icon-button size-11 shrink-0 bg-card text-foreground ring-1 ring-hairline"
+              >
+                <Share2 className="size-[18px]" strokeWidth={2} />
+              </button>
+            </div>
           </header>
 
           {event.match && event.reason && (
