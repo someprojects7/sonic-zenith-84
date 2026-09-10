@@ -1,73 +1,374 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  CalendarCheck,
+  Crown,
+  Filter,
+  Instagram,
+  Radar,
+  Sparkles,
+  Star,
+  Users,
+} from "lucide-react";
 
-import { AllEventsList } from "@/components/AllEventsList";
-import { AppHeader } from "@/components/AppHeader";
-import { FeedTabs, type FeedTab } from "@/components/FeedTabs";
-import { ForYouFeed } from "@/components/ForYouFeed";
-import { ProfileView } from "@/components/ProfileView";
-import { allEvents, picks, type EventItem } from "@/data/events";
-import { usePreferences } from "@/lib/preferences";
-import { useHideOnScroll } from "@/lib/use-hide-on-scroll";
+import founderArtem from "@/assets/founder-artem.jpg";
+import founderEduard from "@/assets/founder-eduard.jpg";
+import sceneConcert from "@/assets/scene-concert.jpg";
+import sceneGallery from "@/assets/scene-gallery.jpg";
+import sceneMarket from "@/assets/scene-market.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sponsa: events worth your time in Vilnius" },
+      { title: "Sponsa: your event curator in Vilnius" },
       {
         name: "description",
         content:
-          "We scanned 746 events in Vilnius this week and picked the ones worth your time. Concerts, clubs, art and food, curated for you.",
+          "We scan 1,000+ city events a day and hand you the ten worth your evening. One minute to set your taste.",
       },
-      { property: "og:title", content: "Sponsa: events worth your time" },
+      { property: "og:title", content: "Sponsa: your event curator" },
       {
         property: "og:description",
-        content: "A weekly shortlist of city events, picked for your taste.",
+        content: "1,000+ events scanned daily. Ten picks a week, chosen for you.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-/* Mobile layout rules shared by every screen:
-   - one horizontal gutter: px-5 (20px); only scrollers go edge to edge
-   - vertical rhythm: 32px between sections, 16px between cards, 8px inside a text block
-   - every tappable element is at least 44px high
-   - recurring shapes come from the utilities in styles.css (eyebrow, icon-button…) */
-type View = FeedTab | "profile";
+const CTA = "Get my picks";
 
-function Index() {
-  const [view, setView] = useState<View>("foryou");
-  const headerHidden = useHideOnScroll();
-  const { isSeen } = usePreferences();
+function Wordmark({ light = false }: { light?: boolean }) {
+  return (
+    <span
+      className={`font-wordmark text-[19px] font-bold uppercase leading-none tracking-[0.1em] ${
+        light ? "text-white" : "text-foreground"
+      }`}
+    >
+      Sponsa<span className="text-rausch">.</span>net
+    </span>
+  );
+}
 
-  // "New" means found in the latest scan and not opened yet.
-  const unseen = (list: EventItem[]) =>
-    list.filter((event) => event.isNew && !isSeen(event.id)).length;
-  const newCounts = { foryou: unseen(picks), all: unseen(allEvents) };
+function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
+  return (
+    <Link
+      to="/app"
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-opacity active:opacity-80 ${
+        variant === "coral" ? "bg-rausch text-white" : "bg-foreground text-background"
+      }`}
+    >
+      {CTA}
+      <ArrowRight className="size-4 shrink-0" strokeWidth={2.5} />
+    </Link>
+  );
+}
 
+function Section({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className={`px-5 py-14 sm:py-20 ${className}`}>
+      <div className="mx-auto w-full max-w-5xl">{children}</div>
+    </section>
+  );
+}
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+      {children}
+    </p>
+  );
+}
+
+function Heading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mt-2 max-w-2xl text-[28px] font-medium leading-[1.12] tracking-[-0.02em] text-foreground sm:text-[40px]">
+      {children}
+    </h2>
+  );
+}
+
+function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(3rem+env(safe-area-inset-bottom))]">
-        <AppHeader
-          hidden={headerHidden}
-          profileActive={view === "profile"}
-          onProfileClick={() => setView(view === "profile" ? "foryou" : "profile")}
-        />
-
-        <FeedTabs
-          value={view === "profile" ? "foryou" : view}
-          onChange={setView}
-          hidden={view === "profile"}
-          newCounts={newCounts}
-        />
-
-        {view === "foryou" && <ForYouFeed />}
-        {view === "all" && <AllEventsList />}
-        {view === "profile" && <ProfileView />}
-      </div>
+      <Hero />
+      <Steps />
+      <Preview />
+      <Scenes />
+      <Team />
+      <FinalCta />
+      <Footer />
     </div>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="relative isolate flex min-h-[92svh] flex-col justify-between overflow-hidden">
+      <img
+        src={sceneConcert}
+        alt="Crowd at a live show in Vilnius"
+        width={900}
+        height={1200}
+        className="absolute inset-0 -z-10 size-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/35 to-black/85" />
+
+      <div className="flex h-16 items-center justify-between px-5 pt-[env(safe-area-inset-top)]">
+        <Wordmark light />
+        <Link
+          to="/app"
+          className="text-[14px] font-semibold text-white/85 transition-colors hover:text-white"
+        >
+          Open app
+        </Link>
+      </div>
+
+      <div className="px-5 pb-12">
+        <h1 className="max-w-2xl text-[38px] font-medium leading-[1.06] tracking-[-0.03em] text-white sm:text-6xl">
+          Your event curator in Vilnius
+        </h1>
+        <p className="mt-4 max-w-md text-[16px] leading-[1.5] text-white/80">
+          We read 1,000+ events a day and hand you the ten worth your evening.
+        </p>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[14px] text-white/80">
+          <span className="inline-flex items-center gap-1.5">
+            <Star className="size-4 shrink-0 fill-rausch text-rausch" />
+            <span className="font-semibold text-white">4.8</span> from 12,800 people
+          </span>
+          <span>50+ sources</span>
+        </div>
+
+        <div className="mt-7">
+          <Cta />
+          <p className="mt-3 text-[13px] text-white/70">Free. One minute. No spam.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const STEPS = [
+  { icon: Radar, value: "1,000+", label: "events found daily", note: "Venues, promoters, ticketing." },
+  { icon: Filter, value: "120", label: "fit your taste", note: "Genre, budget, distance, free nights." },
+  { icon: Crown, value: "10", label: "become your week", note: "Each one with a reason." },
+];
+
+function Steps() {
+  return (
+    <Section>
+      <Eyebrow>How we pick</Eyebrow>
+      <Heading>A thousand options in, ten out.</Heading>
+
+      <div className="mt-6 grid gap-2 sm:grid-cols-3 sm:gap-4">
+        {STEPS.map((s) => (
+          <article key={s.label} className="rounded-xl bg-card p-4">
+            <span className="icon-button size-9 bg-surface-2 text-rausch">
+              <s.icon className="size-4" strokeWidth={2.2} />
+            </span>
+            <p className="mt-3 flex items-baseline gap-2">
+              <span className="text-[22px] font-medium tracking-[-0.02em] text-foreground">
+                {s.value}
+              </span>
+              <span className="text-[14px] text-foreground">{s.label}</span>
+            </p>
+            <p className="mt-1 text-[14px] leading-[1.43] text-muted-foreground">{s.note}</p>
+          </article>
+        ))}
+      </div>
+
+      <p className="mt-6 text-[14px] leading-[1.43] text-muted-foreground">
+        By hand that is hours every week. Sponsa takes a minute, once.
+      </p>
+    </Section>
+  );
+}
+
+const SAMPLE = [
+  { time: "Thu 19:00", title: "Nils Frahm, live piano", place: "Old Power Plant", match: "94%", why: "You saved two ambient gigs" },
+  { time: "Fri 19:30", title: "Ceramics opening night", place: "Studio Kraft", match: "91%", why: "You go to openings" },
+  { time: "Sat 23:30", title: "Smala Nights: Ø Room", place: "Smala", match: "88%", why: "Late techno near you" },
+];
+
+function Preview() {
+  return (
+    <Section className="bg-card">
+      <Eyebrow>Your week</Eyebrow>
+      <Heading>Ten picks, each with a reason.</Heading>
+
+      <div className="mt-6 space-y-2 sm:max-w-lg">
+        {SAMPLE.map((p) => (
+          <div key={p.title} className="rounded-xl bg-background p-3">
+            <p className="flex items-center justify-between gap-3">
+              <span className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
+                {p.title}
+              </span>
+              <span className="shrink-0 text-[13px] font-semibold text-rausch">{p.match}</span>
+            </p>
+            <p className="mt-0.5 truncate text-[14px] leading-[1.43] text-muted-foreground">
+              {p.time} · {p.place}
+            </p>
+            <p className="mt-1.5 flex items-center gap-1.5 text-[13px] text-muted-foreground">
+              <Sparkles className="size-3.5 shrink-0 text-rausch" />
+              <span className="min-w-0 truncate">{p.why}</span>
+            </p>
+          </div>
+        ))}
+        <p className="pt-1 text-[13px] text-muted-foreground">+ 7 more picks</p>
+      </div>
+    </Section>
+  );
+}
+
+const SCENES = [
+  { img: sceneConcert, title: "Music", note: "Small rooms to arenas" },
+  { img: sceneGallery, title: "Art", note: "Openings, talks, performance" },
+  { img: sceneMarket, title: "City", note: "Markets, dinners, open air" },
+];
+
+const CITIES = ["Vilnius", "Warsaw", "Berlin", "Lisbon", "Barcelona", "Amsterdam", "Prague", "London"];
+
+function Scenes() {
+  return (
+    <Section>
+      <Eyebrow>Coverage</Eyebrow>
+      <Heading>Every scene in your city.</Heading>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {SCENES.map((s) => (
+          <article key={s.title} className="relative overflow-hidden rounded-xl">
+            <img
+              src={s.img}
+              alt={s.title}
+              loading="lazy"
+              width={900}
+              height={1200}
+              className="h-40 w-full object-cover sm:h-64"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <h3 className="text-[18px] font-medium tracking-[-0.02em] text-white">{s.title}</h3>
+              <p className="mt-0.5 text-[13px] text-white/80">{s.note}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+        {CITIES.map((c) => (
+          <span key={c}>{c}</span>
+        ))}
+        <span className="text-rausch">+ more soon</span>
+      </div>
+    </Section>
+  );
+}
+
+const STATS = [
+  { icon: CalendarCheck, k: "4 years", v: "in events" },
+  { icon: Star, k: "600+", v: "events attended" },
+  { icon: Sparkles, k: "200+", v: "events organised" },
+  { icon: Users, k: "50,000+", v: "guests hosted" },
+];
+
+const FOUNDERS = [
+  { name: "Eduard Titov", img: founderEduard, handle: "edititov", role: "Product and algorithm" },
+  { name: "Artem Derenchuk", img: founderArtem, handle: "artem.derenchuk", role: "Partners and venues" },
+];
+
+function Team() {
+  return (
+    <Section className="bg-card">
+      <Eyebrow>Team</Eyebrow>
+      <Heading>Built by two people who live in events.</Heading>
+      <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-muted-foreground">
+        Four years running nights in this city. That is how we know which evening is worth yours.
+      </p>
+
+      <dl className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
+        {STATS.map((s) => (
+          <div key={s.v} className="rounded-xl bg-background p-4">
+            <span className="icon-button size-9 bg-surface-2 text-rausch">
+              <s.icon className="size-4" strokeWidth={2.2} />
+            </span>
+            <dt className="mt-3 text-[20px] font-medium tracking-[-0.02em] text-foreground">{s.k}</dt>
+            <dd className="mt-0.5 text-[14px] text-muted-foreground">{s.v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="mt-4 grid gap-2 sm:grid-cols-2 sm:gap-4">
+        {FOUNDERS.map((f) => (
+          <div
+            key={f.name}
+            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-xl bg-background p-4"
+          >
+            <img
+              src={f.img}
+              alt={f.name}
+              loading="lazy"
+              width={768}
+              height={768}
+              className="size-16 shrink-0 rounded-full object-cover"
+            />
+            <div className="min-w-0">
+              <h3 className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
+                {f.name}
+              </h3>
+              <p className="truncate text-[14px] text-muted-foreground">{f.role}</p>
+              <a
+                href={`https://instagram.com/${f.handle}`}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1.5 inline-flex max-w-full items-center gap-1.5 text-[14px] font-semibold text-foreground"
+              >
+                <Instagram className="size-4 shrink-0" />
+                <span className="truncate">@{f.handle}</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function FinalCta() {
+  return (
+    <Section>
+      <div className="rounded-xl bg-foreground px-5 py-12 text-center sm:py-16">
+        <h2 className="mx-auto max-w-xl text-[28px] font-medium leading-[1.12] tracking-[-0.02em] text-background sm:text-[40px]">
+          Next week you already have a plan.
+        </h2>
+        <p className="mx-auto mt-3 max-w-sm text-[16px] leading-[1.5] text-background/70">
+          One minute to set your taste. Ten events a week, picked for you.
+        </p>
+        <div className="mt-7">
+          <Cta />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-hairline px-5 py-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+        <Wordmark />
+        <p className="text-[13px] text-muted-foreground">
+          © {new Date().getFullYear()} Sponsa.net, your event curator in Vilnius
+        </p>
+      </div>
+    </footer>
   );
 }
