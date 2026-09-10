@@ -52,21 +52,21 @@ export const Route = createFileRoute("/event/$id")({
 });
 
 const facts = (event: EventItem) => [
-  { icon: CalendarDays, label: "Date", value: formatWhen(event) },
+  { icon: CalendarDays, label: "When", value: formatWhen(event) },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
-  { icon: Clock, label: "Doors", value: `Open ${event.doorsOpen}` },
+  { icon: Clock, label: "Doors", value: event.doorsOpen },
   { icon: Users, label: "Entry", value: event.ageLimit },
 ];
 
 function EventMissing() {
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-5 text-center">
-      <p className="text-[15px] text-muted-foreground">This event is no longer listed.</p>
+      <p className="text-[15px] text-muted-foreground">Event not listed.</p>
       <Link
         to="/"
         className="flex h-11 items-center rounded-full bg-surface-2 px-5 text-[14px] font-semibold text-foreground"
       >
-        Back to events
+        Back
       </Link>
     </div>
   );
@@ -192,7 +192,7 @@ function EventPage() {
           </section>
 
           <p className="text-[12px] leading-4 text-muted-foreground">
-            Found on <span className="text-foreground">{event.source}</span> · verified by Sponsa
+            Source: <span className="text-foreground">{event.source}</span>, verified
           </p>
         </main>
       </div>
@@ -202,7 +202,7 @@ function EventPage() {
         <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Link
             to="/"
-            aria-label="Back to events"
+            aria-label="Back"
             className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
           >
             <ChevronLeft className="size-[21px]" />
@@ -220,7 +220,7 @@ function EventPage() {
             className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-rausch px-5 text-[14px] font-medium text-white"
           >
             {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
-            {free ? "Open page" : "Get tickets"}
+            {free ? "Open" : "Tickets"}
           </button>
         </div>
       </div>

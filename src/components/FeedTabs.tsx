@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 export type FeedTab = "foryou" | "all";
 
 const TABS = [
-  { id: "foryou", label: "For you", icon: Sparkles },
-  { id: "all", label: "All events", icon: LayoutGrid },
+  { id: "foryou", label: "Picks", icon: Sparkles },
+  { id: "all", label: "All", icon: LayoutGrid },
 ] as const;
 
 /**

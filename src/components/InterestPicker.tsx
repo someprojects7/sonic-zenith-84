@@ -16,12 +16,12 @@ export function InterestPicker() {
   return (
     <section className="rounded-xl bg-card p-4">
       <h3 className="text-[16px] font-semibold leading-5 text-foreground">
-        {interests.length === 0 ? "New in town? Tap what you are into" : "What you are into"}
+        {interests.length === 0 ? "What are you into?" : "Your interests"}
       </h3>
       <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">
         {interests.length === 0
-          ? "Two taps and the week is sorted for you."
-          : `${interests.length} selected. Tap to change any time.`}
+          ? "Tap a few and your week reorders."
+          : `${interests.length} selected`}
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         {OPTIONS.map((option) => {

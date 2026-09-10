@@ -17,7 +17,7 @@ export function ProfileView() {
           <User className="size-7" strokeWidth={2} />
         </span>
         <h2 className="mt-4 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground">
-          You in Vilnius
+          You
         </h2>
         <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
           {savedEvents.length} saved · {interests.length}{" "}
@@ -44,9 +44,9 @@ export function ProfileView() {
             <span className="icon-button mx-auto size-11 bg-surface-2 text-muted-foreground">
               <Heart className="size-[18px]" strokeWidth={2} />
             </span>
-            <p className="mt-3 text-[16px] font-medium text-foreground">Nothing saved yet</p>
+            <p className="mt-3 text-[16px] font-medium text-foreground">Nothing saved</p>
             <p className="mt-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-              Tap the heart on any event and it waits for you here.
+              Tap a heart to keep an event.
             </p>
           </div>
         )}
