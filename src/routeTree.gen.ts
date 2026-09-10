@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as EventIdRouteImport } from './routes/event.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const QuizRoute = QuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventIdRoute = EventIdRouteImport.update({
   id: '/event/$id',
   path: '/event/$id',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/quiz': typeof QuizRoute
+  '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/quiz': typeof QuizRoute
+  '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/quiz': typeof QuizRoute
+  '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/quiz' | '/event/$id'
+  fullPaths: '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/quiz' | '/event/$id'
-  id: '__root__' | '/' | '/app' | '/quiz' | '/event/$id'
+  to: '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
+  id: '__root__' | '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
   QuizRoute: typeof QuizRoute
+  TermsRoute: typeof TermsRoute
   EventIdRoute: typeof EventIdRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/event/$id': {
       id: '/event/$id'
       path: '/event/$id'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
   QuizRoute: QuizRoute,
+  TermsRoute: TermsRoute,
   EventIdRoute: EventIdRoute,
 }
 export const routeTree = rootRouteImport

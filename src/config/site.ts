@@ -33,3 +33,21 @@ export const SCAN = {
 
 /** Absolute canonical URL for a route path such as "/app". */
 export const canonicalUrl = (path = "/") => `${SITE_URL}${path === "/" ? "" : path}`;
+
+/**
+ * Legal entity details shown on /terms. PLACEHOLDERS: replace every field with
+ * the registered company data before launch, and have a local lawyer review
+ * the wording of the terms page.
+ */
+export const LEGAL = {
+  companyName: "Sponsa UAB",
+  companyForm: "a private limited liability company",
+  companyNumber: "[company number]",
+  vatNumber: "[VAT number]",
+  address: "[street, city, postal code]",
+  country: "Lithuania",
+  courtsCity: "Vilnius",
+  contactEmail: "legal@sponsa.net",
+  liabilityCap: "EUR 100",
+  lastUpdated: "10 September 2026",
+} as const;
