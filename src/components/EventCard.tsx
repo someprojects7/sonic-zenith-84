@@ -48,10 +48,11 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           <Sparkles className="size-3.5 shrink-0 text-rausch" />
           <p className="min-w-0 flex-1 text-[13px] font-medium leading-4 text-muted-foreground">
             {vote === "up"
-              ? "Thanks — more like this."
+              ? "More like this"
               : vote === "down"
-                ? "Got it — fewer like this."
+                ? "Fewer like this"
                 : `${event.match}% match`}
+
           </p>
 
           <div className="flex shrink-0 items-center gap-0.5">
