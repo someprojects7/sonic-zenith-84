@@ -160,6 +160,15 @@ export const categories = ["All", ...new Set(allEvents.map((e) => e.category))];
 /** The days of the week that hold events, in calendar order. */
 export const eventDays = [...new Set(allEvents.map((e) => e.day))];
 
+/** The calendar year the listed week belongs to. */
+const EVENT_YEAR = 2026;
+
+/** "Thu 17 Sep" as a local Date at midnight, so days can be compared. */
+export const eventDate = (event: EventItem) => {
+  const [, date, month] = event.day.split(" ");
+  return new Date(`${date} ${month} ${EVENT_YEAR} 00:00:00`);
+};
+
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
 
 /** Events added in the latest scan, used for the "new" flags in the tabs. */
