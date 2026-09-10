@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
@@ -73,7 +74,11 @@ function EventMissing() {
 
 function EventPage() {
   const { event } = Route.useLoaderData();
+  const { vote, markSeen } = usePreferences();
   const free = isFree(event);
+
+  // Opening the page counts as looking at it, so the "new" flag clears.
+  useEffect(() => markSeen(event.id), [event.id, markSeen]);
 
   const shareEvent = async () => {
     const url = window.location.href;
@@ -119,15 +124,12 @@ function EventPage() {
               </p>
             </div>
             <div className="mt-1 flex shrink-0 items-center gap-2">
-              <SaveButton
-                id={event.id}
-                className="size-11 bg-card ring-1 ring-hairline"
-              />
+              <SaveButton id={event.id} className="size-11 bg-surface-2" />
               <button
                 type="button"
                 aria-label="Share event"
                 onClick={shareEvent}
-                className="icon-button size-11 shrink-0 bg-card text-foreground ring-1 ring-hairline"
+                className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
               >
                 <Share2 className="size-[18px]" strokeWidth={2} />
               </button>
@@ -201,7 +203,7 @@ function EventPage() {
           <Link
             to="/"
             aria-label="Back to events"
-            className="icon-button size-11 shrink-0 bg-surface-2 ring-1 ring-hairline"
+            className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
           >
             <ChevronLeft className="size-[21px]" />
           </Link>
