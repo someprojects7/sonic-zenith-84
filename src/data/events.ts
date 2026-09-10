@@ -34,6 +34,10 @@ export const formatWhen = (event: EventItem) => `${event.day} · ${event.time}`;
 
 export const isFree = (event: EventItem) => event.price.toLowerCase().startsWith("free");
 
+/** The shortest honest price for a list: "Free" or just "€25". Details live on the event page. */
+export const priceLabel = (event: EventItem) =>
+  isFree(event) ? "Free" : (event.price.match(/€\s?\d[\d.,]*/)?.[0] ?? event.price);
+
 
 
 

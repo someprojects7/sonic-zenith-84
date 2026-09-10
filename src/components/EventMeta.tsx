@@ -1,15 +1,21 @@
-import type { EventItem } from "@/data/events";
+import { formatWhen, type EventItem } from "@/data/events";
 
 /**
- * One line under a title: day, then category. Never wraps and never clips, so
- * every card in the list is exactly the same height.
+ * Category above the title, day and time below it. The category sits on its own
+ * full-width line, so any length fits, and the time is never dropped.
  */
+export function EventCategory({ event }: { event: EventItem }) {
+  return (
+    <p className="truncate text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
+      {event.category}
+    </p>
+  );
+}
+
 export function EventMeta({ event }: { event: EventItem }) {
   return (
-    <p className="mt-1 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
-      <span className="whitespace-nowrap">{event.day}</span>
-      <span aria-hidden>·</span>
-      <span className="whitespace-nowrap">{event.category}</span>
+    <p className="mt-0.5 whitespace-nowrap text-[14px] leading-[1.43] text-muted-foreground">
+      {formatWhen(event)}
     </p>
   );
 }
