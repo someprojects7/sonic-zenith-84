@@ -267,7 +267,7 @@ function Quiz() {
             <button
               type="button"
               onClick={() => setStep((s) => s + 1)}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white transition-opacity active:opacity-80"
+              className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
             >
               {picked.length ? "Continue" : "Skip"}
               <ArrowRight className="size-4 shrink-0" strokeWidth={2.5} />
