@@ -51,7 +51,7 @@ function VoteButton({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "grid size-9 place-items-center rounded-full transition-colors",
+        "press grid size-9 place-items-center rounded-full",
         active ? "bg-brand text-brand-foreground" : "text-muted-foreground active:bg-surface-2",
       )}
     >
