@@ -186,6 +186,26 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Tailwind v4 resets buttons to cursor:default; keep the hand pointer. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  label,
+  summary,
+  select {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: default;
+  }
+
+  input,
+  textarea {
+    cursor: text;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
