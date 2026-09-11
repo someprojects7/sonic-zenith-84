@@ -22,8 +22,8 @@ export function AppHeader({
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
-      <div className="flex h-14 items-center justify-between gap-3 px-5">
-        <h1 className="truncate font-wordmark text-[21px] font-bold uppercase leading-none tracking-[0.1em] text-foreground">
+      <div className="flex min-h-14 items-center justify-between gap-3 px-5 pb-1.5 pt-3.5">
+        <h1 className="truncate font-wordmark text-[18px] font-bold uppercase leading-none tracking-[0.09em] text-foreground">
           Sponsa<span className="text-rausch">.</span>net
         </h1>
 
