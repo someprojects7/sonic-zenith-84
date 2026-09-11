@@ -219,8 +219,8 @@ function Quiz() {
           </button>
           <div className="h-1 min-w-0 flex-1 overflow-hidden rounded-full bg-surface-2">
             <div
-              className="h-full rounded-full bg-rausch transition-[width] duration-300"
-              style={{ width: `${Math.max(progress, 4)}%` }}
+              className="h-full origin-left rounded-full bg-rausch transition-transform duration-200 ease-out"
+              style={{ transform: `scaleX(${Math.max(progress, 4) / 100})` }}
             />
           </div>
           <span className="shrink-0 text-[13px] font-semibold tabular-nums text-muted-foreground">
