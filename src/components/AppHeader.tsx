@@ -32,7 +32,7 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "icon-button size-10 shrink-0 transition-colors",
+            "icon-button press size-10 shrink-0",
             profileActive ? "bg-foreground text-background" : "bg-surface-2 text-muted-foreground",
           )}
         >
