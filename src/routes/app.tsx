@@ -68,9 +68,12 @@ function AppScreen() {
           newCounts={newCounts}
         />
 
-        {view === "foryou" && <ForYouFeed />}
-        {view === "all" && <AllEventsList />}
-        {view === "profile" && <ProfileView />}
+        {/* Opacity-only crossfade: the switch is frequent, so it stays subtle. */}
+        <div key={view} className="animate-in fade-in duration-150 ease-out">
+          {view === "foryou" && <ForYouFeed />}
+          {view === "all" && <AllEventsList />}
+          {view === "profile" && <ProfileView />}
+        </div>
       </div>
     </div>
   );

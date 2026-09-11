@@ -19,7 +19,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
       <Link
         to="/event/$id"
         params={{ id: event.id }}
-        className="grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 p-3 active:opacity-70"
+        className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 p-3"
       >
         <img
           src={event.image}

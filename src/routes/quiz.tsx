@@ -219,8 +219,8 @@ function Quiz() {
           </button>
           <div className="h-1 min-w-0 flex-1 overflow-hidden rounded-full bg-surface-2">
             <div
-              className="h-full rounded-full bg-rausch transition-[width] duration-300"
-              style={{ width: `${Math.max(progress, 4)}%` }}
+              className="h-full origin-left rounded-full bg-rausch transition-transform duration-200 ease-out"
+              style={{ transform: `scaleX(${Math.max(progress, 4) / 100})` }}
             />
           </div>
           <span className="shrink-0 text-[13px] font-semibold tabular-nums text-muted-foreground">
@@ -245,7 +245,7 @@ function Quiz() {
                 key={option}
                 type="button"
                 onClick={() => choose(option)}
-                className={`flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3.5 text-left text-[16px] font-medium transition-colors ${
+                className={`press flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3.5 text-left text-[16px] font-medium ${
                   active
                     ? "border-rausch bg-rausch/5 text-foreground"
                     : "border-hairline bg-card text-foreground hover:border-foreground/30"
@@ -267,7 +267,7 @@ function Quiz() {
             <button
               type="button"
               onClick={() => setStep((s) => s + 1)}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white transition-opacity active:opacity-80"
+              className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
             >
               {picked.length ? "Continue" : "Skip"}
               <ArrowRight className="size-4 shrink-0" strokeWidth={2.5} />
