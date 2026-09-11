@@ -82,7 +82,7 @@ export function AllEventsList() {
                 type="button"
                 aria-label="Pick dates"
                 className={cn(
-                  "flex h-9 shrink-0 items-center gap-1.5 rounded-full text-[13px] font-medium transition-colors",
+                  "press flex h-9 shrink-0 items-center gap-1.5 rounded-full text-[13px] font-medium",
                   dateLabel
                     ? "bg-foreground px-3.5 text-background"
                     : "w-9 justify-center bg-card text-foreground ring-1 ring-hairline",
@@ -135,7 +135,7 @@ export function AllEventsList() {
               if (searchOpen) setQuery("");
             }}
             className={cn(
-              "icon-button size-9 shrink-0 transition-colors",
+              "icon-button press size-9 shrink-0",
               searchOpen || query
                 ? "bg-foreground text-background"
                 : "bg-card text-foreground ring-1 ring-hairline",
@@ -157,7 +157,7 @@ export function AllEventsList() {
             key={c}
             onClick={() => setCategory(c)}
             className={cn(
-              "h-9 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors",
+              "press h-9 shrink-0 rounded-full px-4 text-[14px] font-medium",
               category === c
                 ? "bg-brand text-brand-foreground"
                 : "bg-card text-muted-foreground ring-1 ring-hairline",
