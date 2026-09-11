@@ -14,7 +14,7 @@ export function EventRow({ event }: { event: EventItem }) {
     <Link
       to="/event/$id"
       params={{ id: event.id }}
-      className="grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 rounded-xl bg-card p-3 text-left active:opacity-70"
+      className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 rounded-xl bg-card p-3 text-left"
     >
       <img
         src={event.image}
