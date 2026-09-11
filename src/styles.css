@@ -149,7 +149,34 @@
   text-wrap: balance;
 }
 
+/* Physical press feedback for anything tappable: a small scale, no opacity dip. */
+@utility press {
+  transition:
+    transform 140ms var(--ease-out),
+    background-color 140ms var(--ease-out);
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Reduced motion: keep colour and opacity feedback, drop movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+  }
+
+  .press:active {
+    transform: none;
+  }
+}
+
 @layer base {
+
 
   * {
     border-color: var(--color-hairline);
