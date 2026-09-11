@@ -18,7 +18,7 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "bg-card transition-all duration-300",
+        "bg-card transition-[transform,opacity] duration-200 ease-out",
         hidden && "pointer-events-none -translate-y-2 opacity-0",
       )}
     >
