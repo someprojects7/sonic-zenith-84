@@ -245,7 +245,7 @@ function Quiz() {
                 key={option}
                 type="button"
                 onClick={() => choose(option)}
-                className={`flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3.5 text-left text-[16px] font-medium transition-colors ${
+                className={`press flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3.5 text-left text-[16px] font-medium ${
                   active
                     ? "border-rausch bg-rausch/5 text-foreground"
                     : "border-hairline bg-card text-foreground hover:border-foreground/30"
