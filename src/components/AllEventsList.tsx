@@ -169,7 +169,7 @@ export function AllEventsList() {
       </div>
 
       {searchOpen && (
-        <div className="px-5">
+        <div className="animate-in fade-in slide-in-from-top-1 px-5 duration-200 ease-out">
           <label className="flex min-w-0 items-center gap-2.5 rounded-full bg-card px-4 ring-1 ring-hairline">
             <Search className="size-4 shrink-0 text-muted-foreground" strokeWidth={2} />
             <input
