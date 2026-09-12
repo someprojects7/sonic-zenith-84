@@ -267,7 +267,7 @@ function Quiz() {
             <button
               type="button"
               onClick={() => setStep((s) => s + 1)}
-              className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
+              className="cta-halo press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
             >
               {picked.length ? "Continue" : "Skip"}
               <ArrowRight className="size-4 shrink-0" strokeWidth={2.5} />
@@ -345,7 +345,7 @@ function Result({ answers }: { answers: Record<string, string[]> }) {
             </ul>
             <Link
               to="/app"
-              className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
+              className="cta-halo press mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
             >
               <Lock className="size-4 shrink-0" />
               Go Pro

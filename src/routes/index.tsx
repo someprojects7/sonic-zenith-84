@@ -83,7 +83,9 @@ function Cta({ variant = "coral" }: { variant?: "coral" | "ink" }) {
     <Link
       to="/quiz"
       className={`press inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold ${
-        variant === "coral" ? "bg-rausch text-white" : "bg-foreground text-background"
+        variant === "coral"
+          ? "cta-halo bg-rausch text-white"
+          : "cta-halo-ink bg-foreground text-background"
       }`}
     >
       {CTA}

@@ -149,6 +149,38 @@
   text-wrap: balance;
 }
 
+/* Soft outer ring around a primary action, so the CTA reads as the one next step. */
+@utility cta-halo {
+  box-shadow: 0 0 0 6px color-mix(in oklch, var(--rausch) 14%, transparent);
+  transition: box-shadow 200ms var(--ease-out);
+
+  &:active {
+    box-shadow: 0 0 0 10px color-mix(in oklch, var(--rausch) 20%, transparent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 0 0 9px color-mix(in oklch, var(--rausch) 20%, transparent);
+    }
+  }
+}
+
+/* Same ring for the near-black action used on coloured sections. */
+@utility cta-halo-ink {
+  box-shadow: 0 0 0 6px color-mix(in oklch, var(--foreground) 12%, transparent);
+  transition: box-shadow 200ms var(--ease-out);
+
+  &:active {
+    box-shadow: 0 0 0 10px color-mix(in oklch, var(--foreground) 18%, transparent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 0 0 9px color-mix(in oklch, var(--foreground) 18%, transparent);
+    }
+  }
+}
+
 /* Physical press feedback for anything tappable: a small scale, no opacity dip. */
 @utility press {
   transition:
