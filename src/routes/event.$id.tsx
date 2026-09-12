@@ -246,7 +246,7 @@ function EventPage() {
           </div>
           <button
             type="button"
-            className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-rausch px-5 text-[14px] font-medium text-white"
+            className="cta-halo press flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-rausch px-5 text-[14px] font-medium text-white"
           >
             {free ? <ArrowUpRight className="size-4" /> : <Ticket className="size-[18px]" />}
             {free ? "Open" : "Tickets"}
