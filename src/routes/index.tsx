@@ -487,9 +487,8 @@ function Team() {
     <Section>
       <Eyebrow>Team</Eyebrow>
       <Heading>Built by two people who live in events.</Heading>
-      <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-muted-foreground">
-        Four years running nights in this city. That is how we know which evening is worth yours.
-      </p>
+
+
 
       <dl className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
         {STATS.map((s) => (
@@ -549,8 +548,9 @@ function FinalCta() {
           Your weekend, already picked.
         </h2>
         <p className="mx-auto mt-3 max-w-sm text-[16px] leading-[1.5] text-background/70">
-          20 taps now. Your picks waiting when you open the app.
+          One minute now. Ten picks waiting.
         </p>
+
         <div className="mt-7">
           <Cta />
         </div>

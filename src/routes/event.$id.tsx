@@ -128,7 +128,7 @@ function EventPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
         <div className="px-4 pt-4">
           <img
             src={event.image}
@@ -227,7 +227,7 @@ function EventPage() {
       </div>
 
       {/* One decision, always reachable; back stays under the thumb on mobile. */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-glass px-5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] pt-2.5 backdrop-blur-xl">
         <div className="mx-auto grid max-w-md grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Link
             to="/app"

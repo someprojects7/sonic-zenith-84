@@ -54,7 +54,7 @@ function AppScreen() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(3rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
         <AppHeader
           hidden={headerHidden}
           profileActive={view === "profile"}
