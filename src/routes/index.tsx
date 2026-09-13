@@ -155,10 +155,20 @@ function Hero() {
           <h1 className="mt-2 text-[40px] font-medium leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[56px]">
             Your shortcut to the city
           </h1>
-          <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-muted-foreground">
-            Facebook events, ticket sites, Telegram, Instagram. An hour of scrolling for one night
-            out.
-          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-1.5">
+            {["Facebook", "Ticket sites", "Telegram", "Instagram"].map((s) => (
+              <span
+                key={s}
+                className="rounded-full border border-hairline px-2.5 py-1 text-[12px] font-medium text-muted-foreground"
+              >
+                {s}
+              </span>
+            ))}
+            <span className="rounded-full bg-surface-2 px-2.5 py-1 text-[12px] font-semibold text-rausch">
+              1h scrolling
+            </span>
+          </div>
+
 
           <div className="mt-6 max-w-md rounded-xl border border-hairline bg-card p-1">
             <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1">
@@ -217,22 +227,11 @@ function Hero() {
 }
 
 const PROBLEMS = [
-  {
-    icon: Clock,
-    title: "You hear about it on Monday",
-    note: "The gig was Saturday. Again.",
-  },
-  {
-    icon: Filter,
-    title: "Five apps, none of them yours",
-    note: "Instagram stories, ticket sites, a friend of a friend.",
-  },
-  {
-    icon: MapPin,
-    title: "The same three bars",
-    note: "A city of a thousand nights and you keep repeating one.",
-  },
+  { icon: Clock, title: "Heard on Monday", note: "Gig was Saturday." },
+  { icon: Filter, title: "Five apps", note: "None of them yours." },
+  { icon: MapPin, title: "Same three bars", note: "One night on repeat." },
 ];
+
 
 function Problem() {
   return (
@@ -258,20 +257,11 @@ function Problem() {
 }
 
 const STEPS = [
-  {
-    icon: Sparkles,
-    value: "20 taps",
-    label: "you tell us your taste",
-    note: "Sound, budget, nights, distance.",
-  },
-  {
-    icon: Radar,
-    value: "1,000+",
-    label: "events we read daily",
-    note: "Venues, promoters, ticketing.",
-  },
-  { icon: Crown, value: "10", label: "become your week", note: "Each one with a reason." },
+  { icon: Sparkles, value: "20 taps", label: "your taste", note: "Sound, budget, nights." },
+  { icon: Radar, value: "1,000+", label: "events a day", note: "Venues, promoters, tickets." },
+  { icon: Crown, value: "10", label: "your week", note: "Each with a reason." },
 ];
+
 
 function Steps() {
   return (
