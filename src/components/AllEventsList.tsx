@@ -58,7 +58,7 @@ export function AllEventsList() {
   };
 
   return (
-    <main className="space-y-5 pb-6 pt-6">
+    <main className="space-y-5 pb-4 pt-6">
       {/* Dates and search stay put; categories get their own scroll track below. */}
       <div className="flex items-center justify-between gap-3 px-5">
         <div className="min-w-0">

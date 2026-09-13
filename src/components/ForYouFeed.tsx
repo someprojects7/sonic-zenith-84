@@ -23,7 +23,7 @@ export function ForYouFeed() {
   }, [interests]);
 
   return (
-    <main className="space-y-8 pb-6 pt-6">
+    <main className="space-y-8 pb-4 pt-6">
       <div className="px-5">
         <InterestPicker />
       </div>
