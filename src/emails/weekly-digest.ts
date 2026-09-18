@@ -171,23 +171,23 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     </tr></table>
   </td></tr>
 
-  <tr><td align="center" style="padding:36px 24px 18px 24px;font-family:${BODY_FONT};text-align:center;">
+  <tr><td align="center" style="padding:32px 24px 20px 24px;font-family:${BODY_FONT};text-align:center;">
     <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} <span style="color:${CORAL};">${esc(input.city)}</span> week is ready.</h1>
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste.</p>
   </td></tr>
 
   ${picksBlock(input.picks, appUrl)}
 
-  <tr><td style="padding:8px 24px 26px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
-
+  <tr><td style="padding:12px 24px 32px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="center" style="border-top:1px solid ${LINE};font-family:${BODY_FONT};text-align:center;">
-      <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
+      <p style="margin:20px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
         ${esc(TAGLINE)}. Once a week, because you set up picks on ${esc(SITE_NAME)}.net.<br />
         <a href="${esc(absolute(input.preferencesUrl ?? "/app"))}" style="color:${SLATE};">Change your interests</a> ·
         <a href="${esc(absolute(input.unsubscribeUrl ?? "/app"))}" style="color:${SLATE};">Unsubscribe</a>
       </p>
+
     </td></tr></table>
   </td></tr>
 
