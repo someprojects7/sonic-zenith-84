@@ -362,17 +362,13 @@ function Footer() {
     <footer className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
       <div className="flex flex-col items-center justify-between gap-3 border-t border-line pt-7 text-center sm:flex-row sm:text-left">
         <p className="font-heading text-[18px] font-semibold text-ink">{TAGLINE}</p>
-        <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
-          <Link
-            to="/terms"
-            className="text-[14px] text-slate transition-colors hover:text-ink"
-          >
+        <p className="flex items-center gap-2 text-[14px] text-slate">
+          <span>© {new Date().getFullYear()} Sponsa.net</span>
+          <span aria-hidden="true">·</span>
+          <Link to="/terms" className="transition-colors hover:text-ink">
             Terms
           </Link>
-          <p className="text-[14px] text-slate">
-            © {new Date().getFullYear()} Sponsa.net
-          </p>
-        </div>
+        </p>
       </div>
     </footer>
   );
