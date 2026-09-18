@@ -63,6 +63,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { PhoneFrame } from "@/components/PhoneFrame";
 import { CITY, canonicalUrl } from "@/config/site";
 import { formatWhen, picks, priceLabel } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
