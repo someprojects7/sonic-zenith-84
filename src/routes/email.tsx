@@ -88,7 +88,7 @@ function EmailPreview() {
             city: CITY,
             event: { ...top, match: 97 },
             reason:
-              "One night only, the hall holds 400 seats and the last two festival concerts sold out in a day.",
+              "Tickets opened this morning, the hall holds 400 seats and their last two Vilnius nights sold out in a day.",
             ticketUrl: "https://www.tiketa.lt",
             ticketSource: "tiketa.lt",
             ...base,
