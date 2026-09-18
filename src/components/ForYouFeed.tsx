@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Hourglass } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
-import { InterestPicker } from "@/components/InterestPicker";
+import { InterestPicker, POPULAR } from "@/components/InterestPicker";
 import { SCAN } from "@/config/site";
 import { allEvents, picks } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -13,11 +13,12 @@ export function ForYouFeed() {
 
   // Chosen interests float to the top; nothing is hidden, so the week stays whole.
   const order = useMemo(() => {
-    const rank = (category: string) => (interests.includes(category) ? 0 : 1);
-    const sorted = [...picks].sort((a, b) => rank(a.category) - rank(b.category));
-    const rest = allEvents
-      .filter((e) => !picks.some((p) => p.id === e.id))
-      .sort((a, b) => rank(a.category) - rank(b.category));
+    const popular = interests.includes(POPULAR);
+    const rank = (event: (typeof picks)[number]) =>
+      popular ? -(event.match ?? 0) : interests.includes(event.category) ? 0 : 1;
+    const by = (a: (typeof picks)[number], b: (typeof picks)[number]) => rank(a) - rank(b);
+    const sorted = [...picks].sort(by);
+    const rest = allEvents.filter((e) => !picks.some((p) => p.id === e.id)).sort(by);
     return { sorted, rest };
   }, [interests]);
 
