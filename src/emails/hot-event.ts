@@ -20,6 +20,7 @@ import {
   SLATE,
   ctaBlock,
   esc,
+  eyebrow,
   eventRow,
   footerReason,
   layout,
@@ -47,15 +48,9 @@ export const hotEventSubject = (input: HotEventInput) =>
 export const hotEventPreheader = (input: HotEventInput) =>
   `${formatWhen(input.event)} · ${input.event.venue} · ${priceLabel(input.event)}. ${input.event.match ?? 0}% match with your taste.`;
 
-/** Small coral label above the headline: the one thing that makes this urgent. */
-const alertLabel = (text: string) => `
-<tr><td align="center" style="padding:28px 24px 0 24px;text-align:center;">
-  <span style="display:inline-block;font-family:${HEAD_FONT};font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${CORAL};">${esc(text)}</span>
-</td></tr>`;
-
 /** Why now: plain text with a thin coral rule, never a card (cards mean events). */
 const reasonBlock = (reason: string, source?: string) => `
-<tr><td style="padding:16px 24px 0 24px;">
+<tr><td style="padding:24px 24px 0 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
     <tr>
       <td width="3" bgcolor="${CORAL}" style="width:3px;line-height:0;font-size:0;border-radius:2px;">&nbsp;</td>
@@ -78,7 +73,7 @@ export const renderHotEventHtml = (input: HotEventInput) => {
     preheader: hotEventPreheader(input),
     headerNote: esc(input.city),
     content: `
-  ${alertLabel("On sale now")}
+  ${eyebrow("On sale now")}
   <tr><td align="center" style="padding:10px 24px 20px 24px;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;text-align:center;">
     <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${name} one is a <span style="color:${CORAL};">${input.event.match ?? 0}% match</span>.</h1>
   </td></tr>
