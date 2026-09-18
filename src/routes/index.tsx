@@ -365,7 +365,7 @@ function Footer() {
         <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
           <Link
             to="/terms"
-            className="text-[14px] font-semibold text-ink transition-opacity active:opacity-70"
+            className="text-[14px] text-slate transition-colors hover:text-ink"
           >
             Terms
           </Link>
