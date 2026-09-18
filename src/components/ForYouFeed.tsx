@@ -57,7 +57,9 @@ export function ForYouFeed() {
         </div>
       </section>
 
-      <p className="px-5 text-[13px] leading-[1.43] text-muted-foreground">That's the week.</p>
+      <p className="px-5 text-[13px] leading-[1.43] text-muted-foreground">
+        That's the week. New picks {nextRefresh()}.
+      </p>
     </main>
   );
 }
