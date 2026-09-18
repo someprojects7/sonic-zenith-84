@@ -135,9 +135,9 @@ function Nav() {
 }
 
 const FUNNEL = [
-  { k: SCAN.sourcesClaim, v: "sources we read" },
+  { k: SCAN.sourcesClaim, v: "sources scanned" },
   { k: SCAN.eventsPerWeekClaim, v: "events a week" },
-  { k: SCAN.picksPerWeekClaim, v: "picked for you" },
+  { k: SCAN.picksPerWeekClaim, v: "picks for you" },
 ];
 
 /** Hero is sized to sit on one screen: min-h minus the 56/64px nav. */
@@ -150,17 +150,16 @@ function Hero() {
             {CITY} · this week
           </span>
           <h1 className="mt-4 text-[38px] font-bold leading-[1.1] text-ink sm:text-[58px]">
-            Your shortcut to the city
+            The best events in your city, picked for you
           </h1>
           <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-slate">
-            An hour of scrolling Facebook, ticket sites, Telegram and Instagram for one night out.
-            Answer 20 taps instead.
+            Everything worth going to, in one place. Ten picks a week that match your taste.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Cta />
             <p className="text-[14px] text-slate">
-              60 seconds. First picks free, Pro from €7.99 a month.
+              60 seconds to set up. 7 days free, then €7.99 a month.
             </p>
           </div>
 
@@ -174,31 +173,35 @@ function Hero() {
           <div className="absolute -left-6 -top-6 size-40 rounded-full bg-magenta/25 blur-3xl" />
           <div className="absolute -bottom-8 -right-4 size-48 rounded-full bg-cyan/25 blur-3xl" />
 
-          <div className="card-lift relative overflow-hidden rounded-2xl bg-paper p-3">
-            <img
-              src={heroCity}
-              alt="Crowd with hands up at a live concert in a small city venue"
-              width={900}
-              height={1200}
-              className="h-44 w-full rounded-xl object-cover sm:h-[420px]"
-            />
-            <div className="mt-3 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1 rounded-xl border border-line px-1 py-2">
-              {FUNNEL.map((s, i) => (
-                <React.Fragment key={s.v}>
-                  {i > 0 && <ArrowRight className="size-4 shrink-0 text-mist" strokeWidth={2.5} />}
-                  <div className="px-1 text-center">
-                    <p
-                      className={`text-[22px] font-bold leading-none ${
-                        i === 2 ? "text-signal" : "text-ink"
-                      }`}
-                    >
-                      {s.k}
-                    </p>
-                    <p className="mt-1 text-[12px] leading-tight text-slate">{s.v}</p>
-                  </div>
-                </React.Fragment>
-              ))}
+          <div className="card-lift relative overflow-hidden rounded-2xl bg-paper">
+            <div className="relative">
+              <img
+                src={heroCity}
+                alt="Crowd with hands up at a live concert in a small city venue"
+                width={900}
+                height={1200}
+                className="h-52 w-full object-cover sm:h-[360px]"
+              />
+              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-paper/95 px-3 py-1.5 text-[13px] font-semibold text-ink">
+                <Sparkles className="size-3.5 text-signal" />
+                94% match
+              </span>
             </div>
+
+            <dl className="divide-y divide-line">
+              {FUNNEL.map((s, i) => (
+                <div key={s.v} className="flex items-center justify-between gap-3 px-5 py-3">
+                  <dt className="text-[15px] text-slate">{s.v}</dt>
+                  <dd
+                    className={`text-[20px] font-bold leading-none ${
+                      i === 2 ? "text-signal" : "text-ink"
+                    }`}
+                  >
+                    {s.k}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </div>
@@ -207,15 +210,15 @@ function Hero() {
 }
 
 const STEPS = [
-  { n: "1", title: "20 taps", note: "Sound, budget, nights you go out." },
-  { n: "2", title: "We read the city", note: "Venues, promoters, ticket sites, channels." },
-  { n: "3", title: "Ten picks", note: "Every week, each with a reason." },
+  { n: "1", title: "Tell us your taste", note: "Sound, budget, nights you go out. 20 taps." },
+  { n: "2", title: "We scan the city", note: "Venues, promoters, ticket sites, channels." },
+  { n: "3", title: "Ten picks a week", note: "Only the best, each with a reason." },
 ];
 
 function Steps() {
   return (
     <Section className="bg-paper">
-      <SectionHead eyebrow="How it works" title="One minute now. Every week sorted." />
+      <SectionHead eyebrow="How it works" title="Three steps to a better week." />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         {STEPS.map((s) => (
@@ -235,6 +238,7 @@ function Steps() {
     </Section>
   );
 }
+
 
 const SAMPLE = [
   {
