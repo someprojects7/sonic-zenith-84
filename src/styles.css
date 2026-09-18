@@ -76,8 +76,6 @@
   --font-heading: "Outfit", var(--font-sans);
 }
 
-
-
 /* Bento tile: rises a touch on hover. */
 @utility tile {
   border-radius: 16px;

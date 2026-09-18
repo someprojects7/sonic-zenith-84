@@ -136,6 +136,8 @@ function EventPage() {
             alt={event.title}
             width={1024}
             height={768}
+            fetchPriority="high"
+            decoding="async"
             className="aspect-[4/3] w-full rounded-xl object-cover"
           />
         </div>

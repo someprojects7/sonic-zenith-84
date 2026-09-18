@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Static sitemap for the public pages. Event pages are demo data and are not
-  listed; once events come from the database, generate this file (or a
-  /api/public/sitemap.xml route) from the real event list.
+  Static sitemap for the public pages. /app, /paywall and /event/* are excluded
+  on purpose: they are signed-in or funnel surfaces and send meta robots
+  noindex. Event pages are demo data; once events come from the database,
+  generate this file (or a /api/public/sitemap.xml route) from the real list.
+
+  Base host mirrors SITE_URL in src/config/site.ts — update both together.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sponsa.net/</loc>
+    <loc>https://sponsanet.lovable.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sponsa.net/quiz</loc>
+    <loc>https://sponsanet.lovable.app/quiz</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sponsa.net/terms</loc>
+    <loc>https://sponsanet.lovable.app/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
