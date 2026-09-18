@@ -188,6 +188,22 @@
   }
 }
 
+/* Same ring in the landing palette (signal), for the marketing CTA. */
+@utility cta-halo-signal {
+  box-shadow: 0 0 0 6px color-mix(in oklch, var(--signal) 14%, transparent);
+  transition: box-shadow 200ms var(--ease-out);
+
+  &:active {
+    box-shadow: 0 0 0 10px color-mix(in oklch, var(--signal) 20%, transparent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 0 0 9px color-mix(in oklch, var(--signal) 20%, transparent);
+    }
+  }
+}
+
 /* Same ring for the near-black action used on coloured sections. */
 @utility cta-halo-ink {
   box-shadow: 0 0 0 6px color-mix(in oklch, var(--foreground) 12%, transparent);
