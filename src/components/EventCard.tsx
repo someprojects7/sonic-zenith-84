@@ -1,45 +1,55 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Sparkles } from "lucide-react";
 
-import { EventCategory, EventMeta } from "@/components/EventMeta";
+import { EventCategory } from "@/components/EventMeta";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { priceLabel, type EventItem } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
+/** "Thu 17 Sep" split into the three lines of the date block. */
+const splitDay = (day: string) => {
+  const [weekday = "", date = "", month = ""] = day.trim().split(/\s+/);
+  return { weekday, date, month };
+};
+
 /**
- * A recommendation card. The whole card opens the event page, where tickets and
- * saving live, so the only controls here are the two feedback thumbs.
+ * A recommendation card. The date block on the left replaces the photo, so the
+ * card reads the same way as the weekly email. The whole card opens the event
+ * page, where tickets and saving live.
  */
-export function EventCard({ event, featured = false }: { event: EventItem; featured?: boolean }) {
+export function EventCard({ event }: { event: EventItem; featured?: boolean }) {
   const { vote, isSeen } = usePreferences();
   const isNew = Boolean(event.isNew) && !isSeen(event.id);
+  const { weekday, date, month } = splitDay(event.day);
 
   return (
     <article className="overflow-hidden rounded-xl bg-card">
       <Link
         to="/event/$id"
         params={{ id: event.id }}
-        className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 p-3"
+        className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3"
       >
-        <img
-          src={event.image}
-          alt={event.title}
-          width={1024}
-          height={768}
-          loading={featured ? undefined : "lazy"}
-          decoding="async"
-          className="size-[60px] shrink-0 rounded-xl object-cover"
-        />
+        <div className="flex size-[60px] shrink-0 flex-col items-center justify-center rounded-xl bg-muted">
+          <span className="text-[11px] font-semibold leading-[1.2] tracking-[0.06em] text-muted-foreground">
+            {date}
+          </span>
+          <span className="text-[19px] font-bold leading-[1.15] tracking-[-0.01em] text-foreground">
+            {weekday}
+          </span>
+          <span className="text-[11px] font-semibold uppercase leading-[1.2] tracking-[0.06em] text-muted-foreground">
+            {month}
+          </span>
+        </div>
         <div className="min-w-0">
           <EventCategory event={event} isNew={isNew} />
           <p className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
             {event.title}
           </p>
-          <EventMeta event={event} />
+          <p className="mt-0.5 whitespace-nowrap text-[14px] leading-[1.43] text-muted-foreground">
+            {event.time} ·{" "}
+            <span className="font-semibold text-foreground">{priceLabel(event)}</span>
+          </p>
         </div>
-        <span className="shrink-0 text-[14px] font-semibold text-foreground">
-          {priceLabel(event)}
-        </span>
         <ChevronRight className="size-4 shrink-0 text-muted-foreground" strokeWidth={2.5} />
       </Link>
 
