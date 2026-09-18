@@ -8,6 +8,8 @@ import eventArt from "@/assets/event-art.jpg";
 import eventClub from "@/assets/event-club.jpg";
 import cityMap from "@/assets/city-map-stats.jpg";
 import eventsPattern from "@/assets/events-pattern-stats.jpg";
+import cityMapBg from "@/assets/city-map-bg.jpg.asset.json";
+
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
