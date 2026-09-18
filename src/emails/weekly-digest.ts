@@ -111,10 +111,10 @@ const eventRow = (event: EventItem, appUrl: string) => {
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
         <td width="72" valign="top" style="width:72px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;background-color:#fff0f3;border-radius:8px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;background-color:#f2f2f7;border-radius:8px;">
               <tr><td align="center" style="font-family:${HEAD_FONT};padding:8px 0 9px 0;">
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
-                <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${CORAL};">${esc(weekday)}</div>
+                <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${INK};">${esc(weekday)}</div>
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(month)}</div>
 
 
