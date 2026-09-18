@@ -63,7 +63,7 @@ export const renderWelcomeHtml = (input: WelcomeInput) => {
   return layout({
     subject: welcomeSubject(input),
     preheader: welcomePreheader(input),
-    headerNote: esc(input.city),
+    hideHeader: true,
     content: `
   ${eyebrow("Welcome to Sponsa")}
   <tr><td align="center" style="padding:10px 24px 8px 24px;font-family:${HEAD_FONT};text-align:center;">

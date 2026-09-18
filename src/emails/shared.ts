@@ -160,6 +160,8 @@ export const layout = (options: {
   preheader: string;
   /** Small text on the right of the header row. */
   headerNote?: string;
+  /** Hide the wordmark row entirely (welcome email needs no header). */
+  hideHeader?: boolean;
   /** Rows already wrapped in <tr>. */
   content: string;
   /** Footer sentence explaining why this email arrived. */
@@ -180,12 +182,16 @@ export const layout = (options: {
 <tr><td align="center" style="padding:20px 12px 28px 12px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:${CANVAS};">
 
-  <tr><td style="padding:8px 24px 0 24px;">
+  ${
+    options.hideHeader
+      ? ""
+      : `<tr><td style="padding:8px 24px 0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
       <td>${wordmark()}</td>
       <td align="right" style="font-family:${BODY_FONT};font-size:13px;font-weight:500;color:${SLATE};">${esc(options.headerNote ?? "")}</td>
     </tr></table>
-  </td></tr>
+  </td></tr>`
+  }
 
   ${options.content}
 
