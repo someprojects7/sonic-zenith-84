@@ -107,7 +107,7 @@ const eventRow = (
 /** Picks sit in a narrower centred column so they do not span the full email. */
 const picksBlock = (picks: EventItem[], appUrl: string, absolute: (url: string) => string) => `
 <tr><td align="center" style="padding:4px 24px 4px 24px;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="width:420px;max-width:100%;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="width:100%;max-width:420px;">
     ${picks.map((event, index) => eventRow(event, appUrl, absolute, index === 0)).join("")}
   </table>
 </td></tr>`;
@@ -129,7 +129,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 <div style="display:none;font-size:1px;color:${CANVAS};line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">${esc(preheaderFor(input))}</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:${CANVAS};">
 <tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:100%;background:#ffffff;border:1px solid ${LINE};border-radius:16px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:#ffffff;border:1px solid ${LINE};border-radius:16px;">
 
   <tr><td style="padding:22px 28px 0 28px;font-family:Helvetica,Arial,sans-serif;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
