@@ -1,6 +1,15 @@
 import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, LogIn, Sparkles, Star } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarCheck,
+  Check,
+  LogIn,
+  MousePointerClick,
+  Radar,
+  Sparkles,
+  Star,
+} from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import eventLive from "@/assets/event-live.jpg";
@@ -95,8 +104,8 @@ function Landing() {
       <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
           <HeroTile />
-          <StepsTile />
           <PicksTile />
+          <StepsTile />
           <div className="flex flex-col gap-4 md:col-span-6">
             <div className="grid grid-cols-2 gap-4">
               <StatTile value={SCAN.sourcesClaim} label="sources scanned" bg={cityMap} />
@@ -166,24 +175,40 @@ function HeroTile() {
 }
 
 const STEPS = [
-  { n: "1", title: "20 quick taps", note: "Sound, budget, nights you go out." },
-  { n: "2", title: "We scan the city", note: "Venues, promoters, ticket sites, channels." },
-  { n: "3", title: "Ten picks a week", note: "Every Monday, each with a reason." },
+  { n: "1", icon: MousePointerClick, title: "20 quick taps", note: "Sound, budget, nights out." },
+  { n: "2", icon: Radar, title: "We scan the city", note: "Venues, promoters, tickets, channels." },
+  { n: "3", icon: CalendarCheck, title: "Ten picks a week", note: "Every Monday, with a reason." },
 ];
 
+/**
+ * Sits in the wide 6-column slot, so the three steps run left to right on a
+ * hairline rail (they stack on phones).
+ */
 function StepsTile() {
   return (
-    <section className="tile p-7 md:col-span-4">
-      <TileTitle>How it works</TileTitle>
-      <ol className="mt-7 space-y-7">
-        {STEPS.map((s) => (
-          <li key={s.n} className="flex gap-4">
-            <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-cloud text-[14px] font-bold text-ink">
-              {s.n}
+    <section className="tile p-7 md:col-span-6">
+      <div className="flex items-baseline justify-between gap-3">
+        <TileTitle>How it works</TileTitle>
+        <span className="text-[13px] font-semibold text-slate">60 seconds</span>
+      </div>
+
+      <ol className="relative mt-7 grid gap-7 sm:grid-cols-3 sm:gap-5">
+        {/* Rail connecting the three steps, desktop only. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-6 right-[calc(33.333%+1.5rem)] top-6 hidden h-px bg-line sm:block"
+        />
+        {STEPS.map(({ n, icon: Icon, title, note }) => (
+          <li key={n} className="relative flex gap-4 sm:block">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full border border-line bg-paper text-signal">
+              <Icon className="size-5" strokeWidth={2} />
             </span>
-            <div>
-              <p className="text-[16px] font-semibold text-ink">{s.title}</p>
-              <p className="mt-1 text-[14px] leading-[1.5] text-slate">{s.note}</p>
+            <div className="sm:mt-4">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">
+                Step {n}
+              </p>
+              <p className="mt-1 text-[16px] font-semibold leading-[1.3] text-ink">{title}</p>
+              <p className="mt-1 text-[14px] leading-[1.5] text-slate">{note}</p>
             </div>
           </li>
         ))}
@@ -225,17 +250,18 @@ const SAMPLE = [
   { img: eventClub, match: "88%", title: "Smala Nights: Ø Room", meta: "Sat 23:30 · Smala" },
 ];
 
+/** Sits in the narrow 4-column slot beside the hero, so rows stay compact. */
 function PicksTile() {
   return (
-    <section className="tile p-7 md:col-span-6">
+    <section className="tile flex flex-col p-7 md:col-span-4">
       <div className="flex items-baseline justify-between gap-3">
         <TileTitle>Your picks look like this</TileTitle>
-        <span className="text-[13px] font-semibold text-slate">
+        <span className="shrink-0 text-[13px] font-semibold text-slate">
           {SCAN.picksPerWeekClaim} a week
         </span>
       </div>
 
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-6 space-y-4">
         {SAMPLE.map((p) => (
           <li key={p.title} className="flex items-center gap-4">
             <div className="relative shrink-0">
@@ -243,27 +269,28 @@ function PicksTile() {
                 src={p.img}
                 alt=""
                 aria-hidden
-                width={72}
-                height={72}
+                width={60}
+                height={60}
                 loading="lazy"
                 decoding="async"
-                className="size-[72px] rounded-xl object-cover"
+                className="size-[60px] rounded-xl object-cover"
               />
-              <span className="absolute -right-2 -top-2 rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold text-paper">
+              <span className="absolute -right-2 -top-2 rounded-full bg-signal px-1.5 py-0.5 text-[10px] font-bold text-paper">
                 {p.match}
               </span>
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[16px] font-semibold leading-[1.3] text-ink">{p.title}</p>
-              <p className="mt-0.5 truncate text-[14px] text-slate">{p.meta}</p>
-              <p className="mt-1 flex items-center gap-1.5 text-[13px] text-slate">
-                <Sparkles className="size-3.5 shrink-0 text-signal" />
-                Matched to your taste
-              </p>
+              <p className="truncate text-[15px] font-semibold leading-[1.3] text-ink">{p.title}</p>
+              <p className="mt-0.5 truncate text-[13px] text-slate">{p.meta}</p>
             </div>
           </li>
         ))}
       </ul>
+
+      <p className="mt-6 flex items-center gap-1.5 text-[13px] text-slate">
+        <Sparkles className="size-3.5 shrink-0 text-signal" />
+        Matched to your taste
+      </p>
     </section>
   );
 }
