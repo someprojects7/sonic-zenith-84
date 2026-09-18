@@ -8,6 +8,15 @@ import { allEvents, picks } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
 /** The weekly shortlist, ordered from highest-attention picks to compact extras. */
+/** Picks refresh weekly on Monday; shown as "Monday" or "tomorrow" / "today". */
+function nextRefresh() {
+  const now = new Date();
+  const days = (8 - now.getDay()) % 7 || 7;
+  if (now.getDay() === 1) return "today";
+  if (days === 1) return "tomorrow";
+  return "Monday";
+}
+
 export function ForYouFeed() {
   const { interests, interestsDismissed, dismissInterests } = usePreferences();
 
