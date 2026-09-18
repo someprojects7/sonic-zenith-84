@@ -1,6 +1,15 @@
 import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, LogIn, Sparkles, Star } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarCheck,
+  Check,
+  LogIn,
+  MousePointerClick,
+  Radar,
+  Sparkles,
+  Star,
+} from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import eventLive from "@/assets/event-live.jpg";
