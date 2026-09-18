@@ -87,16 +87,23 @@ function EmailPreview() {
         </div>
 
         <div className="mt-6 flex justify-center pb-6">
-          <iframe
-            title="Weekly email preview"
-            srcDoc={email.html}
-            onLoad={(event) => {
-              const body = event.currentTarget.contentDocument?.body;
-              if (body) setHeight(body.scrollHeight);
-            }}
-            className="w-full max-w-[680px] rounded-2xl border border-line bg-paper"
-            style={{ height }}
-          />
+          {origin ? (
+            <iframe
+              title="Weekly email preview"
+              srcDoc={email.html}
+              onLoad={(event) => {
+                const body = event.currentTarget.contentDocument?.body;
+                if (body) setHeight(body.scrollHeight);
+              }}
+              className="w-full max-w-[680px] rounded-2xl border border-line bg-paper"
+              style={{ height }}
+            />
+          ) : (
+            <div
+              className="w-full max-w-[680px] rounded-2xl border border-line bg-paper"
+              style={{ height }}
+            />
+          )}
         </div>
       </div>
     </div>
