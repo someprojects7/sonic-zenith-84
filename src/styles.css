@@ -59,6 +59,33 @@
   --color-surface-3: var(--surface-3);
   --color-hairline: var(--hairline);
   --shadow-elevated: var(--shadow-elevated);
+
+  /*
+   * Landing-page palette (Calendly-style reference). Fixed hex values on
+   * purpose: the marketing site stays light even when the app switches to its
+   * night theme. Only src/routes/index.tsx and /terms use these.
+   */
+  --color-ink: #0b3558;
+  --color-signal: #006bff;
+  --color-slate: #476788;
+  --color-mist: #a6bbd1;
+  --color-cloud: #f8f9fb;
+  --color-paper: #ffffff;
+  --color-pebble: #f0f3f8;
+  --color-line: #d4e0ed;
+  --color-cobalt: #004eba;
+  --color-magenta: #e55cff;
+  --color-cyan: #0099ff;
+
+  --font-marketing: "Manrope", var(--font-sans);
+}
+
+/* Three-layer blue-tinted elevation used by the landing page cards. */
+@utility card-lift {
+  box-shadow:
+    rgba(71, 103, 136, 0.04) 0px 4px 5px 0px,
+    rgba(71, 103, 136, 0.03) 0px 8px 15px 0px,
+    rgba(71, 103, 136, 0.08) 0px 30px 50px 0px;
 }
 
 :root {
