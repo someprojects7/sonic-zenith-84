@@ -143,11 +143,6 @@ function Nav() {
           </Link>
         </div>
       </div>
-      {/* Scroll edge effect: content fades under the floating bar. */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-full h-5 bg-gradient-to-b from-cloud/75 to-transparent"
-      />
     </div>
   );
 }
