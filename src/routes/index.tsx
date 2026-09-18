@@ -370,7 +370,7 @@ function Footer() {
             Terms
           </Link>
           <p className="text-[14px] text-slate">
-            © {new Date().getFullYear()} Sponsa.net, {TAGLINE.toLowerCase()}
+            {TAGLINE} · © {new Date().getFullYear()}
           </p>
         </div>
       </div>
