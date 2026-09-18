@@ -123,7 +123,7 @@ function Landing() {
 
 function Nav() {
   return (
-    <div className="sticky top-0 z-10 bg-cloud/90 backdrop-blur-md">
+    <div className="relative sticky top-0 z-10 isolate bg-cloud/75 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6">
         <Wordmark />
         <div className="flex items-center gap-4 sm:gap-5">
@@ -156,7 +156,7 @@ function HeroTile() {
       <h1 className="mt-4 font-heading text-[36px] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[60px]">
         The best events in <span className="text-signal">{CITY}</span>, picked for you.
       </h1>
-      <p className="mt-5 max-w-md text-[17px] leading-[1.55] text-slate sm:text-[19px]">
+      <p className="mt-5 max-w-md text-[17px] leading-[1.6] text-slate sm:text-[19px]">
         Stop scrolling five feeds. We read the whole city and keep the ten nights that match your
         taste.
       </p>
