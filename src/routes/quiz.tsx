@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Lock, Sparkles } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { CITY, canonicalUrl } from "@/config/site";
 import { formatWhen, picks, priceLabel } from "@/data/events";
@@ -295,7 +295,10 @@ function Quiz() {
       </header>
 
       {pausePanel ? (
-        <main key={`pause-${step}`} className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-10 ${enter}`}>
+        <main
+          key={`pause-${step}`}
+          className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-10 ${enter}`}
+        >
           <h1 className="text-[30px] font-medium leading-[1.1] tracking-[-0.02em] text-foreground">
             {pausePanel.title}
           </h1>
@@ -322,7 +325,10 @@ function Quiz() {
           </button>
         </main>
       ) : (
-        <main key={question.id} className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-6 ${enter}`}>
+        <main
+          key={question.id}
+          className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-6 ${enter}`}
+        >
           <h1 className="text-[26px] font-medium leading-[1.12] tracking-[-0.02em] text-foreground">
             {question.title}
           </h1>
@@ -399,7 +405,9 @@ function Loader({ onDone }: { onDone: () => void }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5">
       <div className="w-full max-w-lg">
-        <p className="text-[44px] font-semibold leading-none tabular-nums text-foreground">{pct}%</p>
+        <p className="text-[44px] font-semibold leading-none tabular-nums text-foreground">
+          {pct}%
+        </p>
         <h1 className="mt-3 text-[26px] font-medium leading-[1.12] tracking-[-0.02em] text-foreground">
           Building your week
         </h1>
@@ -422,7 +430,9 @@ function Loader({ onDone }: { onDone: () => void }) {
               ) : (
                 <span
                   className={`size-4 shrink-0 rounded-full border ${
-                    i === stage ? "border-rausch border-t-transparent animate-spin" : "border-hairline"
+                    i === stage
+                      ? "border-rausch border-t-transparent animate-spin"
+                      : "border-hairline"
                   }`}
                 />
               )}
@@ -434,7 +444,6 @@ function Loader({ onDone }: { onDone: () => void }) {
     </div>
   );
 }
-
 
 /**
  * Value reveal. The playbook rule: the paywall follows evidence. We name the

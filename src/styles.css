@@ -265,8 +265,6 @@
   animation: rise-in 260ms var(--ease-out) both;
 }
 
-
-
 /* Reduced motion: keep colour and opacity feedback, drop movement. */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -283,8 +281,6 @@
 }
 
 @layer base {
-
-
   * {
     border-color: var(--color-hairline);
   }
