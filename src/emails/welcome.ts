@@ -12,12 +12,12 @@
 import { SITE_URL, TAGLINE } from "@/config/site";
 import { type EventItem, formatWhen, priceLabel } from "@/data/events";
 import {
+  BODY_FONT,
   CORAL,
   ctaBlock,
   esc,
   eventRow,
   eyebrow,
-  factsBlock,
   footerReason,
   HEAD_FONT,
   INK,
@@ -25,7 +25,6 @@ import {
   makeAbsolute,
   sectionLabel,
   SLATE,
-  statsStrip,
 } from "@/emails/shared";
 
 export type WelcomeInput = {
