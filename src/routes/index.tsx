@@ -8,6 +8,7 @@ import eventArt from "@/assets/event-art.jpg";
 import eventClub from "@/assets/event-club.jpg";
 import cityMap from "@/assets/city-map-stats.jpg";
 import eventsPattern from "@/assets/events-pattern-stats.jpg";
+import cityMapBg from "@/assets/city-map-bg.jpg.asset.json";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -90,24 +91,37 @@ function TileTitle({ children }: { children: React.ReactNode }) {
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-cloud font-marketing text-ink">
-      <Nav />
-      <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          <HeroTile />
-          <StepsTile />
-          <PicksTile />
-          <div className="flex flex-col gap-4 md:col-span-6">
-            <div className="grid grid-cols-2 gap-4">
-              <StatTile value={SCAN.sourcesClaim} label="sources scanned" bg={cityMap} />
-              <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" bg={eventsPattern} />
+    <div className="relative min-h-screen font-marketing text-ink lg:flex lg:items-center lg:justify-center lg:p-8">
+      {/* Decorative city backdrop, desktop only — same treatment as the app. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 hidden bg-cover bg-center bg-no-repeat lg:block"
+        style={{ backgroundImage: `url(${cityMapBg.url})` }}
+      />
+
+      <div className="relative w-full bg-cloud lg:h-[calc(100vh-4rem)] lg:max-w-[1240px] lg:overflow-y-auto lg:overflow-x-hidden lg:rounded-[1.5rem] lg:shadow-2xl lg:ring-1 lg:ring-line lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">
+        <Nav />
+        <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+            <HeroTile />
+            <StepsTile />
+            <PicksTile />
+            <div className="flex flex-col gap-4 md:col-span-6">
+              <div className="grid grid-cols-2 gap-4">
+                <StatTile value={SCAN.sourcesClaim} label="sources scanned" bg={cityMap} />
+                <StatTile
+                  value={SCAN.eventsPerWeekClaim}
+                  label="events a week"
+                  bg={eventsPattern}
+                />
+              </div>
+              <TrustTile />
             </div>
-            <TrustTile />
+            <PricingTile />
           </div>
-          <PricingTile />
-        </div>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
