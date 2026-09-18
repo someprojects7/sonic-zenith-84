@@ -94,10 +94,14 @@ function Landing() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
           <HeroTile />
           <StepsTile />
-          <StatTile value={SCAN.sourcesClaim} label="sources scanned" />
-          <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" />
           <PicksTile />
-          <TrustTile />
+          <div className="flex flex-col gap-4 md:col-span-6">
+            <div className="grid grid-cols-2 gap-4">
+              <StatTile value={SCAN.sourcesClaim} label="sources scanned" />
+              <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" />
+            </div>
+            <TrustTile />
+          </div>
           <PricingTile />
         </div>
       </main>
