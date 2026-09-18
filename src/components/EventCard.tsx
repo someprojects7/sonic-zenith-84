@@ -30,13 +30,13 @@ export function EventCard({ event }: { event: EventItem }) {
         className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3"
       >
         <div className="flex size-[60px] shrink-0 flex-col items-center justify-center rounded-xl bg-muted">
-          <span className="text-[11px] font-semibold leading-[1.2] tracking-[0.06em] text-muted-foreground">
+          <span className="text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
             {date}
           </span>
-          <span className="text-[19px] font-bold leading-[1.15] tracking-[-0.01em] text-foreground">
+          <span className="text-[16px] font-bold leading-[1.25] tracking-[-0.01em] text-foreground">
             {weekday}
           </span>
-          <span className="text-[11px] font-semibold uppercase leading-[1.2] tracking-[0.06em] text-muted-foreground">
+          <span className="text-[12px] font-semibold uppercase leading-[1.3] tracking-[0.06em] text-muted-foreground">
             {month}
           </span>
         </div>
@@ -45,7 +45,7 @@ export function EventCard({ event }: { event: EventItem }) {
           <p className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
             {event.title}
           </p>
-          <p className="mt-0.5 whitespace-nowrap text-[14px] leading-[1.43] text-muted-foreground">
+          <p className="mt-0.5 whitespace-nowrap text-[12px] leading-[1.4] text-muted-foreground">
             {event.time} ·{" "}
             <span className="font-semibold text-foreground">{priceLabel(event)}</span>
           </p>
@@ -56,12 +56,13 @@ export function EventCard({ event }: { event: EventItem }) {
       {event.match && (
         <div className="flex items-center gap-2 border-t border-hairline px-3 py-2">
           <Sparkles className="size-3.5 shrink-0 text-rausch" />
-          <p className="min-w-0 flex-1 truncate text-[13px] font-medium leading-4 text-muted-foreground">
+          <p className="min-w-0 flex-1 truncate text-[12px] font-medium leading-[1.4] text-muted-foreground">
             {voteLabel(vote(event.id), event.match)}
           </p>
           <VoteButtons id={event.id} />
         </div>
       )}
+
     </article>
   );
 }
