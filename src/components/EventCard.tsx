@@ -38,7 +38,7 @@ export function EventCard({ event }: { event: EventItem }) {
         <span className="text-[16px] font-bold leading-[1.25] tracking-[-0.01em] text-foreground">
           {weekday}
         </span>
-        <span className="text-[12px] font-semibold uppercase leading-[1.3] tracking-[0.06em] text-muted-foreground">
+        <span className="text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
           {month}
         </span>
       </div>
