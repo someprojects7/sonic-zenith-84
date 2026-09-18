@@ -1,11 +1,11 @@
-import { LayoutGrid, Sparkles } from "lucide-react";
+import { Crown, LayoutGrid } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 export type FeedTab = "foryou" | "all";
 
 const TABS = [
-  { id: "foryou", label: "Picks", icon: Sparkles },
+  { id: "foryou", label: "Picks", icon: Crown },
   { id: "all", label: "All", icon: LayoutGrid },
 ] as const;
 
