@@ -166,24 +166,40 @@ function HeroTile() {
 }
 
 const STEPS = [
-  { n: "1", title: "20 quick taps", note: "Sound, budget, nights you go out." },
-  { n: "2", title: "We scan the city", note: "Venues, promoters, ticket sites, channels." },
-  { n: "3", title: "Ten picks a week", note: "Every Monday, each with a reason." },
+  { n: "1", icon: MousePointerClick, title: "20 quick taps", note: "Sound, budget, nights out." },
+  { n: "2", icon: Radar, title: "We scan the city", note: "Venues, promoters, tickets, channels." },
+  { n: "3", icon: CalendarCheck, title: "Ten picks a week", note: "Every Monday, with a reason." },
 ];
 
+/**
+ * Sits in the wide 6-column slot, so the three steps run left to right on a
+ * hairline rail (they stack on phones).
+ */
 function StepsTile() {
   return (
-    <section className="tile p-7 md:col-span-4">
-      <TileTitle>How it works</TileTitle>
-      <ol className="mt-7 space-y-7">
-        {STEPS.map((s) => (
-          <li key={s.n} className="flex gap-4">
-            <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-cloud text-[14px] font-bold text-ink">
-              {s.n}
+    <section className="tile p-7 md:col-span-6">
+      <div className="flex items-baseline justify-between gap-3">
+        <TileTitle>How it works</TileTitle>
+        <span className="text-[13px] font-semibold text-slate">60 seconds</span>
+      </div>
+
+      <ol className="relative mt-7 grid gap-7 sm:grid-cols-3 sm:gap-5">
+        {/* Rail connecting the three steps, desktop only. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-0 right-0 top-6 hidden h-px bg-line sm:block"
+        />
+        {STEPS.map(({ n, icon: Icon, title, note }) => (
+          <li key={n} className="relative flex gap-4 sm:block">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full border border-line bg-paper text-signal">
+              <Icon className="size-5" strokeWidth={2} />
             </span>
-            <div>
-              <p className="text-[16px] font-semibold text-ink">{s.title}</p>
-              <p className="mt-1 text-[14px] leading-[1.5] text-slate">{s.note}</p>
+            <div className="sm:mt-4">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">
+                Step {n}
+              </p>
+              <p className="mt-1 text-[16px] font-semibold leading-[1.3] text-ink">{title}</p>
+              <p className="mt-1 text-[14px] leading-[1.5] text-slate">{note}</p>
             </div>
           </li>
         ))}
