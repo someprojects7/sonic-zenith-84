@@ -27,6 +27,7 @@ export function EventCard({ event, featured = false }: { event: EventItem; featu
           width={1024}
           height={768}
           loading={featured ? undefined : "lazy"}
+          decoding="async"
           className="size-[60px] shrink-0 rounded-xl object-cover"
         />
         <div className="min-w-0">

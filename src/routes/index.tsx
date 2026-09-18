@@ -200,6 +200,7 @@ function StatTile({ value, label, bg }: { value: string; label: string; bg: stri
         alt=""
         aria-hidden
         loading="lazy"
+        decoding="async"
         className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-90"
       />
       <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
@@ -244,6 +245,8 @@ function PicksTile() {
                 aria-hidden
                 width={72}
                 height={72}
+                loading="lazy"
+                decoding="async"
                 className="size-[72px] rounded-xl object-cover"
               />
               <span className="absolute -right-2 -top-2 rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold text-paper">
