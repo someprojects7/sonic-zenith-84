@@ -116,10 +116,8 @@ const eventRow = (event: EventItem, appUrl: string) => {
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
                 <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${INK};">${esc(weekday)}</div>
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(month)}</div>
-
-
-
               </td></tr>
+
             </table>
         </td>
 
