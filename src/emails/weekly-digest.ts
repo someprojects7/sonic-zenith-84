@@ -147,7 +147,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     <p style="margin:6px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Tickets, times and directions for every one of them.</p>
   </td></tr>
 
-  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `♛ See all ${input.totalPicks} picks`)}</td></tr>
+  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `👑 See all ${input.totalPicks} picks`)}</td></tr>
 
   <tr><td style="padding:0 24px 24px 24px;font-family:Helvetica,Arial,sans-serif;border-top:1px solid ${LINE};">
     <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
