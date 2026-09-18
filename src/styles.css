@@ -67,24 +67,16 @@
    */
   --color-ink: #222222;
   --color-slate: #6a6a6a;
-  --color-mist: #9b9b9b;
   --color-cloud: #f7f7f8;
   --color-paper: #ffffff;
-  --color-pebble: #f2f2f4;
   --color-line: #ebebeb;
   --color-signal: #ff385c;
-  --color-cobalt: #d81d4a;
 
   --font-marketing: "Figtree", var(--font-sans);
   --font-heading: "Outfit", var(--font-sans);
 }
 
-/* Soft neutral elevation used by the landing bento tiles. */
-@utility card-lift {
-  box-shadow:
-    rgba(0, 0, 0, 0.03) 0px 2px 4px 0px,
-    rgba(0, 0, 0, 0.04) 0px 10px 24px -8px;
-}
+
 
 /* Bento tile: rises a touch on hover. */
 @utility tile {
