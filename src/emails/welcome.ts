@@ -94,7 +94,7 @@ export const renderWelcomeText = (input: WelcomeInput) => {
   return [
     `${input.firstName ? `${input.firstName}, your` : "Your"} ${input.city} week is already picked.`,
     "",
-    `${input.sources} sources read, ${input.eventsScanned} events checked, ${input.totalPicks} picks for you.`,
+    proofLine(input),
     ...(input.topPick
       ? [
           "",
@@ -102,8 +102,6 @@ export const renderWelcomeText = (input: WelcomeInput) => {
           `${formatWhen(input.topPick)} · ${input.topPick.venue} · ${priceLabel(input.topPick)}`,
         ]
       : []),
-    "",
-    ...facts(input).map((fact, index) => `${index + 1}. ${fact}`),
     "",
     `Open my picks: ${appUrl}`,
     "",
