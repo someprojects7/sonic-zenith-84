@@ -525,9 +525,6 @@ function QuizFlow() {
               style={{ transform: `scaleX(${Math.max(progress, 4) / 100})` }}
             />
           </div>
-          <span className="shrink-0 text-[13px] font-semibold tabular-nums text-muted-foreground">
-            {Math.min(step + 1, total)}/{total}
-          </span>
         </div>
       </header>
 
