@@ -190,12 +190,20 @@ function StepsTile() {
 
 function StatTile({ value, label }: { value: string; label: string }) {
   return (
-    <div className="tile flex flex-col items-center justify-center gap-1 px-5 py-7 text-center">
+    <div className="tile relative isolate flex flex-col items-center justify-center gap-1 overflow-hidden px-5 py-7 text-center">
+      <img
+        src={cityMap}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-90"
+      />
       <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
       <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{label}</p>
     </div>
   );
 }
+
 
 const SAMPLE = [
   {
