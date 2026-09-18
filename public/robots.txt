@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sponsa.net/sitemap.xml
+# Signed-in app surfaces carry meta robots noindex; they are crawlable but not indexed.
+
+Sitemap: https://sponsanet.lovable.app/sitemap.xml

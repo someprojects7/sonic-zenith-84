@@ -6,8 +6,14 @@
  * signed-in user's city. Nothing else in the UI hardcodes these numbers.
  */
 
-/** Absolute origin, used for canonical URLs, og:url and the sitemap. */
-export const SITE_URL = "https://sponsa.net";
+/**
+ * Absolute origin, used for canonical URLs, og:url and the sitemap.
+ *
+ * This is the live origin the site is served from today. When the custom domain
+ * (sponsa.net) is connected, change this one line and regenerate
+ * public/sitemap.xml + public/robots.txt to match.
+ */
+export const SITE_URL = "https://sponsanet.lovable.app";
 
 export const SITE_NAME = "Sponsa";
 
