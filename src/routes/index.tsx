@@ -7,6 +7,7 @@ import eventLive from "@/assets/event-live.jpg";
 import eventArt from "@/assets/event-art.jpg";
 import eventClub from "@/assets/event-club.jpg";
 import cityMap from "@/assets/city-map-stats.jpg";
+import eventsPattern from "@/assets/events-pattern-stats.jpg";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -98,8 +99,8 @@ function Landing() {
           <PicksTile />
           <div className="flex flex-col gap-4 md:col-span-6">
             <div className="grid grid-cols-2 gap-4">
-              <StatTile value={SCAN.sourcesClaim} label="sources scanned" />
-              <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" />
+              <StatTile value={SCAN.sourcesClaim} label="sources scanned" bg={cityMap} />
+              <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" bg={eventsPattern} />
             </div>
             <TrustTile />
           </div>
@@ -194,9 +195,8 @@ function StepsTile() {
 function StatTile({ value, label, bg }: { value: string; label: string; bg: string }) {
   return (
     <div className="tile relative isolate flex flex-col items-center justify-center gap-1 overflow-hidden px-5 py-7 text-center">
-
       <img
-        src={cityMap}
+        src={bg}
         alt=""
         aria-hidden
         loading="lazy"
