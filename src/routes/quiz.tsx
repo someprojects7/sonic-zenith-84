@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Lock, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { canonicalUrl } from "@/config/site";
+import { CITY, canonicalUrl } from "@/config/site";
+import { formatWhen, picks, priceLabel } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
+
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({
