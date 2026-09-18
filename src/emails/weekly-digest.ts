@@ -106,12 +106,12 @@ const eventRow = (event: EventItem, appUrl: string) => {
   return `
 <tr>
   <td style="padding:0 0 10px 0;">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f1f1f3;border-radius:10px;"><tr><td style="padding:12px 14px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:12px 14px;">
     <a href="${esc(href)}" style="display:block;text-decoration:none;color:${INK};">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
         <td width="72" valign="top" style="width:72px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;background-color:#ffffff;border-radius:8px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;background-color:#f1f1f3;border-radius:8px;">
               <tr><td align="center" style="font-family:${HEAD_FONT};padding:8px 0 9px 0;">
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
                 <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${INK};">${esc(weekday)}</div>
