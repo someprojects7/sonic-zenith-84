@@ -428,7 +428,16 @@ const LOADER_LINES = [
   "Picking your ten",
 ];
 
+/** The quiz is part of the app, so on a wide screen it lives in the phone shell. */
 function Quiz() {
+  return (
+    <PhoneFrame>
+      <QuizFlow />
+    </PhoneFrame>
+  );
+}
+
+function QuizFlow() {
   const { toggleInterest, interests } = usePreferences();
   const [step, setStep] = useState(0);
   const [pause, setPause] = useState<"interstitial" | null>(null);
