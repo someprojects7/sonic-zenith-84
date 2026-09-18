@@ -282,14 +282,16 @@ function PicksTile() {
               </span>
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[15px] font-semibold leading-[1.3] text-ink">{p.title}</p>
-              <p className="mt-0.5 truncate text-[13px] text-slate">{p.meta}</p>
+              <p className="truncate text-[15px] font-semibold leading-[1.3] text-paper">
+                {p.title}
+              </p>
+              <p className="mt-0.5 truncate text-[13px] text-paper/60">{p.meta}</p>
             </div>
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 flex items-center gap-1.5 text-[13px] text-slate">
+      <p className="mt-6 flex items-center gap-1.5 text-[13px] text-paper/60">
         <Sparkles className="size-3.5 shrink-0 text-signal" />
         Matched to your taste
       </p>
