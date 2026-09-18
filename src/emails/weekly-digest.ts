@@ -102,11 +102,7 @@ const eventRow = (
 };
 
 /** Picks sit in a narrower centred column so they do not span the full email. */
-const picksBlock = (
-  picks: EventItem[],
-  appUrl: string,
-  absolute: (url: string) => string,
-) => `
+const picksBlock = (picks: EventItem[], appUrl: string, absolute: (url: string) => string) => `
 <tr><td align="center" style="padding:4px 24px 4px 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="width:420px;max-width:100%;">
     ${picks.map((event, index) => eventRow(event, appUrl, absolute, index === 0)).join("")}
@@ -144,7 +140,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">We read ${input.sources} sources and ${input.eventsScanned} events. ${input.totalPicks} of them match your taste. Here are the top three.</p>
   </td></tr>
 
-  ${input.picks.map((event) => eventRow(event, appUrl, absolute)).join("")}
+  ${picksBlock(input.picks, appUrl, absolute)}
 
   <tr><td style="padding:12px 24px 0 24px;font-family:Helvetica,Arial,sans-serif;text-align:center;">
     <p style="margin:0;font-size:15px;line-height:22px;color:${INK};font-weight:600;">${rest} more picks are waiting in the app.</p>
