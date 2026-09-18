@@ -4,7 +4,10 @@ import { categories } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 import { cn } from "@/lib/utils";
 
-const OPTIONS = categories.filter((c) => c !== "All");
+/** "Most popular" is not a category: it pulls the highest-matching events up. */
+export const POPULAR = "Most popular";
+
+const OPTIONS = [POPULAR, ...categories.filter((c) => c !== "All")];
 
 /**
  * The first thing a newcomer does: tap what they are into. One row, no form,
