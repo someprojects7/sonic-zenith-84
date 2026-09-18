@@ -35,19 +35,17 @@ export const SCAN = {
 export const canonicalUrl = (path = "/") => `${SITE_URL}${path === "/" ? "" : path}`;
 
 /**
- * Legal entity details shown on /terms. PLACEHOLDERS: replace every field with
- * the registered company data before launch, and have a local lawyer review
- * the wording of the terms page.
+ * Operator details shown on /terms. The service is run by an individual, so no
+ * company registration or street address is published; postal details are
+ * provided on request to the contact address below.
  */
 export const LEGAL = {
-  companyName: "Sponsa UAB",
-  companyForm: "a private limited liability company",
-  companyNumber: "[company number]",
-  vatNumber: "[VAT number]",
-  address: "[street, city, postal code]",
+  operatorName: "Artsiom Derenchuk",
+  operatorForm: "an individual operating the service",
   country: "Lithuania",
   courtsCity: "Vilnius",
   contactEmail: "legal@sponsa.net",
+  noticeEmail: "notice@sponsa.net",
   liabilityCap: "EUR 100",
-  lastUpdated: "10 September 2026",
+  lastUpdated: "18 September 2026",
 } as const;
