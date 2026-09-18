@@ -79,7 +79,7 @@ function Cta({ full = false }: { full?: boolean }) {
   return (
     <Link
       to="/quiz"
-      className={`press inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-signal px-6 text-[16px] font-semibold text-paper ${
+      className={`press cta-halo-signal inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-signal px-6 text-[16px] font-semibold text-paper ${
         full ? "w-full" : ""
       }`}
     >
