@@ -77,7 +77,7 @@ export const eventRow = (event: EventItem, appUrl: string) => {
       <tr>
         <td width="72" valign="top" style="width:72px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;background-color:#ffffff;border:1px solid ${LINE};border-radius:8px;">
-              <tr><td style="line-height:0;font-size:0;padding:6px 10px 0 10px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;"><tr><td height="3" bgcolor="${CORAL}" style="height:3px;line-height:3px;font-size:0;border-radius:2px;">&nbsp;</td></tr></table></td></tr>
+              <tr><td height="3" bgcolor="${CORAL}" style="height:3px;line-height:3px;font-size:0;border-radius:8px 8px 0 0;">&nbsp;</td></tr>
               <tr><td align="center" style="font-family:${HEAD_FONT};padding:5px 0 8px 0;">
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
                 <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${INK};">${esc(weekday)}</div>
