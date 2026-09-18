@@ -9,7 +9,7 @@ import { usePreferences } from "@/lib/preferences";
 
 /** The weekly shortlist, ordered from highest-attention picks to compact extras. */
 export function ForYouFeed() {
-  const { interests } = usePreferences();
+  const { interests, interestsDismissed, dismissInterests } = usePreferences();
 
   // Chosen interests float to the top; nothing is hidden, so the week stays whole.
   const order = useMemo(() => {
@@ -23,9 +23,11 @@ export function ForYouFeed() {
 
   return (
     <main className="space-y-8 pb-4 pt-6">
-      <div className="px-5">
-        <InterestPicker />
-      </div>
+      {!interestsDismissed && (
+        <div className="px-5">
+          <InterestPicker onDismiss={dismissInterests} />
+        </div>
+      )}
 
       <section className="px-5">
         <h3 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">

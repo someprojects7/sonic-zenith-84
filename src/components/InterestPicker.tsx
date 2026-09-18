@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 
 import { categories } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -10,19 +10,33 @@ const OPTIONS = categories.filter((c) => c !== "All");
  * The first thing a newcomer does: tap what they are into. One row, no form,
  * no account. The feed reorders itself immediately.
  */
-export function InterestPicker() {
+export function InterestPicker({ onDismiss }: { onDismiss?: () => void }) {
   const { interests, toggleInterest } = usePreferences();
 
   return (
     <section className="rounded-xl bg-card p-4">
-      <h3 className="text-[16px] font-semibold leading-5 text-foreground">
-        {interests.length === 0 ? "What are you into?" : "Your interests"}
-      </h3>
-      <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">
-        {interests.length === 0
-          ? "Tap a few and your week reorders."
-          : `${interests.length} selected`}
-      </p>
+      <div className="flex items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-[16px] font-semibold leading-5 text-foreground">
+            {interests.length === 0 ? "What are you into?" : "Your interests"}
+          </h3>
+          <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">
+            {interests.length === 0
+              ? "Tap a few and your week reorders."
+              : `${interests.length} selected`}
+          </p>
+        </div>
+        {onDismiss && (
+          <button
+            type="button"
+            onClick={onDismiss}
+            aria-label="Hide interests"
+            className="icon-button press -mr-1 -mt-1 size-8 shrink-0 text-muted-foreground"
+          >
+            <X className="size-4" strokeWidth={2.5} />
+          </button>
+        )}
+      </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {OPTIONS.map((option) => {
           const active = interests.includes(option);
