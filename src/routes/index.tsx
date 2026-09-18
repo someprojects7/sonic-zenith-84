@@ -3,7 +3,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
-import heroMap from "@/assets/vilnius-events-city-map.jpg.asset.json";
+import eventLive from "@/assets/event-live.jpg";
+import eventArt from "@/assets/event-art.jpg";
+import eventClub from "@/assets/event-club.jpg";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -49,25 +51,25 @@ export const Route = createFileRoute("/")({
 const CTA = "Find my week";
 
 /* ---------------------------------------------------------------------------
- * Shared marketing primitives. The landing page uses its own fixed light
- * palette (ink / signal / cloud tokens in styles.css) so it never flips to the
- * app's night theme.
+ * Marketing primitives. The landing page uses its own fixed light palette
+ * (ink / slate / cloud / paper / signal tokens in styles.css) so it never flips
+ * to the app's night theme.
  * ------------------------------------------------------------------------- */
 
 function Wordmark() {
   return (
-    <span className="font-wordmark text-[18px] font-bold uppercase leading-none tracking-[0.1em] text-ink">
+    <span className="font-heading text-[18px] font-bold uppercase leading-none tracking-[0.08em] text-ink">
       Sponsa<span className="text-signal">.</span>net
     </span>
   );
 }
 
-function Cta({ variant = "signal" }: { variant?: "signal" | "ink" }) {
+function Cta({ full = false }: { full?: boolean }) {
   return (
     <Link
       to="/quiz"
-      className={`press inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-[17px] font-semibold text-paper ${
-        variant === "signal" ? "bg-signal" : "bg-ink"
+      className={`press inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-signal px-6 text-[16px] font-semibold text-paper ${
+        full ? "w-full" : ""
       }`}
     >
       {CTA}
@@ -76,33 +78,29 @@ function Cta({ variant = "signal" }: { variant?: "signal" | "ink" }) {
   );
 }
 
-function Section({ className = "", children }: { className?: string; children: React.ReactNode }) {
+function TileTitle({ children }: { children: React.ReactNode }) {
   return (
-    <section className={`px-5 py-14 sm:py-20 ${className}`}>
-      <div className="mx-auto w-full max-w-[1200px]">{children}</div>
-    </section>
-  );
-}
-
-function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{eyebrow}</p>
-      <h2 className="mt-3 text-[30px] font-bold leading-[1.15] text-ink sm:text-[44px]">{title}</h2>
-    </div>
+    <h2 className="font-heading text-[20px] font-bold leading-[1.2] tracking-[-0.01em] text-ink">
+      {children}
+    </h2>
   );
 }
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-cloud font-marketing">
+    <div className="min-h-screen bg-cloud font-marketing text-ink">
       <Nav />
-      <Hero />
-      <Steps />
-      <Preview />
-      <Pricing />
-      <Team />
-      <FinalCta />
+      <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <HeroTile />
+          <StepsTile />
+          <StatTile value={SCAN.sourcesClaim} label="sources scanned" />
+          <StatTile value={SCAN.eventsPerWeekClaim} label="events a week" />
+          <PicksTile />
+          <TrustTile />
+          <PricingTile />
+        </div>
+      </main>
       <Footer />
     </div>
   );
@@ -110,19 +108,19 @@ function Landing() {
 
 function Nav() {
   return (
-    <div className="sticky top-0 z-10 border-b border-line bg-cloud/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-5 sm:h-16">
+    <div className="sticky top-0 z-10 bg-cloud/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6">
         <Wordmark />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <Link
             to="/app"
-            className="text-[15px] font-semibold text-ink transition-opacity active:opacity-70"
+            className="text-[15px] font-medium text-slate transition-colors hover:text-ink"
           >
             Sign in
           </Link>
           <Link
             to="/quiz"
-            className="press hidden h-10 items-center rounded-lg bg-ink px-4 text-[15px] font-semibold text-paper sm:inline-flex"
+            className="press inline-flex h-10 items-center rounded-xl bg-signal px-5 text-[15px] font-semibold text-paper"
           >
             {CTA}
           </Link>
@@ -132,208 +130,118 @@ function Nav() {
   );
 }
 
-const FUNNEL = [
-  { k: SCAN.sourcesClaim, v: "sources scanned" },
-  { k: SCAN.eventsPerWeekClaim, v: "events a week" },
-  { k: SCAN.picksPerWeekClaim, v: "picks for you" },
-];
-
-/** Hero is sized to sit on one screen: min-h minus the 56/64px nav. */
-function Hero() {
+function HeroTile() {
   return (
-    <section className="relative flex min-h-[calc(100svh-56px)] items-center overflow-hidden px-5 py-10 sm:min-h-[calc(100svh-64px)] sm:py-12">
-      <img
-        src={heroMap.url}
-        alt=""
-        aria-hidden
-        width={1920}
-        height={1080}
-        className="pointer-events-none absolute inset-0 size-full object-cover"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-cloud/80 via-cloud/60 to-cloud" />
+    <section className="tile flex flex-col justify-center p-7 sm:p-11 md:col-span-8 md:min-h-[400px]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+        {CITY} · this week
+      </p>
+      <h1 className="mt-4 font-heading text-[36px] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[60px]">
+        The best events in <span className="text-signal">{CITY}</span>, picked for you.
+      </h1>
+      <p className="mt-5 max-w-md text-[17px] leading-[1.55] text-slate sm:text-[19px]">
+        Stop scrolling five feeds. We read the whole city and keep the ten nights that match your
+        taste.
+      </p>
 
-      <div className="relative mx-auto grid w-full max-w-[1200px] gap-10 sm:grid-cols-2 sm:items-center sm:gap-12">
-        <div>
-          <span className="inline-flex rounded-full bg-pebble px-2.5 py-1 text-[12px] font-semibold text-cobalt">
-            {CITY} · this week
-          </span>
-          <h1 className="mt-4 text-[38px] font-bold leading-[1.1] text-ink sm:text-[58px]">
-            The best events in your city, picked for you
-          </h1>
-          <p className="mt-4 max-w-md text-[17px] leading-[1.5] text-slate">
-            Everything worth going to, in one place. Ten picks a week that match your taste.
-          </p>
-
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Cta />
-            <p className="text-[14px] text-slate">
-              60 seconds to set up. 7 days free, then €7.99 a month.
-            </p>
-          </div>
-
-          <div className="mt-7 flex items-center gap-2 text-[15px] text-slate">
-            <Star className="size-4 shrink-0 fill-signal text-signal" />
-            <span className="font-semibold text-ink">4.8</span> from 12,800 people
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute -left-6 -top-6 size-40 rounded-full bg-magenta/25 blur-3xl" />
-          <div className="absolute -bottom-8 -right-4 size-48 rounded-full bg-cyan/25 blur-3xl" />
-
-          <div className="card-lift relative overflow-hidden rounded-2xl bg-paper">
-            <div className="flex items-center justify-between gap-3 px-5 py-4">
-              <p className="text-[15px] font-semibold text-ink">This week in {CITY}</p>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-pebble px-2.5 py-1 text-[13px] font-semibold text-ink">
-                <Sparkles className="size-3.5 text-signal" />
-                94% match
-              </span>
-            </div>
-
-            <dl className="divide-y divide-line border-t border-line">
-              {FUNNEL.map((s, i) => (
-                <div key={s.v} className="flex items-center justify-between gap-3 px-5 py-4">
-                  <dt className="text-[15px] text-slate">{s.v}</dt>
-                  <dd
-                    className={`text-[22px] font-bold leading-none ${
-                      i === 2 ? "text-signal" : "text-ink"
-                    }`}
-                  >
-                    {s.k}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
+      <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <Cta />
+        <p className="text-[14px] text-slate">60 seconds. 7 days free, then €7.99 a month.</p>
       </div>
+
+      <p className="mt-6 flex items-center gap-2 text-[15px] text-slate">
+        <Star className="size-4 shrink-0 fill-signal text-signal" />
+        <span className="font-semibold text-ink">4.8</span> from 12,800 people
+      </p>
     </section>
   );
 }
 
 const STEPS = [
-  { n: "1", title: "Tell us your taste", note: "Sound, budget, nights you go out. 20 taps." },
+  { n: "1", title: "20 quick taps", note: "Sound, budget, nights you go out." },
   { n: "2", title: "We scan the city", note: "Venues, promoters, ticket sites, channels." },
-  { n: "3", title: "Ten picks a week", note: "Only the best, each with a reason." },
+  { n: "3", title: "Ten picks a week", note: "Every Monday, each with a reason." },
 ];
 
-function Steps() {
+function StepsTile() {
   return (
-    <Section className="bg-paper">
-      <SectionHead eyebrow="How it works" title="Three steps to a better week." />
-
-      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+    <section className="tile p-7 md:col-span-4">
+      <TileTitle>How it works</TileTitle>
+      <ol className="mt-7 space-y-7">
         {STEPS.map((s) => (
-          <article key={s.n} className="rounded-3xl border border-line bg-cloud p-6">
-            <span className="grid size-9 place-items-center rounded-full bg-signal text-[15px] font-bold text-paper">
+          <li key={s.n} className="flex gap-4">
+            <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-cloud text-[14px] font-bold text-ink">
               {s.n}
             </span>
-            <h3 className="mt-4 text-[24px] font-bold leading-[1.2] text-ink">{s.title}</h3>
-            <p className="mt-2 text-[16px] leading-[1.5] text-slate">{s.note}</p>
-          </article>
+            <div>
+              <p className="text-[16px] font-semibold text-ink">{s.title}</p>
+              <p className="mt-1 text-[14px] leading-[1.5] text-slate">{s.note}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
+    </section>
+  );
+}
 
-      <div className="mt-10 text-center">
-        <Cta />
-      </div>
-    </Section>
+function StatTile({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="tile flex flex-col items-center justify-center gap-1 p-7 text-center md:col-span-3">
+      <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
+      <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{label}</p>
+    </div>
   );
 }
 
 const SAMPLE = [
   {
-    time: "Thu 19:00",
-    title: "Nils Frahm, live piano",
-    place: "Old Power Plant",
+    img: eventLive,
     match: "94%",
-    why: "You saved two ambient gigs",
+    title: "Nils Frahm, live piano",
+    meta: "Thu 19:00 · Old Power Plant",
   },
-  {
-    time: "Fri 19:30",
-    title: "Ceramics opening night",
-    place: "Studio Kraft",
-    match: "91%",
-    why: "You go to openings",
-  },
-  {
-    time: "Sat 23:30",
-    title: "Smala Nights: Ø Room",
-    place: "Smala",
-    match: "88%",
-    why: "Late techno near you",
-  },
+  { img: eventArt, match: "91%", title: "Ceramics opening night", meta: "Fri 19:30 · Studio Kraft" },
+  { img: eventClub, match: "88%", title: "Smala Nights: Ø Room", meta: "Sat 23:30 · Smala" },
 ];
 
-function Preview() {
+function PicksTile() {
   return (
-    <Section>
-      <SectionHead eyebrow="Your week" title="Ten picks, each with a reason." />
+    <section className="tile p-7 md:col-span-6">
+      <div className="flex items-baseline justify-between gap-3">
+        <TileTitle>Your picks look like this</TileTitle>
+        <span className="text-[13px] font-semibold text-slate">
+          {SCAN.picksPerWeekClaim} a week
+        </span>
+      </div>
 
-      <div className="relative mx-auto mt-10 max-w-lg">
-        <div className="absolute -right-8 top-8 size-40 rounded-full bg-cyan/25 blur-3xl" />
-        <div className="card-lift relative space-y-2 rounded-2xl bg-paper p-4">
-          {SAMPLE.map((p) => (
-            <div key={p.title} className="rounded-xl border border-line p-3">
-              <p className="flex items-center justify-between gap-3">
-                <span className="truncate text-[16px] font-semibold leading-[1.3] text-ink">
-                  {p.title}
-                </span>
-                <span className="shrink-0 text-[14px] font-bold text-signal">{p.match}</span>
-              </p>
-              <p className="mt-0.5 truncate text-[14px] text-slate">
-                {p.time} · {p.place}
-              </p>
-              <p className="mt-1.5 flex items-center gap-1.5 text-[13px] text-slate">
+      <ul className="mt-5 space-y-3">
+        {SAMPLE.map((p) => (
+          <li key={p.title} className="flex items-center gap-4">
+            <div className="relative shrink-0">
+              <img
+                src={p.img}
+                alt=""
+                aria-hidden
+                width={72}
+                height={72}
+                className="size-[72px] rounded-xl object-cover"
+              />
+              <span className="absolute -right-2 -top-2 rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold text-paper">
+                {p.match}
+              </span>
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-[16px] font-semibold leading-[1.3] text-ink">{p.title}</p>
+              <p className="mt-0.5 truncate text-[14px] text-slate">{p.meta}</p>
+              <p className="mt-1 flex items-center gap-1.5 text-[13px] text-slate">
                 <Sparkles className="size-3.5 shrink-0 text-signal" />
-                <span className="min-w-0 truncate">{p.why}</span>
+                Matched to your taste
               </p>
             </div>
-          ))}
-          <p className="pt-1 text-center text-[14px] text-slate">+ 7 more picks</p>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-const PERKS = [
-  "Ten picks every week, matched to your taste",
-  "New events the hour we find them",
-  "Saved lists and calendar sync",
-  "Every city we cover",
-];
-
-function Pricing() {
-  return (
-    <Section className="bg-paper">
-      <SectionHead eyebrow="Pricing" title="One week free, then €7.99 a month." />
-
-      <div className="mx-auto mt-10 max-w-lg rounded-3xl border-2 border-signal bg-cloud p-6">
-        <p className="flex items-baseline justify-between gap-3">
-          <span className="text-[24px] font-bold text-ink">Sponsa Pro</span>
-          <span className="text-[14px] text-slate">
-            <span className="text-[20px] font-bold text-ink">€7.99</span> / month
-          </span>
-        </p>
-        <p className="mt-1 inline-flex rounded-full bg-pebble px-2.5 py-1 text-[12px] font-semibold text-cobalt">
-          7 day trial
-        </p>
-        <ul className="mt-4 space-y-2">
-          {PERKS.map((perk) => (
-            <li key={perk} className="flex items-center gap-2 text-[16px] text-slate">
-              <Check className="size-4 shrink-0 text-signal" strokeWidth={2.5} />
-              {perk}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6">
-          <Cta />
-        </div>
-      </div>
-
-      <p className="mt-5 text-center text-[14px] text-slate">Cancel any time in the app.</p>
-    </Section>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -344,49 +252,65 @@ const STATS = [
   { k: "50,000+", v: "guests hosted" },
 ];
 
-function Team() {
+function TrustTile() {
   return (
-    <Section>
-      <SectionHead eyebrow="Behind Sponsa" title="Built by people who run city nights." />
-      <p className="mx-auto mt-4 max-w-xl text-center text-[16px] leading-[1.5] text-slate">
-        Years of booking venues, promoting nights and standing at the door, turned into the picks
-        you get every week.
-      </p>
-
-      <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
+    <section className="tile p-7 md:col-span-6">
+      <TileTitle>Picked by people who run city nights</TileTitle>
+      <dl className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
         {STATS.map((s) => (
-          <div key={s.v} className="rounded-2xl border border-line bg-paper p-5 text-center">
-            <dt className="text-[22px] font-bold text-ink">{s.k}</dt>
-            <dd className="mt-1 text-[14px] text-slate">{s.v}</dd>
+          <div key={s.v}>
+            <dt className="font-heading text-[22px] font-bold leading-none text-ink">{s.k}</dt>
+            <dd className="mt-1.5 text-[13px] leading-[1.35] text-slate">{s.v}</dd>
           </div>
         ))}
       </dl>
-    </Section>
+    </section>
   );
 }
 
-function FinalCta() {
+const PERKS = [
+  "Ten matched picks every week",
+  "New events the hour we find them",
+  "Saved lists and calendar sync",
+];
+
+function PricingTile() {
   return (
-    <Section>
-      <div className="rounded-3xl bg-ink px-5 py-14 text-center sm:py-20">
-        <h2 className="mx-auto max-w-xl text-[30px] font-bold leading-[1.15] text-paper sm:text-[44px]">
-          Your weekend, already picked.
-        </h2>
-        <p className="mx-auto mt-4 max-w-sm text-[17px] leading-[1.5] text-paper/70">
-          One minute now. Ten picks waiting.
+    <section className="flex flex-col justify-between gap-7 rounded-2xl bg-ink p-7 text-paper md:col-span-12 md:flex-row md:items-center">
+      <div>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-paper/60">
+          One plan
         </p>
-        <div className="mt-8">
-          <Cta />
-        </div>
+        <p className="mt-3 font-heading text-[34px] font-bold leading-none">
+          €7.99
+          <span className="text-[16px] font-normal text-paper/60"> / month</span>
+        </p>
+        <p className="mt-3 inline-flex rounded-full bg-paper/10 px-3 py-1 text-[13px] font-semibold">
+          7 days free
+        </p>
       </div>
-    </Section>
+
+      <ul className="space-y-2">
+        {PERKS.map((perk) => (
+          <li key={perk} className="flex items-center gap-2 text-[15px] text-paper/80">
+            <Check className="size-4 shrink-0 text-signal" strokeWidth={2.5} />
+            {perk}
+          </li>
+        ))}
+      </ul>
+
+      <div className="w-full md:w-auto md:min-w-[240px]">
+        <Cta full />
+        <p className="mt-3 text-center text-[13px] text-paper/60">Cancel any time in the app.</p>
+      </div>
+    </section>
   );
 }
 
 function Footer() {
   return (
-    <footer className="border-t border-line bg-cloud px-5 py-8">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+    <footer className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
+      <div className="flex flex-col items-center justify-between gap-3 border-t border-line pt-7 text-center sm:flex-row sm:text-left">
         <Wordmark />
         <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
           <Link
@@ -396,7 +320,7 @@ function Footer() {
             Terms
           </Link>
           <p className="text-[14px] text-slate">
-            © {new Date().getFullYear()} Sponsa.net, your shortcut to the city
+            © {new Date().getFullYear()} Sponsa.net, {TAGLINE.toLowerCase()}
           </p>
         </div>
       </div>
