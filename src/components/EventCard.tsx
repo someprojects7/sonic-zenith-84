@@ -30,8 +30,8 @@ export function EventCard({ event }: { event: EventItem }) {
         className="press absolute inset-0 rounded-xl"
       />
 
-      <div className="relative flex size-[60px] shrink-0 flex-col items-center justify-center rounded-xl border border-hairline bg-card">
-        <span className="absolute inset-x-[10px] top-[5px] h-[3px] rounded-full bg-rausch" />
+      <div className="relative flex size-[60px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-hairline bg-card">
+        <span className="absolute inset-x-0 top-0 h-[3px] bg-rausch" />
         <span className="mt-1.5 text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
           {date}
         </span>
