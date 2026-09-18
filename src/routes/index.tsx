@@ -10,7 +10,6 @@ import cityMap from "@/assets/city-map-stats.jpg";
 import eventsPattern from "@/assets/events-pattern-stats.jpg";
 import cityMapBg from "@/assets/city-map-bg.jpg.asset.json";
 
-
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
   "The best events in your city, collected in one place and picked for your taste. Ten matched picks every week.";
@@ -126,7 +125,6 @@ function Landing() {
     </div>
   );
 }
-
 
 function Nav() {
   return (
