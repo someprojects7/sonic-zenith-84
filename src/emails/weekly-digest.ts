@@ -72,29 +72,46 @@ const button = (href: string, label: string) => `
   </tr>
 </table>`;
 
-const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => string) => {
+/** One pick: 64px thumb, tight text column, hairline separator instead of a box. */
+const eventRow = (
+  event: EventItem,
+  appUrl: string,
+  absolute: (url: string) => string,
+  first: boolean,
+) => {
   const href = `${appUrl.replace(/\/app\/?$/, "")}/event/${event.id}`;
   return `
 <tr>
-  <td style="padding:0 24px 8px 24px;">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid ${LINE};border-radius:12px;">
+  <td style="padding:${first ? "0" : "14px"} 0 14px 0;${first ? "" : `border-top:1px solid ${LINE};`}">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
-        <td width="96" style="padding:12px 0 12px 12px;">
-          <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="84" height="84" alt="${esc(event.title)}" style="display:block;width:84px;height:84px;border-radius:10px;object-fit:cover;border:0;" /></a>
+        <td width="76" style="width:76px;">
+          <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="64" height="64" alt="${esc(event.title)}" style="display:block;width:64px;height:64px;border-radius:10px;object-fit:cover;border:0;" /></a>
         </td>
-        <td style="padding:12px 14px 12px 12px;font-family:Helvetica,Arial,sans-serif;">
+        <td style="font-family:Helvetica,Arial,sans-serif;">
           <div style="font-size:12px;font-weight:700;color:${CORAL};letter-spacing:0.02em;">${event.match ?? ""}% match${event.match ? " · " : ""}<span style="color:${SLATE};font-weight:600;">${esc(event.category)}</span></div>
-          <div style="padding-top:4px;font-size:16px;line-height:22px;font-weight:700;color:${INK};">
+          <div style="padding-top:3px;font-size:15px;line-height:20px;font-weight:700;color:${INK};">
             <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
           </div>
-          <div style="padding-top:4px;font-size:14px;line-height:20px;color:${SLATE};">${esc(formatWhen(event))} · ${esc(event.venue)}</div>
-          <div style="padding-top:2px;font-size:14px;line-height:20px;color:${INK};font-weight:600;">${esc(priceLabel(event))}</div>
+          <div style="padding-top:3px;font-size:13px;line-height:19px;color:${SLATE};">${esc(formatWhen(event))} · ${esc(event.venue)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
         </td>
       </tr>
     </table>
   </td>
 </tr>`;
 };
+
+/** Picks sit in a narrower centred column so they do not span the full email. */
+const picksBlock = (
+  picks: EventItem[],
+  appUrl: string,
+  absolute: (url: string) => string,
+) => `
+<tr><td align="center" style="padding:4px 24px 4px 24px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="width:420px;max-width:100%;">
+    ${picks.map((event, index) => eventRow(event, appUrl, absolute, index === 0)).join("")}
+  </table>
+</td></tr>`;
 
 export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
   const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
