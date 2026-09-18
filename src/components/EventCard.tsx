@@ -30,18 +30,19 @@ export function EventCard({ event }: { event: EventItem }) {
         className="press absolute inset-0 rounded-xl"
       />
 
-      <div className="relative flex size-[60px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-hairline bg-card">
+      <div className="relative flex w-[56px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-hairline bg-card pb-2 pt-[8px]">
         <span className="absolute inset-x-0 top-0 h-[3px] bg-rausch" />
-        <span className="mt-1.5 text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
+        <span className="text-[11px] font-semibold leading-[14px] tracking-[0.06em] text-muted-foreground">
           {date}
         </span>
-        <span className="text-[16px] font-bold leading-[1.25] tracking-[-0.01em] text-foreground">
+        <span className="text-[20px] font-bold leading-[24px] tracking-[-0.01em] text-foreground">
           {weekday}
         </span>
-        <span className="text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
+        <span className="text-[11px] font-semibold leading-[14px] tracking-[0.06em] text-muted-foreground">
           {month}
         </span>
       </div>
+
 
       <div className="min-w-0 flex-1">
         <p className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
