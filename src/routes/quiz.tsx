@@ -535,7 +535,10 @@ function Quiz() {
           </button>
         </main>
       ) : (
-        <main key={question.id} className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-6 ${enter}`}>
+        <main
+          key={question.id}
+          className={`mx-auto w-full max-w-lg flex-1 px-5 pb-32 pt-6 ${enter}`}
+        >
           <span className="icon-button size-10 bg-rausch/10 text-rausch">
             <QuestionIcon className="size-5" strokeWidth={2.2} />
           </span>
@@ -631,10 +634,7 @@ function Options({
                 {option}
               </span>
               {active ? (
-                <Check
-                  className="absolute right-3 top-3 size-4 text-rausch"
-                  strokeWidth={2.6}
-                />
+                <Check className="absolute right-3 top-3 size-4 text-rausch" strokeWidth={2.6} />
               ) : null}
             </button>
           );
@@ -774,14 +774,7 @@ function MatchVisual() {
     <div className="flex items-center gap-5 rounded-2xl border border-hairline bg-card p-5">
       <div className="relative size-[120px] shrink-0">
         <svg viewBox="0 0 120 120" className="size-full -rotate-90">
-          <circle
-            cx="60"
-            cy="60"
-            r="52"
-            fill="none"
-            strokeWidth="8"
-            className="stroke-surface-2"
-          />
+          <circle cx="60" cy="60" r="52" fill="none" strokeWidth="8" className="stroke-surface-2" />
           <circle
             cx="60"
             cy="60"
@@ -867,7 +860,9 @@ function Loader({ onDone }: { onDone: () => void }) {
               ) : (
                 <span
                   className={`size-4 shrink-0 rounded-full border ${
-                    i === stage ? "border-rausch border-t-transparent animate-spin" : "border-hairline"
+                    i === stage
+                      ? "border-rausch border-t-transparent animate-spin"
+                      : "border-hairline"
                   }`}
                 />
               )}
