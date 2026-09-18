@@ -112,9 +112,10 @@ const eventRow = (event: EventItem, appUrl: string) => {
           <a href="${esc(href)}" style="text-decoration:none;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="60" style="width:60px;background-color:${CANVAS};border-radius:12px;">
               <tr><td align="center" style="font-family:${HEAD_FONT};padding:8px 0 9px 0;">
-                <div style="font-size:22px;line-height:24px;font-weight:700;letter-spacing:-0.02em;color:${INK};">${esc(date)}</div>
-                <div style="font-size:14px;line-height:17px;font-weight:700;color:${INK};">${esc(weekday)}</div>
+                <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
+                <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.01em;color:${INK};">${esc(weekday)}</div>
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(month)}</div>
+
 
 
               </td></tr>
