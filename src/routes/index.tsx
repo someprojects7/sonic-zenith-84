@@ -1,15 +1,13 @@
 import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Instagram, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
-import founderArtem from "@/assets/founder-artem.jpg";
-import founderEduard from "@/assets/founder-eduard.jpg";
 import heroCity from "@/assets/hero-event.jpg";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
-  "New in town or bored of the same three bars? Answer 20 quick taps and get the ten events in your city that are actually worth your week.";
+  "The best events in your city, collected in one place and picked for your taste. Ten matched picks every week.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,14 +17,14 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: TITLE },
       {
         property: "og:description",
-        content:
-          "20 taps. Ten events a week, chosen for your taste. Start free, upgrade when you love it.",
+        content: "Ten events a week, picked for your taste. One week free, then €7.99 a month.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonicalUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: canonicalUrl("/") }],
+
     scripts: [
       {
         type: "application/ld+json",
