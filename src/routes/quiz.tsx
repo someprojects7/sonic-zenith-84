@@ -279,17 +279,15 @@ function Quiz() {
   );
 }
 
-const FREE = ["3 picks a week", "One city", "Basic filters"];
-const PRO = [
-  "All 10 picks, every week",
-  "New events the hour we find them",
-  "Saved lists and calendar sync",
-  "Every city we cover",
-];
-
+/**
+ * Value reveal. The playbook rule: the paywall follows evidence. We name the
+ * answers back, show three real picks, and keep the rest as visible depth.
+ */
 function Result({ answers }: { answers: Record<string, string[]> }) {
-  const city = answers["city"]?.[0] ?? "your city";
+  const city = answers["city"]?.[0] ?? CITY;
   const scenes = answers["scenes"] ?? [];
+  const preview = picks.slice(0, 3);
+  const locked = Math.max(0, 10 - preview.length);
 
   return (
     <div className="min-h-screen bg-background px-5 py-10">
@@ -298,62 +296,53 @@ function Result({ answers }: { answers: Record<string, string[]> }) {
           <Sparkles className="size-5" strokeWidth={2.2} />
         </span>
         <h1 className="mt-4 text-[30px] font-medium leading-[1.1] tracking-[-0.02em] text-foreground">
-          Your taste is set.
+          Your week is ready
         </h1>
         <p className="mt-3 text-[16px] leading-[1.5] text-muted-foreground">
           {scenes.length
-            ? `${scenes.slice(0, 3).join(", ")} in ${city}. Your first picks are ready.`
-            : `We are reading ${city} right now. Your first picks are ready.`}
+            ? `${scenes.slice(0, 3).join(", ")} in ${city}. Ten picks matched, three of them below.`
+            : `Ten picks matched in ${city}, three of them below.`}
         </p>
 
-        <div className="mt-7 space-y-2">
-          <div className="rounded-xl border border-hairline bg-card p-4">
-            <p className="flex items-baseline justify-between gap-3">
-              <span className="text-[17px] font-medium text-foreground">Start free</span>
-              <span className="text-[14px] text-muted-foreground">€0</span>
-            </p>
-            <ul className="mt-3 space-y-1.5">
-              {FREE.map((f) => (
-                <li key={f} className="flex items-center gap-2 text-[14px] text-muted-foreground">
-                  <Check className="size-4 shrink-0 text-foreground" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/app"
-              className="mt-4 flex h-11 w-full items-center justify-center rounded-full border border-foreground text-[15px] font-semibold text-foreground"
-            >
-              Open the app
-            </Link>
-          </div>
+        <div className="mt-6 space-y-2">
+          {preview.map((event) => (
+            <div key={event.id} className="rounded-xl border border-hairline bg-card p-3">
+              <p className="flex items-center justify-between gap-3">
+                <span className="truncate text-[16px] font-medium text-foreground">
+                  {event.title}
+                </span>
+                {event.match ? (
+                  <span className="shrink-0 text-[14px] font-semibold text-rausch">
+                    {event.match}
+                  </span>
+                ) : null}
+              </p>
+              <p className="mt-0.5 truncate text-[14px] text-muted-foreground">
+                {formatWhen(event)} · {event.category} · {priceLabel(event)}
+              </p>
+            </div>
+          ))}
 
-          <div className="rounded-xl border-2 border-rausch bg-card p-4">
-            <p className="flex items-baseline justify-between gap-3">
-              <span className="text-[17px] font-medium text-foreground">Sponsa Pro</span>
-              <span className="text-[14px] text-muted-foreground">
-                <span className="text-[17px] font-semibold text-foreground">€7.99</span> / month
-              </span>
+          <div className="flex items-center gap-2.5 rounded-xl border border-dashed border-hairline p-3">
+            <Lock className="size-4 shrink-0 text-muted-foreground" />
+            <p className="min-w-0 text-[14px] text-muted-foreground">
+              {locked} more picks waiting for this week
             </p>
-            <ul className="mt-3 space-y-1.5">
-              {PRO.map((p) => (
-                <li key={p} className="flex items-center gap-2 text-[14px] text-muted-foreground">
-                  <Check className="size-4 shrink-0 text-rausch" />
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/app"
-              className="cta-halo press mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
-            >
-              <Lock className="size-4 shrink-0" />
-              Go Pro
-            </Link>
-            <p className="mt-2 text-center text-[13px] text-muted-foreground">Cancel any time.</p>
           </div>
         </div>
+
+        <Link
+          to="/paywall"
+          className="cta-halo press mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-rausch text-[15px] font-semibold text-white"
+        >
+          See my full week
+          <ArrowRight className="size-4 shrink-0" strokeWidth={2.5} />
+        </Link>
+        <p className="mt-3 text-center text-[13px] text-muted-foreground">
+          Seven days free, then €7.99 a month. Cancel any time.
+        </p>
       </div>
     </div>
   );
 }
+

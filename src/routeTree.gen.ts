@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as PaywallRouteImport } from './routes/paywall'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as EventIdRouteImport } from './routes/event.$id'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaywallRoute = PaywallRouteImport.update({
+  id: '/paywall',
+  path: '/paywall',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizRoute = QuizRouteImport.update({
@@ -44,6 +50,7 @@ const EventIdRoute = EventIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/paywall': typeof PaywallRoute
   '/quiz': typeof QuizRoute
   '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/paywall': typeof PaywallRoute
   '/quiz': typeof QuizRoute
   '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
@@ -59,21 +67,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/paywall': typeof PaywallRoute
   '/quiz': typeof QuizRoute
   '/terms': typeof TermsRoute
   '/event/$id': typeof EventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
+  fullPaths: '/' | '/app' | '/paywall' | '/quiz' | '/terms' | '/event/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
-  id: '__root__' | '/' | '/app' | '/quiz' | '/terms' | '/event/$id'
+  to: '/' | '/app' | '/paywall' | '/quiz' | '/terms' | '/event/$id'
+  id: '__root__' | '/' | '/app' | '/paywall' | '/quiz' | '/terms' | '/event/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
+  PaywallRoute: typeof PaywallRoute
   QuizRoute: typeof QuizRoute
   TermsRoute: typeof TermsRoute
   EventIdRoute: typeof EventIdRoute
@@ -93,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paywall': {
+      id: '/paywall'
+      path: '/paywall'
+      fullPath: '/paywall'
+      preLoaderRoute: typeof PaywallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz': {
@@ -122,6 +139,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
+  PaywallRoute: PaywallRoute,
   QuizRoute: QuizRoute,
   TermsRoute: TermsRoute,
   EventIdRoute: EventIdRoute,
