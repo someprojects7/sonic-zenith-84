@@ -42,9 +42,10 @@ export function EventCard({ event }: { event: EventItem }) {
         </div>
         <div className="min-w-0">
           <EventCategory event={event} isNew={isNew} />
-          <p className="truncate text-[16px] font-medium leading-[1.25] text-foreground">
+          <p className="line-clamp-2 text-[16px] font-medium leading-[1.25] text-foreground">
             {event.title}
           </p>
+
           <p className="mt-0.5 whitespace-nowrap text-[12px] leading-[1.4] text-muted-foreground">
             {event.time} ·{" "}
             <span className="font-semibold text-foreground">{priceLabel(event)}</span>
