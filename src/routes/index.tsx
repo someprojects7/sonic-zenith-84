@@ -361,7 +361,7 @@ function Footer() {
   return (
     <footer className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
       <div className="flex flex-col items-center justify-between gap-3 border-t border-line pt-7 text-center sm:flex-row sm:text-left">
-        <Wordmark />
+        <p className="font-heading text-[18px] font-semibold text-ink">{TAGLINE}</p>
         <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
           <Link
             to="/terms"
