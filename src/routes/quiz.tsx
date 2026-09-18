@@ -6,7 +6,6 @@ import { CITY, canonicalUrl } from "@/config/site";
 import { formatWhen, picks, priceLabel } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
-
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
@@ -348,4 +347,3 @@ function Result({ answers }: { answers: Record<string, string[]> }) {
     </div>
   );
 }
-

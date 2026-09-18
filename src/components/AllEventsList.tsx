@@ -3,7 +3,7 @@ import type { DateRange } from "react-day-picker";
 import { CalendarDays, Hourglass, Search, X } from "lucide-react";
 import { format, isWithinInterval, startOfDay } from "date-fns";
 
-import { EventRow } from "@/components/EventRow";
+import { EventCard } from "@/components/EventCard";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SCAN } from "@/config/site";
@@ -201,7 +201,7 @@ export function AllEventsList() {
             </h3>
             <div className="space-y-2">
               {events.map((event) => (
-                <EventRow key={event.id} event={event} />
+                <EventCard key={event.id} event={event} />
               ))}
             </div>
           </section>

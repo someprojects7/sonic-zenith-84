@@ -85,7 +85,10 @@ function Paywall() {
 
         <ul className="mt-6 space-y-2">
           {BENEFITS.map((b) => (
-            <li key={b} className="flex items-start gap-2.5 text-[15px] leading-[1.4] text-foreground">
+            <li
+              key={b}
+              className="flex items-start gap-2.5 text-[15px] leading-[1.4] text-foreground"
+            >
               <Check className="mt-0.5 size-4 shrink-0 text-rausch" strokeWidth={2.5} />
               {b}
             </li>
@@ -110,7 +113,9 @@ function Paywall() {
                   <span className="block text-[13px] text-muted-foreground">{p.cadence}</span>
                 </span>
                 <span className="shrink-0 text-right">
-                  <span className="block text-[16px] font-semibold text-foreground">{p.charge}</span>
+                  <span className="block text-[16px] font-semibold text-foreground">
+                    {p.charge}
+                  </span>
                   {p.note ? (
                     <span className="block text-[13px] font-medium text-rausch">{p.note}</span>
                   ) : null}

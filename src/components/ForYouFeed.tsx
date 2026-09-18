@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Hourglass } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
-import { EventRow } from "@/components/EventRow";
 import { InterestPicker } from "@/components/InterestPicker";
 import { SCAN } from "@/config/site";
 import { allEvents, picks } from "@/data/events";
@@ -50,7 +49,7 @@ export function ForYouFeed() {
         </h3>
         <div className="space-y-2">
           {order.rest.map((event) => (
-            <EventRow key={event.id} event={event} />
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </section>
