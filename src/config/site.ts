@@ -7,7 +7,7 @@
  */
 
 /** Absolute origin, used for canonical URLs, og:url and the sitemap. */
-export const SITE_URL = "https://sponsanet.lovable.app";
+export const SITE_URL = "https://sponsa.net";
 
 export const SITE_NAME = "Sponsa";
 
