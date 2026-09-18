@@ -1,6 +1,6 @@
 import { Heart, User } from "lucide-react";
 
-import { EventRow } from "@/components/EventRow";
+import { EventCard } from "@/components/EventCard";
 import { InterestPicker } from "@/components/InterestPicker";
 import { allEvents } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -36,7 +36,7 @@ export function ProfileView() {
         {savedEvents.length > 0 ? (
           <div className="space-y-2">
             {savedEvents.map((event) => (
-              <EventRow key={event.id} event={event} />
+              <EventCard key={event.id} event={event} />
             ))}
           </div>
         ) : (
