@@ -228,7 +228,9 @@ function StatTile({ value, label, bg }: { value: string; label: string; bg: stri
         decoding="async"
         className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-90"
       />
-      <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
+      <p className="font-heading text-[40px] font-bold leading-none tracking-[-0.02em] text-ink">
+        {value}
+      </p>
       <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{label}</p>
     </div>
   );
@@ -330,23 +332,21 @@ const PERKS = [
 
 function PricingTile() {
   return (
-    <section className="flex flex-col justify-between gap-7 rounded-2xl bg-ink p-7 text-paper md:col-span-12 md:flex-row md:items-center">
+    <section className="tile flex flex-col justify-between gap-7 p-7 md:col-span-12 md:flex-row md:items-center">
       <div>
-        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-paper/60">
-          One plan
-        </p>
-        <p className="mt-3 font-heading text-[34px] font-bold leading-none">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">One plan</p>
+        <p className="mt-3 font-heading text-[34px] font-bold leading-none tracking-[-0.02em] text-ink">
           €7.99
-          <span className="text-[16px] font-normal text-paper/60"> / month</span>
+          <span className="text-[16px] font-normal text-slate"> / month</span>
         </p>
-        <p className="mt-3 inline-flex rounded-full bg-paper/10 px-3 py-1 text-[13px] font-semibold">
+        <p className="mt-3 inline-flex rounded-full bg-cloud px-3 py-1 text-[13px] font-semibold text-ink">
           7 days free
         </p>
       </div>
 
       <ul className="space-y-2">
         {PERKS.map((perk) => (
-          <li key={perk} className="flex items-center gap-2 text-[15px] text-paper/80">
+          <li key={perk} className="flex items-center gap-2 text-[15px] text-slate">
             <Check className="size-4 shrink-0 text-signal" strokeWidth={2.5} />
             {perk}
           </li>
@@ -355,7 +355,7 @@ function PricingTile() {
 
       <div className="w-full md:w-auto md:min-w-[240px]">
         <Cta full />
-        <p className="mt-3 text-center text-[13px] text-paper/60">Cancel any time in the app.</p>
+        <p className="mt-3 text-center text-[13px] text-slate">Cancel any time in the app.</p>
       </div>
     </section>
   );
