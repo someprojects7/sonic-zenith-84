@@ -412,10 +412,19 @@ const FUNNEL: { value: string; label: string; width: string; icon: LucideIcon }[
   { value: "10", label: "picks for you", width: "16%", icon: Star },
 ];
 
+/** The curation work, step by step. Each line gets its own beat. */
 const LOADER_LINES = [
   "Reading your answers",
-  "Scanning this week in the city",
-  "Matching events to your taste",
+  "Opening 50+ sources",
+  "Reading Facebook events",
+  "Checking ticket sites",
+  "Scanning Telegram channels",
+  "Sweeping Instagram",
+  "Collecting 700+ events this week",
+  "Dropping sold out and past dates",
+  "Matching music and scenes",
+  "Filtering your nights and hours",
+  "Ranking by how close they land",
   "Picking your ten",
 ];
 
