@@ -124,11 +124,12 @@ const eventRow = (event: EventItem, appUrl: string) => {
         </td>
 
         <td style="font-family:${BODY_FONT};">
-          <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${match}${esc(event.category)}</div>
-          <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">
-            <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
-          </div>
-          <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(event.time)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
+          <a href="${esc(href)}" style="display:block;text-decoration:none;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${match}${esc(event.category)}</div>
+            <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">${esc(event.title)}</div>
+            <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(event.time)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
+          </a>
+
         </td>
         <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:18px;font-weight:600;color:${SLATE};white-space:nowrap;padding-left:10px;"><a href="${esc(href)}" style="color:${SLATE};text-decoration:none;">&rsaquo;</a></td>
 
