@@ -76,21 +76,12 @@
   --font-heading: "Outfit", var(--font-sans);
 }
 
-/* Bento tile: rises a touch on hover. */
+/* Bento tile: a calm, flat surface. Static tiles do not move on hover, so
+   motion stays reserved for things that actually respond to a press. */
 @utility tile {
   border-radius: 16px;
   border: 1px solid var(--color-line);
   background: var(--color-paper);
-  transition:
-    transform 200ms var(--ease-out),
-    box-shadow 200ms var(--ease-out);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      rgba(0, 0, 0, 0.03) 0px 2px 4px 0px,
-      rgba(0, 0, 0, 0.05) 0px 12px 28px -10px;
-  }
 }
 
 :root {
