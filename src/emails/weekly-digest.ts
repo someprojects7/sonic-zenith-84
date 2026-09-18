@@ -157,7 +157,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     </tr></table>
   </td></tr>
 
-  <tr><td style="padding:20px 24px 16px 24px;font-family:${BODY_FONT};">
+  <tr><td align="center" style="padding:20px 24px 16px 24px;font-family:${BODY_FONT};text-align:center;">
     <h1 style="margin:0;font-family:${HEAD_FONT};font-size:26px;line-height:32px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste. The top three:</p>
   </td></tr>
