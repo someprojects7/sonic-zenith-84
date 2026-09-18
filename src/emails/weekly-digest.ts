@@ -142,40 +142,43 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="color-scheme" content="light only" />
 <title>${esc(subjectFor(input))}</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet" />
 </head>
 <body style="margin:0;padding:0;background:${CANVAS};">
 <div style="display:none;font-size:1px;color:${CANVAS};line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">${esc(preheaderFor(input))}</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:${CANVAS};">
-<tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:#ffffff;border:1px solid ${LINE};border-radius:16px;">
+<tr><td align="center" style="padding:20px 12px 28px 12px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:${CANVAS};">
 
-  <tr><td style="padding:22px 28px 0 28px;font-family:Helvetica,Arial,sans-serif;">
+  <tr><td style="padding:8px 24px 0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
-      <td style="font-size:16px;font-weight:800;color:${CORAL};letter-spacing:-0.01em;">${esc(SITE_NAME)}.net</td>
-      <td align="right" style="font-size:12px;font-weight:600;color:${SLATE};letter-spacing:0.02em;">${esc(input.weekLabel)}</td>
+      <td>${wordmark()}</td>
+      <td align="right" style="font-family:${BODY_FONT};font-size:13px;font-weight:500;color:${SLATE};">${esc(input.weekLabel)}</td>
     </tr></table>
   </td></tr>
 
-  <tr><td style="padding:18px 28px 18px 28px;font-family:Helvetica,Arial,sans-serif;">
-    <h1 style="margin:0;font-size:26px;line-height:32px;font-weight:800;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
+  <tr><td style="padding:20px 24px 16px 24px;font-family:${BODY_FONT};">
+    <h1 style="margin:0;font-family:${HEAD_FONT};font-size:26px;line-height:32px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste. The top three:</p>
   </td></tr>
 
   ${picksBlock(input.picks, appUrl, absolute)}
 
-  <tr><td style="padding:18px 28px 0 28px;font-family:Helvetica,Arial,sans-serif;text-align:center;">
-    <p style="margin:0;font-size:15px;line-height:22px;color:${INK};font-weight:700;">${rest} more picks are waiting in the app.</p>
-    <p style="margin:6px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Times, prices and tickets for every one of them.</p>
+  <tr><td style="padding:14px 24px 0 24px;font-family:${BODY_FONT};text-align:center;">
+    <p style="margin:0;font-size:16px;line-height:22px;color:${INK};font-weight:600;">${rest} more picks are waiting in the app.</p>
+    <p style="margin:4px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Times, prices and tickets for every one of them.</p>
   </td></tr>
 
-  <tr><td style="padding:0 28px 26px 28px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
+  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
-  <tr><td style="padding:0 28px 24px 28px;font-family:Helvetica,Arial,sans-serif;border-top:1px solid ${LINE};">
-    <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
-      ${esc(TAGLINE)}. Once a week, because you set up picks on ${esc(SITE_NAME)}.net.<br />
-      <a href="${esc(absolute(input.preferencesUrl ?? "/app"))}" style="color:${SLATE};">Change your interests</a> ·
-      <a href="${esc(absolute(input.unsubscribeUrl ?? "/app"))}" style="color:${SLATE};">Unsubscribe</a>
-    </p>
+  <tr><td style="padding:0 24px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="border-top:1px solid ${LINE};font-family:${BODY_FONT};">
+      <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
+        ${esc(TAGLINE)}. Once a week, because you set up picks on ${esc(SITE_NAME)}.net.<br />
+        <a href="${esc(absolute(input.preferencesUrl ?? "/app"))}" style="color:${SLATE};">Change your interests</a> ·
+        <a href="${esc(absolute(input.unsubscribeUrl ?? "/app"))}" style="color:${SLATE};">Unsubscribe</a>
+      </p>
+    </td></tr></table>
   </td></tr>
 
 </table>
