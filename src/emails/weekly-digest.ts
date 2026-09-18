@@ -51,7 +51,9 @@ const esc = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const makeAbsolute = (base: string) => (url: string) =>
-  /^https?:\/\//.test(url) ? url : `${base.replace(/\/$/, "")}${url.startsWith("/") ? url : `/${url}`}`;
+  /^https?:\/\//.test(url)
+    ? url
+    : `${base.replace(/\/$/, "")}${url.startsWith("/") ? url : `/${url}`}`;
 
 /** Subject lines that test well: short, specific, no hype, one number. */
 export const subjectFor = (input: WeeklyDigestInput) =>
