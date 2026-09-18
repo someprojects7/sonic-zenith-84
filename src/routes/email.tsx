@@ -24,7 +24,7 @@ export const Route = createFileRoute("/email")({
     ],
     links: [{ rel: "canonical", href: canonicalUrl("/email") }],
   }),
-  component: EmailPreview;
+  component: EmailPreview,
 });
 
 const WHY = [
