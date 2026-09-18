@@ -26,6 +26,9 @@ type Preferences = {
   setVote: (id: string, value: Vote | null) => void;
   isSeen: (id: string) => boolean;
   markSeen: (id: string) => void;
+  /** The interest block on the Picks tab is dismissible; editing lives in the profile. */
+  interestsDismissed: boolean;
+  dismissInterests: () => void;
 };
 
 type Stored = {
@@ -33,6 +36,7 @@ type Stored = {
   saved: string[];
   votes: Record<string, Vote>;
   seen: string[];
+  interestsDismissed: boolean;
 };
 
 const KEY = "sponsa.preferences";
@@ -44,6 +48,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<string[]>([]);
   const [votes, setVotes] = useState<Record<string, Vote>>({});
   const [seen, setSeen] = useState<string[]>([]);
+  const [interestsDismissed, setInterestsDismissed] = useState(false);
 
   // Read after mount: touching localStorage during render breaks hydration.
   useEffect(() => {
@@ -55,6 +60,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       if (Array.isArray(parsed.saved)) setSaved(parsed.saved);
       if (Array.isArray(parsed.seen)) setSeen(parsed.seen);
       if (parsed.votes && typeof parsed.votes === "object") setVotes(parsed.votes);
+      if (parsed.interestsDismissed === true) setInterestsDismissed(true);
     } catch {
       // A corrupted value just means we start from a clean slate.
     }
@@ -62,11 +68,14 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(KEY, JSON.stringify({ interests, saved, votes, seen }));
+      window.localStorage.setItem(
+        KEY,
+        JSON.stringify({ interests, saved, votes, seen, interestsDismissed }),
+      );
     } catch {
       // Private browsing can refuse writes; the session still works.
     }
-  }, [interests, saved, votes, seen]);
+  }, [interests, saved, votes, seen, interestsDismissed]);
 
   const markSeen = useCallback((id: string) => {
     setSeen((list) => (list.includes(id) ? list : [...list, id]));
@@ -90,8 +99,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         }),
       isSeen: (id) => seen.includes(id),
       markSeen,
+      interestsDismissed,
+      dismissInterests: () => setInterestsDismissed(true),
     };
-  }, [interests, saved, votes, seen, markSeen]);
+  }, [interests, saved, votes, seen, markSeen, interestsDismissed]);
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
