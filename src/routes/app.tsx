@@ -5,6 +5,7 @@ import { AllEventsList } from "@/components/AllEventsList";
 import { AppHeader } from "@/components/AppHeader";
 import { FeedTabs, type FeedTab } from "@/components/FeedTabs";
 import { ForYouFeed } from "@/components/ForYouFeed";
+import { PhoneFrame } from "@/components/PhoneFrame";
 import { ProfileView } from "@/components/ProfileView";
 import { CITY, SCAN, SITE_NAME, canonicalUrl } from "@/config/site";
 import { allEvents, picks, type EventItem } from "@/data/events";
@@ -53,8 +54,8 @@ function AppScreen() {
   const newCounts = { foryou: unseen(picks), all: unseen(allEvents) };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+    <PhoneFrame>
+      <div className="mx-auto min-h-screen max-w-md bg-background pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:min-h-full">
         <AppHeader
           hidden={headerHidden}
           profileActive={view === "profile"}
@@ -75,6 +76,6 @@ function AppScreen() {
           {view === "profile" && <ProfileView />}
         </div>
       </div>
-    </div>
+    </PhoneFrame>
   );
 }
