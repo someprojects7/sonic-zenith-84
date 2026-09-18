@@ -253,10 +253,12 @@ const SAMPLE = [
 /** Sits in the narrow 4-column slot beside the hero, so rows stay compact. */
 function PicksTile() {
   return (
-    <section className="tile flex flex-col p-7 md:col-span-4">
+    <section className="tile flex flex-col border-ink bg-ink p-7 md:col-span-4">
       <div className="flex items-baseline justify-between gap-3">
-        <TileTitle>Your picks look like this</TileTitle>
-        <span className="shrink-0 text-[13px] font-semibold text-slate">
+        <h2 className="font-heading text-[22px] font-semibold leading-[1.2] text-paper">
+          Your picks look like this
+        </h2>
+        <span className="shrink-0 text-[13px] font-semibold text-paper/60">
           {SCAN.picksPerWeekClaim} a week
         </span>
       </div>
