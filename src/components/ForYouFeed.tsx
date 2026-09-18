@@ -50,7 +50,7 @@ export function ForYouFeed() {
 
         <div className="space-y-2">
           {order.sorted.map((event, i) => (
-            <EventCard key={event.id} event={event} featured={i === 0} />
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </section>
