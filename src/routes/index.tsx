@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
-import heroCity from "@/assets/hero-event.jpg";
+import heroMap from "@/assets/vilnius-events-city-map.jpg.asset.json";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -141,8 +141,18 @@ const FUNNEL = [
 /** Hero is sized to sit on one screen: min-h minus the 56/64px nav. */
 function Hero() {
   return (
-    <section className="flex min-h-[calc(100svh-56px)] items-center px-5 py-10 sm:min-h-[calc(100svh-64px)] sm:py-12">
-      <div className="mx-auto grid w-full max-w-[1200px] gap-10 sm:grid-cols-2 sm:items-center sm:gap-12">
+    <section className="relative flex min-h-[calc(100svh-56px)] items-center overflow-hidden px-5 py-10 sm:min-h-[calc(100svh-64px)] sm:py-12">
+      <img
+        src={heroMap.url}
+        alt=""
+        aria-hidden
+        width={1920}
+        height={1080}
+        className="pointer-events-none absolute inset-0 size-full object-cover"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-cloud/80 via-cloud/60 to-cloud" />
+
+      <div className="relative mx-auto grid w-full max-w-[1200px] gap-10 sm:grid-cols-2 sm:items-center sm:gap-12">
         <div>
           <span className="inline-flex rounded-full bg-pebble px-2.5 py-1 text-[12px] font-semibold text-cobalt">
             {CITY} · this week
@@ -172,26 +182,20 @@ function Hero() {
           <div className="absolute -bottom-8 -right-4 size-48 rounded-full bg-cyan/25 blur-3xl" />
 
           <div className="card-lift relative overflow-hidden rounded-2xl bg-paper">
-            <div className="relative">
-              <img
-                src={heroCity}
-                alt="Crowd with hands up at a live concert in a small city venue"
-                width={900}
-                height={1200}
-                className="h-52 w-full object-cover sm:h-[360px]"
-              />
-              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-paper/95 px-3 py-1.5 text-[13px] font-semibold text-ink">
+            <div className="flex items-center justify-between gap-3 px-5 py-4">
+              <p className="text-[15px] font-semibold text-ink">This week in {CITY}</p>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-pebble px-2.5 py-1 text-[13px] font-semibold text-ink">
                 <Sparkles className="size-3.5 text-signal" />
                 94% match
               </span>
             </div>
 
-            <dl className="divide-y divide-line">
+            <dl className="divide-y divide-line border-t border-line">
               {FUNNEL.map((s, i) => (
-                <div key={s.v} className="flex items-center justify-between gap-3 px-5 py-3">
+                <div key={s.v} className="flex items-center justify-between gap-3 px-5 py-4">
                   <dt className="text-[15px] text-slate">{s.v}</dt>
                   <dd
-                    className={`text-[20px] font-bold leading-none ${
+                    className={`text-[22px] font-bold leading-none ${
                       i === 2 ? "text-signal" : "text-ink"
                     }`}
                   >
@@ -236,7 +240,6 @@ function Steps() {
     </Section>
   );
 }
-
 
 const SAMPLE = [
   {
@@ -346,8 +349,8 @@ function Team() {
     <Section>
       <SectionHead eyebrow="Behind Sponsa" title="Built by people who run city nights." />
       <p className="mx-auto mt-4 max-w-xl text-center text-[16px] leading-[1.5] text-slate">
-        Years of booking venues, promoting nights and standing at the door, turned into the picks you
-        get every week.
+        Years of booking venues, promoting nights and standing at the door, turned into the picks
+        you get every week.
       </p>
 
       <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
@@ -361,7 +364,6 @@ function Team() {
     </Section>
   );
 }
-
 
 function FinalCta() {
   return (
