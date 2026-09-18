@@ -160,6 +160,8 @@ export const layout = (options: {
   preheader: string;
   /** Small text on the right of the header row. */
   headerNote?: string;
+  /** Hide the wordmark row entirely (welcome email needs no header). */
+  hideHeader?: boolean;
   /** Rows already wrapped in <tr>. */
   content: string;
   /** Footer sentence explaining why this email arrived. */
