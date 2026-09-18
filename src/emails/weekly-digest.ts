@@ -150,7 +150,6 @@ const picksBlock = (picks: EventItem[], appUrl: string) => `
 export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
   const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
   const appUrl = absolute(input.appUrl ?? "/app");
-  const rest = Math.max(input.totalPicks - input.picks.length, 0);
   const greeting = input.firstName ? `${esc(input.firstName)}, your` : "Your";
 
   return `<!doctype html>
