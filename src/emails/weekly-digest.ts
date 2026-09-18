@@ -105,11 +105,11 @@ const eventRow = (event: EventItem, appUrl: string) => {
   const { weekday, date, month } = splitDay(event.day);
   return `
 <tr>
-  <td style="padding:14px 0;border-top:1px solid ${LINE};">
+  <td style="padding:0;border-top:1px solid ${LINE};">
+    <a href="${esc(href)}" style="display:block;padding:14px 0;text-decoration:none;color:${INK};">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
         <td width="76" valign="top" style="width:76px;">
-          <a href="${esc(href)}" style="text-decoration:none;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="60" style="width:60px;background-color:${CANVAS};border-radius:12px;">
               <tr><td align="center" style="font-family:${HEAD_FONT};padding:8px 0 9px 0;">
                 <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;color:${SLATE};">${esc(date)}</div>
@@ -120,21 +120,19 @@ const eventRow = (event: EventItem, appUrl: string) => {
 
               </td></tr>
             </table>
-          </a>
         </td>
 
         <td style="font-family:${BODY_FONT};">
-          <a href="${esc(href)}" style="display:block;text-decoration:none;">
             <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${match}${esc(event.category)}</div>
             <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">${esc(event.title)}</div>
             <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(event.time)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
-          </a>
 
         </td>
-        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:20px;font-weight:700;color:${CORAL};white-space:nowrap;padding-left:10px;"><a href="${esc(href)}" style="color:${CORAL};text-decoration:none;">&rsaquo;</a></td>
+        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:20px;font-weight:700;color:${CORAL};white-space:nowrap;padding-left:10px;">&rsaquo;</td>
 
       </tr>
     </table>
+    </a>
   </td>
 </tr>`;
 };
