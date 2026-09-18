@@ -63,6 +63,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { PhoneFrame } from "@/components/PhoneFrame";
 import { CITY, canonicalUrl } from "@/config/site";
 import { formatWhen, picks, priceLabel } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -428,7 +429,16 @@ const LOADER_LINES = [
   "Picking your ten",
 ];
 
+/** The quiz is part of the app, so on a wide screen it lives in the phone shell. */
 function Quiz() {
+  return (
+    <PhoneFrame>
+      <QuizFlow />
+    </PhoneFrame>
+  );
+}
+
+function QuizFlow() {
   const { toggleInterest, interests } = usePreferences();
   const [step, setStep] = useState(0);
   const [pause, setPause] = useState<"interstitial" | null>(null);
@@ -497,7 +507,7 @@ function Quiz() {
   const QuestionIcon = question.icon;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen md:min-h-full flex-col bg-background">
       <header className="sticky top-0 z-10 bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-14 w-full max-w-lg items-center gap-3 px-5">
           <button
@@ -921,7 +931,7 @@ function Loader({ onDone }: { onDone: () => void }) {
   const shortlist = Math.max(0, Math.round(10 * Math.max(0, ease * 1.6 - 0.6)));
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5 py-10">
+    <div className="flex min-h-screen md:min-h-full flex-col items-center justify-center bg-background px-5 py-10">
       <div className="w-full max-w-lg">
         <p className="text-[44px] font-semibold leading-none tabular-nums text-foreground">
           {pct}%
@@ -994,7 +1004,7 @@ function Result({ answers }: { answers: Record<string, string[]> }) {
   const locked = Math.max(0, 10 - preview.length);
 
   return (
-    <div className="min-h-screen bg-background px-5 py-10">
+    <div className="min-h-screen md:min-h-full bg-background px-5 py-10">
       <div className="mx-auto w-full max-w-lg">
         <span className="icon-button size-11 bg-rausch/10 text-rausch">
           <Sparkles className="size-5" strokeWidth={2.2} />
