@@ -1,11 +1,12 @@
 import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Check, LogIn, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import eventLive from "@/assets/event-live.jpg";
 import eventArt from "@/assets/event-art.jpg";
 import eventClub from "@/assets/event-club.jpg";
+import cityMap from "@/assets/city-map-stats.jpg";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const CTA = "Find my week";
+const CTA = "Build my week";
 
 /* ---------------------------------------------------------------------------
  * Marketing primitives. The landing page uses its own fixed light palette
@@ -136,7 +137,6 @@ function Nav() {
   );
 }
 
-
 function HeroTile() {
   return (
     <section className="tile flex flex-col justify-center p-7 sm:p-11 md:col-span-8 md:min-h-[400px]">
@@ -206,7 +206,6 @@ function StatTile({ value, label }: { value: string; label: string }) {
     </div>
   );
 }
-
 
 const SAMPLE = [
   {
