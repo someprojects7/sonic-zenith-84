@@ -216,7 +216,6 @@ const SAMPLE = [
 function PicksTile() {
   return (
     <section className="tile p-7 md:col-span-6">
-
       <div className="flex items-baseline justify-between gap-3">
         <TileTitle>Your picks look like this</TileTitle>
         <span className="text-[13px] font-semibold text-slate">
