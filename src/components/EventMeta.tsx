@@ -1,18 +1,3 @@
-import { type EventItem } from "@/data/events";
-
-/**
- * Category above the title, day and time below it. The "new" flag rides on the
- * category line, so the title keeps its full width.
- */
-export function EventCategory({ event, isNew = false }: { event: EventItem; isNew?: boolean }) {
-  return (
-    <p className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-      <span className="truncate">{event.category}</span>
-      {isNew && <NewBadge />}
-    </p>
-  );
-}
-
 /** Small red flag for events added since the last visit. */
 export function NewBadge() {
   return (
