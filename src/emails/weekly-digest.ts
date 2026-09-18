@@ -18,7 +18,7 @@
  */
 
 import { SITE_NAME, SITE_URL, TAGLINE } from "@/config/site";
-import { type EventItem, formatWhen, priceLabel } from "@/data/events";
+import { type EventItem, priceLabel } from "@/data/events";
 
 export type WeeklyDigestInput = {
   /** First name, or "" for the neutral greeting. */
@@ -126,7 +126,7 @@ const eventRow = (event: EventItem, appUrl: string) => {
           <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">
             <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
           </div>
-          <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(formatWhen(event))}</div>
+          <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(event.time)}</div>
         </td>
         <td align="right" valign="top" style="font-family:${BODY_FONT};font-size:15px;font-weight:600;color:${INK};white-space:nowrap;padding-left:10px;">${esc(priceLabel(event))}</td>
       </tr>
@@ -136,10 +136,10 @@ const eventRow = (event: EventItem, appUrl: string) => {
 };
 
 /** Picks sit in a narrower centred column so they do not span the full email. */
-const picksBlock = (picks: EventItem[], appUrl: string, absolute: (url: string) => string) => `
+const picksBlock = (picks: EventItem[], appUrl: string) => `
 <tr><td style="padding:0 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;">
-    ${picks.map((event) => eventRow(event, appUrl, absolute)).join("")}
+    ${picks.map((event) => eventRow(event, appUrl)).join("")}
   </table>
 </td></tr>`;
 
