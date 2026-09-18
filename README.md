@@ -36,10 +36,13 @@ src/
   routes/
     __root.tsx          app shell, providers, site-wide metadata
     index.tsx           landing page (public, indexed)
-    quiz.tsx            20-question onboarding
-    app.tsx             feed shell: tabs (Picks / All) + profile
-    event.$id.tsx       event detail
+    quiz.tsx            20-question onboarding (animated, 4 question shapes)
+    paywall.tsx         Sponsa Pro plans (noindex; billing not wired yet)
+    terms.tsx           terms of service (public, indexed)
+    app.tsx             feed shell: tabs (Picks / All) + profile (noindex)
+    event.$id.tsx       event detail (noindex until real events exist)
   components/           feature components (feed, cards, header, tabs…)
+  components/PhoneFrame phone shell + city backdrop on desktop only
   components/ui/        shadcn primitives — avoid editing
   lib/
     preferences.tsx     interests, saved events, votes, viewed state (localStorage)
@@ -71,7 +74,10 @@ Rules that keep screens consistent:
 - Vertical rhythm: 32px between sections, 16px between cards, 8px inside text.
 - Tap targets are at least 44px high.
 - Card radius 12px; controls are pills or circles.
-- Fonts: Inter for UI, Outfit for the `SPONSA` wordmark.
+- Fonts: Inter for app UI, Figtree for landing body copy, Outfit for the
+  `SPONSA` wordmark and landing headings.
+- The landing page uses its own fixed light palette (`ink`, `slate`, `cloud`,
+  `paper`, `line`, `signal`) so it never flips to the app's night theme.
 
 ## Where real data plugs in
 
