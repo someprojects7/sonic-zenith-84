@@ -76,11 +76,11 @@ const wordmark = () =>
 const button = (href: string, label: string, crownSrc: string) => `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
   <tr>
-    <td align="center" bgcolor="#ffe4e9" style="border-radius:999px;padding:8px;">
+    <td align="center" bgcolor="#ffe4e9" style="border-radius:18px;padding:6px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
         <tr>
-          <td align="center" bgcolor="${CORAL}" style="border-radius:999px;">
-            <a href="${esc(href)}" style="display:block;padding:14px 26px;font-family:${BODY_FONT};font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px;">
+          <td align="center" bgcolor="${CORAL}" style="border-radius:12px;">
+            <a href="${esc(href)}" style="display:block;padding:14px 26px;font-family:${BODY_FONT};font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:12px;">
               <img src="${esc(crownSrc)}" width="18" height="18" alt="" style="display:inline-block;width:18px;height:18px;border:0;vertical-align:-3px;margin-right:8px;" />${esc(label)}
             </a>
           </td>
