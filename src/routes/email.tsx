@@ -50,7 +50,7 @@ function EmailPreview() {
         eventsScanned: SCAN.eventsScanned,
         sources: SCAN.sources,
         // Preview renders on this origin, so bundled images resolve here.
-        baseUrl: typeof window === "undefined" ? undefined : window.location.origin,
+        ...(typeof window === "undefined" ? {} : { baseUrl: window.location.origin }),
       }),
     [],
   );
