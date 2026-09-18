@@ -98,7 +98,7 @@ export const Route = createFileRoute("/quiz")({
  * - chips: wrapping pills
  * - scale: ordered rows with a growing level bar
  */
-type Layout = "tiles" | "rows" | "chips" | "scale";
+type Layout = "tiles" | "rows" | "chips" | "scale" | "days";
 
 type Question = {
   id: string;
