@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Copy, Monitor, Smartphone } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { CITY, SCAN, canonicalUrl } from "@/config/site";
 import { picks } from "@/data/events";
