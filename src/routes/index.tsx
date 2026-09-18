@@ -196,7 +196,7 @@ function StepsTile() {
         {/* Rail connecting the three steps, desktop only. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute left-0 right-0 top-6 hidden h-px bg-line sm:block"
+          className="pointer-events-none absolute left-6 right-[calc(33.333%+1.5rem)] top-6 hidden h-px bg-line sm:block"
         />
         {STEPS.map(({ n, icon: Icon, title, note }) => (
           <li key={n} className="relative flex gap-4 sm:block">
