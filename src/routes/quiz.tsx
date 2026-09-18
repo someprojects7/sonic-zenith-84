@@ -264,10 +264,11 @@ const QUESTIONS: Question[] = [
   {
     id: "nights",
     title: "Which nights are yours?",
+    note: "Tap the days you usually go out.",
     icon: CalendarDays,
-    layout: "chips",
+    layout: "days",
     multi: true,
-    options: ["Thursday", "Friday", "Saturday", "Sunday", "Weekdays too"],
+    options: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
   {
     id: "start",
