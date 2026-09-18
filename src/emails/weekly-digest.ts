@@ -150,7 +150,6 @@ const picksBlock = (picks: EventItem[], appUrl: string) => `
 export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
   const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
   const appUrl = absolute(input.appUrl ?? "/app");
-  const rest = Math.max(input.totalPicks - input.picks.length, 0);
   const greeting = input.firstName ? `${esc(input.firstName)}, your` : "Your";
 
   return `<!doctype html>
@@ -181,11 +180,8 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 
   ${picksBlock(input.picks, appUrl)}
 
-  <tr><td style="padding:20px 24px 14px 24px;font-family:${BODY_FONT};text-align:center;border-top:1px solid ${LINE};">
-    <p style="margin:0;font-size:15px;line-height:21px;color:${SLATE};">${rest} more picks waiting, with times, prices and tickets.</p>
-  </td></tr>
+  <tr><td style="padding:20px 24px 26px 24px;border-top:1px solid ${LINE};" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
-  <tr><td style="padding:0 24px 26px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="center" style="border-top:1px solid ${LINE};font-family:${BODY_FONT};text-align:center;">
