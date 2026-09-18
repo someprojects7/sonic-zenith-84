@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { PhoneFrame } from "@/components/PhoneFrame";
 import { SaveButton } from "@/components/SaveButton";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { canonicalUrl } from "@/config/site";
@@ -127,8 +128,8 @@ function EventPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
+    <PhoneFrame>
+      <div className="mx-auto min-h-screen max-w-md bg-background pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:min-h-full">
         <div className="px-4 pt-4">
           <img
             src={event.image}
@@ -253,6 +254,6 @@ function EventPage() {
           </button>
         </div>
       </div>
-    </div>
+    </PhoneFrame>
   );
 }
