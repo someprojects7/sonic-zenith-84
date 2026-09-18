@@ -191,9 +191,10 @@ function StepsTile() {
   );
 }
 
-function StatTile({ value, label }: { value: string; label: string }) {
+function StatTile({ value, label, bg }: { value: string; label: string; bg: string }) {
   return (
     <div className="tile relative isolate flex flex-col items-center justify-center gap-1 overflow-hidden px-5 py-7 text-center">
+
       <img
         src={cityMap}
         alt=""
