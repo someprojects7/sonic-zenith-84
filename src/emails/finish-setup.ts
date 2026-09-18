@@ -71,9 +71,8 @@ export const renderFinishSetupHtml = (input: FinishSetupInput) => {
     content: `
   ${headlineBlock(
     `${name} are <span style="color:${CORAL};">almost</span> set up.`,
-    `${input.answered} of ${input.totalQuestions} questions answered. The rest takes about ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"}.`,
+    `${input.answered} of ${input.totalQuestions} answered · about ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"} left · ${input.totalPicks} picks unlock`,
   )}
-  ${factsBlock(facts(input))}
   ${input.teaser ? picksBlock([input.teaser], appUrl) : ""}
   ${ctaBlock(quizUrl, "Finish my setup", absolute("/email-crown.png"))}`,
     reason: footerReason("You started setting up your picks"),
