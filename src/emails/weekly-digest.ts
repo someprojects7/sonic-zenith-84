@@ -91,20 +91,36 @@ const button = (href: string, label: string, crownSrc: string) => `
 </table>`;
 
 
-/** One pick, laid out like the event card in the app: thumb, category, title, when, price. */
-const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => string) => {
+/** "Thu 17 Sep" split into the three lines of the date block. */
+const splitDay = (day: string) => {
+  const [weekday = "", date = "", month = ""] = day.trim().split(/\s+/);
+  return { weekday, date, month };
+};
+
+/** One pick, laid out like the event card in the app: date block, category, title, when, price. */
+const eventRow = (event: EventItem, appUrl: string) => {
   const href = `${appUrl.replace(/\/app\/?$/, "")}/event/${event.id}`;
   const match = event.match
     ? `<span style="color:${CORAL};font-weight:600;">${event.match}% match</span> · `
     : "";
+  const { weekday, date, month } = splitDay(event.day);
   return `
 <tr>
   <td style="padding:14px 0;border-top:1px solid ${LINE};">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
-        <td width="76" style="width:76px;">
-          <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="64" height="64" alt="${esc(event.title)}" style="display:block;width:64px;height:64px;border-radius:12px;object-fit:cover;border:0;" /></a>
+        <td width="76" valign="top" style="width:76px;">
+          <a href="${esc(href)}" style="text-decoration:none;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="60" style="width:60px;background-color:${CANVAS};border-radius:12px;">
+              <tr><td align="center" style="font-family:${HEAD_FONT};padding:8px 0 9px 0;">
+                <div style="font-size:24px;line-height:26px;font-weight:700;letter-spacing:-0.02em;color:${INK};">${esc(date)}</div>
+                <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(weekday)}</div>
+                <div style="font-size:11px;line-height:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(month)}</div>
+              </td></tr>
+            </table>
+          </a>
         </td>
+
         <td style="font-family:${BODY_FONT};">
           <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${match}${esc(event.category)}</div>
           <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">
