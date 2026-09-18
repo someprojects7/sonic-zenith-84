@@ -23,7 +23,15 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
 });
 
-function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section id={id} className="mt-9 scroll-mt-20">
       <h2 className="text-[17px] font-semibold tracking-[-0.01em] text-foreground">{title}</h2>
@@ -73,19 +81,19 @@ function TermsPage() {
         <div className="mt-6 rounded-xl border border-hairline p-4 text-[13px] leading-[1.55] text-muted-foreground">
           Short version: {SITE_NAME} is a referral and discovery service. We point to event
           information that is already public, in short factual form, and always send you to the
-          original source. We do not organise events, sell tickets, host event content as our own, or
-          control what venues, organisers and platforms do. Confirm every detail with the organiser
-          before you travel or pay.
+          original source. We do not organise events, sell tickets, host event content as our own,
+          or control what venues, organisers and platforms do. Confirm every detail with the
+          organiser before you travel or pay.
         </div>
 
         <Section id="provider" title="1. Who we are">
           <p>
             The service is operated by {LEGAL.operatorName}, {LEGAL.operatorForm} from{" "}
-            {LEGAL.country}. Contact for any legal, privacy or content matter:{" "}
-            {LEGAL.contactEmail}. Postal contact details are provided on request to that address
-            where a law or a competent authority requires them. In these terms &quot;we&quot;,
-            &quot;us&quot; and &quot;{SITE_NAME}&quot; mean the operator; &quot;you&quot; means the
-            person using the service.
+            {LEGAL.country}. Contact for any legal, privacy or content matter: {LEGAL.contactEmail}.
+            Postal contact details are provided on request to that address where a law or a
+            competent authority requires them. In these terms &quot;we&quot;, &quot;us&quot; and
+            &quot;{SITE_NAME}&quot; mean the operator; &quot;you&quot; means the person using the
+            service.
           </p>
         </Section>
 
@@ -143,8 +151,8 @@ function TermsPage() {
           />
           <p>
             No partnership, sponsorship, affiliation or endorsement between {SITE_NAME} and any
-            source, platform, venue, artist or organiser is implied by a listing, a name, a logo or a
-            link. Marks and names are used descriptively, to identify the event or its source.
+            source, platform, venue, artist or organiser is implied by a listing, a name, a logo or
+            a link. Marks and names are used descriptively, to identify the event or its source.
           </p>
         </Section>
 
@@ -194,9 +202,9 @@ function TermsPage() {
 
         <Section id="plans" title="8. Plans, payments and renewals">
           <p>
-            The service is offered as a paid subscription, which may start with a free trial. Current
-            prices, trial length, features and billing periods are shown at checkout and form part of
-            this agreement. Prices include applicable VAT where required.
+            The service is offered as a paid subscription, which may start with a free trial.
+            Current prices, trial length, features and billing periods are shown at checkout and
+            form part of this agreement. Prices include applicable VAT where required.
           </p>
           <Bullets
             items={[
@@ -234,8 +242,8 @@ function TermsPage() {
             Our interface, editorial selection, ranking logic, code, wording and brand are owned by
             us or our licensors. Third-party event content remains with its owners and is only
             referenced. We grant you a personal, revocable, non-exclusive, non-transferable licence
-            to use the service for your own private, non-commercial event discovery. All other rights
-            are reserved.
+            to use the service for your own private, non-commercial event discovery. All other
+            rights are reserved.
           </p>
           <p>
             If you send feedback, you allow us to use it without obligation or compensation. If you
@@ -285,15 +293,15 @@ function TermsPage() {
           <p>
             To the extent permitted by law, we are not liable for indirect, incidental, special or
             consequential loss, loss of profit, data, opportunity or goodwill, wasted expenditure,
-            travel or ticket costs, or damage arising from cancelled, changed, misdescribed or unsafe
-            events, third-party conduct, third-party content, or inaccurate source data.
+            travel or ticket costs, or damage arising from cancelled, changed, misdescribed or
+            unsafe events, third-party conduct, third-party content, or inaccurate source data.
           </p>
           <p>
-            Our total aggregate liability for all claims in any twelve-month period is limited to the
-            greater of the amounts you paid us for the service in that period or {LEGAL.liabilityCap}.
-            Nothing here limits liability for death or personal injury caused by our negligence,
-            fraud, wilful misconduct, or any liability that cannot be excluded under mandatory
-            consumer law.
+            Our total aggregate liability for all claims in any twelve-month period is limited to
+            the greater of the amounts you paid us for the service in that period or{" "}
+            {LEGAL.liabilityCap}. Nothing here limits liability for death or personal injury caused
+            by our negligence, fraud, wilful misconduct, or any liability that cannot be excluded
+            under mandatory consumer law.
           </p>
         </Section>
 
@@ -319,8 +327,8 @@ function TermsPage() {
           <p>
             These terms are governed by the law of {LEGAL.country}, without prejudice to mandatory
             consumer protections in your country of residence. Disputes fall to the competent courts
-            of {LEGAL.courtsCity}, {LEGAL.country}; consumers may also bring proceedings in their own
-            country where the law allows and may use the EU online dispute resolution platform.
+            of {LEGAL.courtsCity}, {LEGAL.country}; consumers may also bring proceedings in their
+            own country where the law allows and may use the EU online dispute resolution platform.
             Before starting a claim, please contact us at {LEGAL.contactEmail} so we can try to
             resolve the matter directly.
           </p>
