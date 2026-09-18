@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Check, Copy, Monitor, Smartphone } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -26,14 +26,6 @@ export const Route = createFileRoute("/email")({
   }),
   component: EmailPreview,
 });
-
-const WHY = [
-  "One goal and one call to action, so nothing competes with it.",
-  "Subject and preheader read as one line: what it is, and one number.",
-  "Value first: three real picks with match, time and price before the ask.",
-  "The other picks stay in the app, so the click has a reason.",
-  "600px single column, inline styles, alt text, plain-text twin, one-tap unsubscribe.",
-];
 
 function EmailPreview() {
   const [mobile, setMobile] = useState(false);
@@ -104,24 +96,6 @@ function EmailPreview() {
             className="h-[1200px] rounded-2xl border border-line bg-paper"
             style={{ width: mobile ? 390 : 680 }}
           />
-        </div>
-
-        <div className="mt-8 rounded-2xl border border-line bg-paper p-5">
-          <p className="font-heading text-lg font-bold">Why it is built this way</p>
-          <ul className="mt-3 space-y-2">
-            {WHY.map((item) => (
-              <li key={item} className="flex gap-2 text-[15px] text-slate">
-                <Check className="mt-1 size-4 shrink-0 text-signal" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-sm text-slate">
-            Plain-text version is generated alongside the HTML.{" "}
-            <Link to="/app" className="font-semibold text-ink">
-              Open the app
-            </Link>
-          </p>
         </div>
       </div>
     </div>
