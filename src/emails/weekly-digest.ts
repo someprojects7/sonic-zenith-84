@@ -57,7 +57,7 @@ const makeAbsolute = (base: string) => (url: string) =>
 
 /** Subject: short, specific, one number, no hype. */
 export const subjectFor = (input: WeeklyDigestInput) =>
-  `${input.totalPicks} picks for your ${input.city} week`;
+  `Your ${input.city} week is ready: ${input.totalPicks} picks`;
 
 /** Preheader continues the subject instead of repeating it. */
 export const preheaderFor = (input: WeeklyDigestInput) =>
