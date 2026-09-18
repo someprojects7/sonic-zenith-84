@@ -32,11 +32,11 @@ export function AppHeader({
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(
-            "icon-button press size-10 shrink-0",
+            "icon-button press size-9 shrink-0",
             profileActive ? "bg-foreground text-background" : "bg-surface-2 text-muted-foreground",
           )}
         >
-          <User className="size-[20px]" strokeWidth={2} />
+          <User className="size-[17px]" strokeWidth={2} />
         </button>
       </div>
     </header>
