@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Copy, Monitor, Smartphone } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { CITY, SCAN, canonicalUrl } from "@/config/site";
@@ -28,8 +28,9 @@ export const Route = createFileRoute("/email")({
 });
 
 function EmailPreview() {
-  const [mobile, setMobile] = useState(false);
   const [copied, setCopied] = useState(false);
+  // Grows with the rendered email so the page has no empty tail.
+  const [height, setHeight] = useState(900);
   // Resolved after mount so server and client render the same markup.
   const [origin, setOrigin] = useState("");
 
@@ -70,14 +71,6 @@ function EmailPreview() {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setMobile((value) => !value)}
-              className="inline-flex h-10 items-center gap-2 rounded-lg border border-line bg-paper px-3 text-sm font-semibold"
-            >
-              {mobile ? <Smartphone className="size-4" /> : <Monitor className="size-4" />}
-              {mobile ? "Mobile" : "Desktop"}
-            </button>
-            <button
-              type="button"
               onClick={copy}
               className="inline-flex h-10 items-center gap-2 rounded-lg bg-ink px-3 text-sm font-semibold text-paper"
             >
@@ -93,12 +86,16 @@ function EmailPreview() {
           <p className="text-[14px] text-slate">{email.preheader}</p>
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center pb-6">
           <iframe
             title="Weekly email preview"
             srcDoc={email.html}
-            className="h-[1100px] w-full rounded-2xl border border-line bg-paper"
-            style={{ maxWidth: mobile ? 390 : 680 }}
+            onLoad={(event) => {
+              const body = event.currentTarget.contentDocument?.body;
+              if (body) setHeight(body.scrollHeight);
+            }}
+            className="w-full max-w-[680px] rounded-2xl border border-line bg-paper"
+            style={{ height }}
           />
         </div>
       </div>
