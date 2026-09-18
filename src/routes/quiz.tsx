@@ -898,25 +898,30 @@ function MatchVisual() {
  * result feels earned rather than instant.
  */
 function Loader({ onDone }: { onDone: () => void }) {
-  const [pct, setPct] = useState(2);
+  const [pct, setPct] = useState(1);
 
+  // ~9s of visible work: long enough to read as real curation.
   useEffect(() => {
     const iv = window.setInterval(() => {
-      setPct((p) => (p >= 100 ? 100 : p + 2));
-    }, 32);
+      setPct((p) => (p >= 100 ? 100 : p + 1));
+    }, 88);
     return () => window.clearInterval(iv);
   }, []);
 
   useEffect(() => {
     if (pct < 100) return;
-    const t = window.setTimeout(onDone, 380);
+    const t = window.setTimeout(onDone, 700);
     return () => window.clearTimeout(t);
   }, [pct, onDone]);
 
-  const stage = Math.min(LOADER_LINES.length - 1, Math.floor(pct / 26));
+  const stage = Math.min(LOADER_LINES.length - 1, Math.floor((pct / 100) * LOADER_LINES.length));
+  const ease = pct / 100;
+  const sources = Math.round(52 * Math.min(1, ease * 2.2));
+  const events = Math.round(746 * Math.min(1, ease * 1.5));
+  const shortlist = Math.max(0, Math.round(10 * Math.max(0, ease * 1.6 - 0.6)));
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5 py-10">
       <div className="w-full max-w-lg">
         <p className="text-[44px] font-semibold leading-none tabular-nums text-foreground">
           {pct}%
@@ -930,12 +935,32 @@ function Loader({ onDone }: { onDone: () => void }) {
             style={{ transform: `scaleX(${pct / 100})` }}
           />
         </div>
-        <div className="mt-6 space-y-2.5">
+
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {[
+            { value: sources, label: "sources" },
+            { value: events, label: "events" },
+            { value: shortlist, label: "picks" },
+          ].map((stat, i) => (
+            <div key={stat.label} className="rounded-xl border border-hairline bg-card px-3 py-2.5">
+              <p
+                className={`text-[20px] font-semibold leading-none tabular-nums ${
+                  i === 2 ? "text-rausch" : "text-foreground"
+                }`}
+              >
+                {stat.value}
+              </p>
+              <p className="mt-1 text-[12px] text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 space-y-2">
           {LOADER_LINES.map((line, i) => (
             <p
               key={line}
-              className={`flex items-center gap-2.5 text-[14px] transition-colors duration-200 ${
-                i <= stage ? "text-foreground" : "text-muted-foreground"
+              className={`flex items-center gap-2.5 text-[14px] transition-all duration-300 ${
+                i <= stage ? "text-foreground opacity-100" : "text-muted-foreground opacity-45"
               }`}
             >
               {i < stage ? (
@@ -944,7 +969,7 @@ function Loader({ onDone }: { onDone: () => void }) {
                 <span
                   className={`size-4 shrink-0 rounded-full border ${
                     i === stage
-                      ? "border-rausch border-t-transparent animate-spin"
+                      ? "animate-spin border-rausch border-t-transparent"
                       : "border-hairline"
                   }`}
                 />
