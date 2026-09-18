@@ -180,7 +180,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 
   ${picksBlock(input.picks, appUrl)}
 
-  <tr><td style="padding:20px 24px 26px 24px;border-top:1px solid ${LINE};" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
+  <tr><td style="padding:8px 24px 26px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
 
   <tr><td style="padding:0 24px;">
