@@ -609,6 +609,79 @@ function Options({
     );
   }
 
+  // A week strip: days read as a calendar week, not as a list of words.
+  if (question.layout === "days") {
+    return (
+      <div className="mt-6">
+        <div className="grid grid-cols-7 gap-1.5">
+          {question.options.map((option, i) => {
+            const active = picked.includes(option);
+            const weekend = i >= 5;
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => onChoose(option)}
+                style={delay(i)}
+                aria-pressed={active}
+                className={`rise-in press flex flex-col items-center gap-1.5 rounded-xl border py-2.5 ${
+                  active
+                    ? "border-rausch bg-rausch/5"
+                    : "border-hairline bg-card hover:border-foreground/30"
+                }`}
+              >
+                <span
+                  className={`text-[11px] font-semibold uppercase tracking-[0.06em] ${
+                    active
+                      ? "text-rausch"
+                      : weekend
+                        ? "text-foreground/70"
+                        : "text-muted-foreground"
+                  }`}
+                >
+                  {option}
+                </span>
+                <span
+                  className={`flex size-7 items-center justify-center rounded-full ${
+                    active ? "bg-rausch text-white" : "bg-surface-2 text-transparent"
+                  }`}
+                >
+                  <Check className="size-4" strokeWidth={2.8} />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex gap-2">
+          {[
+            { label: "Weekends", days: ["Fri", "Sat", "Sun"] },
+            { label: "Every night", days: question.options },
+          ].map((preset) => {
+            const on = preset.days.every((d) => picked.includes(d));
+            return (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => {
+                  preset.days.forEach((d) => {
+                    if (on ? picked.includes(d) : !picked.includes(d)) onChoose(d);
+                  });
+                }}
+                className={`press rounded-full border px-3.5 py-2 text-[13px] font-medium ${
+                  on
+                    ? "border-rausch bg-rausch/5 text-rausch"
+                    : "border-hairline bg-card text-muted-foreground hover:border-foreground/30"
+                }`}
+              >
+                {preset.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   if (question.layout === "tiles") {
     return (
       <div className="mt-6 grid grid-cols-2 gap-2">
