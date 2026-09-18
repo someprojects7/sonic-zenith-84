@@ -55,19 +55,22 @@ const makeAbsolute = (base: string) => (url: string) =>
     ? url
     : `${base.replace(/\/$/, "")}${url.startsWith("/") ? url : `/${url}`}`;
 
-/** Subject lines that test well: short, specific, no hype, one number. */
+/** Subject: short, specific, one number, no hype. */
 export const subjectFor = (input: WeeklyDigestInput) =>
-  `Your ${input.city} week is ready: ${input.totalPicks} picks`;
+  `${input.totalPicks} picks for your ${input.city} week`;
 
 /** Preheader continues the subject instead of repeating it. */
 export const preheaderFor = (input: WeeklyDigestInput) =>
   `${input.picks[0]?.title ?? "Your top pick"} and ${Math.max(input.totalPicks - 1, 0)} more, matched to your taste.`;
 
-const button = (href: string, label: string) => `
+/** Single CTA. The crown is the same icon as the Picks tab in the app. */
+const button = (href: string, label: string, crownSrc: string) => `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
   <tr>
     <td align="center" bgcolor="${CORAL}" style="border-radius:12px;">
-      <a href="${esc(href)}" style="display:inline-block;padding:15px 28px;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px;">${esc(label)}</a>
+      <a href="${esc(href)}" style="display:block;padding:15px 28px;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px;">
+        <img src="${esc(crownSrc)}" width="18" height="18" alt="" style="display:inline-block;width:18px;height:18px;border:0;vertical-align:-3px;margin-right:8px;" />${esc(label)}
+      </a>
     </td>
   </tr>
 </table>`;
