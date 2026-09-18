@@ -190,7 +190,7 @@ function StepsTile() {
 
 function StatTile({ value, label }: { value: string; label: string }) {
   return (
-    <div className="tile flex flex-col items-center justify-center gap-1 p-7 text-center md:col-span-3">
+    <div className="tile flex flex-col items-center justify-center gap-1 px-5 py-7 text-center">
       <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
       <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{label}</p>
     </div>
@@ -215,7 +215,7 @@ const SAMPLE = [
 
 function PicksTile() {
   return (
-    <section className="tile p-7 md:col-span-6">
+    <section className="tile flex-1 p-7">
       <div className="flex items-baseline justify-between gap-3">
         <TileTitle>Your picks look like this</TileTitle>
         <span className="text-[13px] font-semibold text-slate">
@@ -263,7 +263,7 @@ const STATS = [
 
 function TrustTile() {
   return (
-    <section className="tile p-7 md:col-span-6">
+    <section className="tile flex-1 p-7">
       <TileTitle>Picked by people who run city nights</TileTitle>
       <dl className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
         {STATS.map((s) => (
