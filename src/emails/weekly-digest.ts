@@ -87,36 +87,26 @@ const button = (href: string, label: string, crownSrc: string) => `
 /** One pick, laid out like the event card in the app: thumb, category, title, when, price. */
 const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => string) => {
   const href = `${appUrl.replace(/\/app\/?$/, "")}/event/${event.id}`;
+  const match = event.match
+    ? `<span style="color:${CORAL};font-weight:600;">${event.match}% match</span> · `
+    : "";
   return `
 <tr>
-  <td style="padding-bottom:8px;">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#ffffff;border:1px solid ${LINE};border-radius:12px;">
+  <td style="padding:14px 0;border-top:1px solid ${LINE};">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
-        <td style="padding:12px;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-            <tr>
-              <td width="72" style="width:72px;">
-                <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="60" height="60" alt="${esc(event.title)}" style="display:block;width:60px;height:60px;border-radius:12px;object-fit:cover;border:0;" /></a>
-              </td>
-              <td style="font-family:${BODY_FONT};">
-                <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(event.category)}</div>
-                <div style="padding-top:2px;font-size:16px;line-height:20px;font-weight:500;color:${INK};">
-                  <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
-                </div>
-                <div style="padding-top:2px;font-size:14px;line-height:20px;color:${SLATE};">${esc(formatWhen(event))}</div>
-              </td>
-              <td align="right" valign="top" style="font-family:${BODY_FONT};font-size:14px;font-weight:600;color:${INK};white-space:nowrap;padding-left:8px;">${esc(priceLabel(event))}</td>
-            </tr>
-          </table>
+        <td width="76" style="width:76px;">
+          <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="64" height="64" alt="${esc(event.title)}" style="display:block;width:64px;height:64px;border-radius:12px;object-fit:cover;border:0;" /></a>
         </td>
+        <td style="font-family:${BODY_FONT};">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${match}${esc(event.category)}</div>
+          <div style="padding-top:3px;font-size:16px;line-height:21px;font-weight:600;letter-spacing:-0.01em;color:${INK};">
+            <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
+          </div>
+          <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(formatWhen(event))} · ${esc(event.venue)}</div>
+        </td>
+        <td align="right" valign="top" style="font-family:${BODY_FONT};font-size:15px;font-weight:600;color:${INK};white-space:nowrap;padding-left:10px;">${esc(priceLabel(event))}</td>
       </tr>
-      ${
-        event.match
-          ? `<tr><td style="padding:8px 12px;border-top:1px solid ${LINE};font-family:${BODY_FONT};font-size:13px;line-height:16px;font-weight:500;color:${SLATE};">
-        <span style="color:${CORAL};font-weight:600;">${event.match}% match</span> · ${esc(event.venue)}
-      </td></tr>`
-          : ""
-      }
     </table>
   </td>
 </tr>`;
@@ -124,8 +114,8 @@ const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => s
 
 /** Picks sit in a narrower centred column so they do not span the full email. */
 const picksBlock = (picks: EventItem[], appUrl: string, absolute: (url: string) => string) => `
-<tr><td align="center" style="padding:0 24px;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="440" style="width:100%;max-width:440px;">
+<tr><td style="padding:0 24px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;">
     ${picks.map((event) => eventRow(event, appUrl, absolute)).join("")}
   </table>
 </td></tr>`;
@@ -158,18 +148,17 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
   </td></tr>
 
   <tr><td align="center" style="padding:36px 24px 18px 24px;font-family:${BODY_FONT};text-align:center;">
-    <h1 style="margin:0;font-family:${HEAD_FONT};font-size:26px;line-height:32px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
+    <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste.</p>
   </td></tr>
 
   ${picksBlock(input.picks, appUrl, absolute)}
 
-  <tr><td style="padding:14px 24px 0 24px;font-family:${BODY_FONT};text-align:center;">
-    <p style="margin:0;font-size:16px;line-height:22px;color:${INK};font-weight:600;">${rest} more picks are waiting in the app.</p>
-    <p style="margin:4px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Times, prices and tickets for every one of them.</p>
+  <tr><td style="padding:20px 24px 14px 24px;font-family:${BODY_FONT};text-align:center;border-top:1px solid ${LINE};">
+    <p style="margin:0;font-size:15px;line-height:21px;color:${SLATE};">${rest} more picks waiting, with times, prices and tickets.</p>
   </td></tr>
 
-  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
+  <tr><td style="padding:0 24px 26px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="center" style="border-top:1px solid ${LINE};font-family:${BODY_FONT};text-align:center;">
