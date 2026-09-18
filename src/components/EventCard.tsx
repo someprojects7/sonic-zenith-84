@@ -29,7 +29,8 @@ export function EventCard({ event }: { event: EventItem }) {
         params={{ id: event.id }}
         className="press grid min-h-[88px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3"
       >
-        <div className="flex size-[60px] shrink-0 flex-col items-center justify-center rounded-xl bg-muted">
+        <div className="relative flex size-[60px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-hairline bg-card">
+          <span className="absolute inset-x-0 top-0 h-[3px] bg-rausch" />
           <span className="text-[12px] font-semibold leading-[1.3] tracking-[0.06em] text-muted-foreground">
             {date}
           </span>
@@ -40,6 +41,7 @@ export function EventCard({ event }: { event: EventItem }) {
             {month}
           </span>
         </div>
+
         <div className="min-w-0">
           <EventCategory event={event} isNew={isNew} />
           <p className="line-clamp-2 text-[16px] font-medium leading-[1.25] text-foreground">
