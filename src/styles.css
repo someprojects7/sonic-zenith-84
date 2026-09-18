@@ -219,6 +219,54 @@
   }
 }
 
+/* Quiz step transitions: a step slides in from the travel direction. */
+@keyframes step-in-forward {
+  from {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes step-in-back {
+  from {
+    transform: translateX(-14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@utility step-in-forward {
+  animation: step-in-forward 240ms var(--ease-out) both;
+}
+
+@utility step-in-back {
+  animation: step-in-back 240ms var(--ease-out) both;
+}
+
+@utility rise-in {
+  animation: rise-in 260ms var(--ease-out) both;
+}
+
+
+
 /* Reduced motion: keep colour and opacity feedback, drop movement. */
 @media (prefers-reduced-motion: reduce) {
   *,
