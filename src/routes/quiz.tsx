@@ -98,7 +98,7 @@ export const Route = createFileRoute("/quiz")({
  * - chips: wrapping pills
  * - scale: ordered rows with a growing level bar
  */
-type Layout = "tiles" | "rows" | "chips" | "scale";
+type Layout = "tiles" | "rows" | "chips" | "scale" | "days";
 
 type Question = {
   id: string;
@@ -264,10 +264,11 @@ const QUESTIONS: Question[] = [
   {
     id: "nights",
     title: "Which nights are yours?",
+    note: "Tap the days you usually go out.",
     icon: CalendarDays,
-    layout: "chips",
+    layout: "days",
     multi: true,
-    options: ["Thursday", "Friday", "Saturday", "Sunday", "Weekdays too"],
+    options: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
   {
     id: "start",
@@ -411,10 +412,19 @@ const FUNNEL: { value: string; label: string; width: string; icon: LucideIcon }[
   { value: "10", label: "picks for you", width: "16%", icon: Star },
 ];
 
+/** The curation work, step by step. Each line gets its own beat. */
 const LOADER_LINES = [
   "Reading your answers",
-  "Scanning this week in the city",
-  "Matching events to your taste",
+  "Opening 50+ sources",
+  "Reading Facebook events",
+  "Checking ticket sites",
+  "Scanning Telegram channels",
+  "Sweeping Instagram",
+  "Collecting 700+ events this week",
+  "Dropping sold out and past dates",
+  "Matching music and scenes",
+  "Filtering your nights and hours",
+  "Ranking by how close they land",
   "Picking your ten",
 ];
 
@@ -604,6 +614,79 @@ function Options({
             </button>
           );
         })}
+      </div>
+    );
+  }
+
+  // A week strip: days read as a calendar week, not as a list of words.
+  if (question.layout === "days") {
+    return (
+      <div className="mt-6">
+        <div className="grid grid-cols-7 gap-1.5">
+          {question.options.map((option, i) => {
+            const active = picked.includes(option);
+            const weekend = i >= 5;
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => onChoose(option)}
+                style={delay(i)}
+                aria-pressed={active}
+                className={`rise-in press flex flex-col items-center gap-1.5 rounded-xl border py-2.5 ${
+                  active
+                    ? "border-rausch bg-rausch/5"
+                    : "border-hairline bg-card hover:border-foreground/30"
+                }`}
+              >
+                <span
+                  className={`text-[11px] font-semibold uppercase tracking-[0.06em] ${
+                    active
+                      ? "text-rausch"
+                      : weekend
+                        ? "text-foreground/70"
+                        : "text-muted-foreground"
+                  }`}
+                >
+                  {option}
+                </span>
+                <span
+                  className={`flex size-7 items-center justify-center rounded-full ${
+                    active ? "bg-rausch text-white" : "bg-surface-2 text-transparent"
+                  }`}
+                >
+                  <Check className="size-4" strokeWidth={2.8} />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex gap-2">
+          {[
+            { label: "Weekends", days: ["Fri", "Sat", "Sun"] },
+            { label: "Every night", days: question.options },
+          ].map((preset) => {
+            const on = preset.days.every((d) => picked.includes(d));
+            return (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => {
+                  preset.days.forEach((d) => {
+                    if (on ? picked.includes(d) : !picked.includes(d)) onChoose(d);
+                  });
+                }}
+                className={`press rounded-full border px-3.5 py-2 text-[13px] font-medium ${
+                  on
+                    ? "border-rausch bg-rausch/5 text-rausch"
+                    : "border-hairline bg-card text-muted-foreground hover:border-foreground/30"
+                }`}
+              >
+                {preset.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -815,25 +898,30 @@ function MatchVisual() {
  * result feels earned rather than instant.
  */
 function Loader({ onDone }: { onDone: () => void }) {
-  const [pct, setPct] = useState(2);
+  const [pct, setPct] = useState(1);
 
+  // ~9s of visible work: long enough to read as real curation.
   useEffect(() => {
     const iv = window.setInterval(() => {
-      setPct((p) => (p >= 100 ? 100 : p + 2));
-    }, 32);
+      setPct((p) => (p >= 100 ? 100 : p + 1));
+    }, 88);
     return () => window.clearInterval(iv);
   }, []);
 
   useEffect(() => {
     if (pct < 100) return;
-    const t = window.setTimeout(onDone, 380);
+    const t = window.setTimeout(onDone, 700);
     return () => window.clearTimeout(t);
   }, [pct, onDone]);
 
-  const stage = Math.min(LOADER_LINES.length - 1, Math.floor(pct / 26));
+  const stage = Math.min(LOADER_LINES.length - 1, Math.floor((pct / 100) * LOADER_LINES.length));
+  const ease = pct / 100;
+  const sources = Math.round(52 * Math.min(1, ease * 2.2));
+  const events = Math.round(746 * Math.min(1, ease * 1.5));
+  const shortlist = Math.max(0, Math.round(10 * Math.max(0, ease * 1.6 - 0.6)));
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5 py-10">
       <div className="w-full max-w-lg">
         <p className="text-[44px] font-semibold leading-none tabular-nums text-foreground">
           {pct}%
@@ -847,12 +935,32 @@ function Loader({ onDone }: { onDone: () => void }) {
             style={{ transform: `scaleX(${pct / 100})` }}
           />
         </div>
-        <div className="mt-6 space-y-2.5">
+
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {[
+            { value: sources, label: "sources" },
+            { value: events, label: "events" },
+            { value: shortlist, label: "picks" },
+          ].map((stat, i) => (
+            <div key={stat.label} className="rounded-xl border border-hairline bg-card px-3 py-2.5">
+              <p
+                className={`text-[20px] font-semibold leading-none tabular-nums ${
+                  i === 2 ? "text-rausch" : "text-foreground"
+                }`}
+              >
+                {stat.value}
+              </p>
+              <p className="mt-1 text-[12px] text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 space-y-2">
           {LOADER_LINES.map((line, i) => (
             <p
               key={line}
-              className={`flex items-center gap-2.5 text-[14px] transition-colors duration-200 ${
-                i <= stage ? "text-foreground" : "text-muted-foreground"
+              className={`flex items-center gap-2.5 text-[14px] transition-all duration-300 ${
+                i <= stage ? "text-foreground opacity-100" : "text-muted-foreground opacity-45"
               }`}
             >
               {i < stage ? (
@@ -861,7 +969,7 @@ function Loader({ onDone }: { onDone: () => void }) {
                 <span
                   className={`size-4 shrink-0 rounded-full border ${
                     i === stage
-                      ? "border-rausch border-t-transparent animate-spin"
+                      ? "animate-spin border-rausch border-t-transparent"
                       : "border-hairline"
                   }`}
                 />
