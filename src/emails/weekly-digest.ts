@@ -90,7 +90,6 @@ const button = (href: string, label: string, crownSrc: string) => `
   </tr>
 </table>`;
 
-
 /** "Thu 17 Sep" split into the three lines of the date block. */
 const splitDay = (day: string) => {
   const [weekday = "", date = "", month = ""] = day.trim().split(/\s+/);
