@@ -128,7 +128,7 @@ const eventRow = (event: EventItem, appUrl: string) => {
             <div style="padding-top:3px;font-size:14px;line-height:19px;color:${SLATE};">${esc(event.time)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
 
         </td>
-        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:20px;font-weight:700;color:${CORAL};white-space:nowrap;padding-left:10px;">&rsaquo;</td>
+        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:18px;font-weight:400;color:${CORAL};white-space:nowrap;padding-left:10px;">&rsaquo;</td>
 
       </tr>
     </table>
