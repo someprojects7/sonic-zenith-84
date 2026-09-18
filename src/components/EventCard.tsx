@@ -17,7 +17,7 @@ const splitDay = (day: string) => {
  * card reads the same way as the weekly email. The whole card opens the event
  * page, where tickets and saving live.
  */
-export function EventCard({ event }: { event: EventItem; featured?: boolean }) {
+export function EventCard({ event }: { event: EventItem }) {
   const { vote, isSeen } = usePreferences();
   const isNew = Boolean(event.isNew) && !isSeen(event.id);
   const { weekday, date, month } = splitDay(event.day);
