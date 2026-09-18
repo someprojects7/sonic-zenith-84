@@ -49,7 +49,7 @@ export function ForYouFeed() {
         </h3>
         <div className="space-y-2">
           {order.rest.map((event) => (
-            <EventRow key={event.id} event={event} />
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </section>
