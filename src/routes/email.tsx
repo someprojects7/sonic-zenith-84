@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Copy, Monitor, Smartphone } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { CITY, SCAN, canonicalUrl } from "@/config/site";
 import { picks } from "@/data/events";
@@ -30,6 +30,10 @@ export const Route = createFileRoute("/email")({
 function EmailPreview() {
   const [mobile, setMobile] = useState(false);
   const [copied, setCopied] = useState(false);
+  // Resolved after mount so server and client render the same markup.
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => setOrigin(window.location.origin), []);
 
   const email = useMemo(
     () =>
@@ -42,9 +46,9 @@ function EmailPreview() {
         eventsScanned: SCAN.eventsScanned,
         sources: SCAN.sources,
         // Preview renders on this origin, so bundled images resolve here.
-        ...(typeof window === "undefined" ? {} : { baseUrl: window.location.origin }),
+        ...(origin ? { baseUrl: origin } : {}),
       }),
-    [],
+    [origin],
   );
 
   const copy = async () => {
@@ -93,8 +97,8 @@ function EmailPreview() {
           <iframe
             title="Weekly email preview"
             srcDoc={email.html}
-            className="h-[1200px] rounded-2xl border border-line bg-paper"
-            style={{ width: mobile ? 390 : 680 }}
+            className="h-[1100px] w-full rounded-2xl border border-line bg-paper"
+            style={{ maxWidth: mobile ? 390 : 680 }}
           />
         </div>
       </div>
