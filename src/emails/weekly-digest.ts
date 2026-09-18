@@ -3,8 +3,8 @@
  *
  * Built as a single table-based HTML string so it renders in Gmail, Outlook and
  * Apple Mail without a build step. Conversion rules baked in on purpose:
- *  - one goal, one primary CTA (repeated, never competing with a second offer)
- *  - subject + preheader read as one sentence, both short enough for mobile
+ *  - one goal, one single call to action, placed right after the picks
+ *  - subject and preheader read as one sentence, both short enough for mobile
  *  - value before the ask: three real picks with match %, time, price
  *  - the rest of the week stays behind the CTA (curiosity gap, honest count)
  *  - 600px single column, 44px+ tap targets, alt text, inline styles only
@@ -12,7 +12,9 @@
  *
  * INTEGRATION: pass the signed-in person's first name, city, picks and the
  * total pick count from the backend; render with renderWeeklyDigest() and send
- * with whichever provider is wired up. Links must be absolute.
+ * with whichever provider is wired up. Image and link URLs resolve against
+ * baseUrl, which defaults to the production site URL, so previews on another
+ * origin must pass their own origin.
  */
 
 import { SITE_NAME, SITE_URL, TAGLINE } from "@/config/site";
@@ -22,7 +24,7 @@ export type WeeklyDigestInput = {
   /** First name, or "" for the neutral greeting. */
   firstName?: string;
   city: string;
-  /** Week label shown in the header, e.g. "17–23 Sep". */
+  /** Week label shown in the header, e.g. "17 to 23 Sep". */
   weekLabel: string;
   /** The three events shown in the email. */
   picks: EventItem[];
@@ -31,7 +33,9 @@ export type WeeklyDigestInput = {
   /** Events scanned for this week. */
   eventsScanned: number;
   sources: number;
-  /** Absolute URLs. */
+  /** Origin that root-relative images and links resolve against. */
+  baseUrl?: string;
+  /** Absolute or root-relative URLs. */
   appUrl?: string;
   unsubscribeUrl?: string;
   preferencesUrl?: string;
@@ -46,11 +50,14 @@ const CORAL = "#ff385c";
 const esc = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const absolute = (url: string) => (url.startsWith("http") ? url : `${SITE_URL}${url}`);
+const makeAbsolute = (base: string) => (url: string) =>
+  /^https?:\/\//.test(url)
+    ? url
+    : `${base.replace(/\/$/, "")}${url.startsWith("/") ? url : `/${url}`}`;
 
 /** Subject lines that test well: short, specific, no hype, one number. */
 export const subjectFor = (input: WeeklyDigestInput) =>
-  `Your ${input.city} week is ready — ${input.totalPicks} picks`;
+  `Your ${input.city} week is ready: ${input.totalPicks} picks`;
 
 /** Preheader continues the subject instead of repeating it. */
 export const preheaderFor = (input: WeeklyDigestInput) =>
@@ -65,7 +72,7 @@ const button = (href: string, label: string) => `
   </tr>
 </table>`;
 
-const eventRow = (event: EventItem, appUrl: string) => {
+const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => string) => {
   const href = `${appUrl.replace(/\/app\/?$/, "")}/event/${event.id}`;
   return `
 <tr>
@@ -90,6 +97,7 @@ const eventRow = (event: EventItem, appUrl: string) => {
 };
 
 export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
+  const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
   const appUrl = absolute(input.appUrl ?? "/app");
   const rest = Math.max(input.totalPicks - input.picks.length, 0);
   const greeting = input.firstName ? `${esc(input.firstName)}, your` : "Your";
@@ -114,21 +122,19 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     </tr></table>
   </td></tr>
 
-  <tr><td style="padding:16px 24px 0 24px;font-family:Helvetica,Arial,sans-serif;">
+  <tr><td style="padding:16px 24px 20px 24px;font-family:Helvetica,Arial,sans-serif;">
     <h1 style="margin:0;font-size:28px;line-height:34px;font-weight:800;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
-    <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">We read ${input.sources} sources and ${input.eventsScanned} events. ${input.totalPicks} match your taste — here are the top three.</p>
+    <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">We read ${input.sources} sources and ${input.eventsScanned} events. ${input.totalPicks} of them match your taste. Here are the top three.</p>
   </td></tr>
 
-  <tr><td style="padding:20px 24px 20px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`)}</td></tr>
-
-  ${input.picks.map((event) => eventRow(event, appUrl)).join("")}
+  ${input.picks.map((event) => eventRow(event, appUrl, absolute)).join("")}
 
   <tr><td style="padding:12px 24px 0 24px;font-family:Helvetica,Arial,sans-serif;text-align:center;">
     <p style="margin:0;font-size:15px;line-height:22px;color:${INK};font-weight:600;">${rest} more picks are waiting in the app.</p>
     <p style="margin:6px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Tickets, times and directions for every one of them.</p>
   </td></tr>
 
-  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, "Open my week")}</td></tr>
+  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`)}</td></tr>
 
   <tr><td style="padding:0 24px 24px 24px;font-family:Helvetica,Arial,sans-serif;border-top:1px solid ${LINE};">
     <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
@@ -145,12 +151,13 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 
 /** Plain-text alternative. Same order, same single ask. */
 export const renderWeeklyDigestText = (input: WeeklyDigestInput) => {
+  const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
   const appUrl = absolute(input.appUrl ?? "/app");
   const rest = Math.max(input.totalPicks - input.picks.length, 0);
   return [
     `${input.firstName ? `${input.firstName}, your` : "Your"} ${input.city} week is ready.`,
     "",
-    `We read ${input.sources} sources and ${input.eventsScanned} events. ${input.totalPicks} match your taste.`,
+    `We read ${input.sources} sources and ${input.eventsScanned} events. ${input.totalPicks} of them match your taste.`,
     "",
     ...input.picks.map(
       (e) =>
