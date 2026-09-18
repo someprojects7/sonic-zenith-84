@@ -114,7 +114,10 @@ export const factsBlock = (facts: string[]) => `
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:14px 16px;font-family:${BODY_FONT};">
     ${facts
       .map(
-        (fact, index) => `<div style="padding:${index ? "8px" : "0"} 0 0 0;font-size:14px;line-height:20px;color:${SLATE};">
+        (
+          fact,
+          index,
+        ) => `<div style="padding:${index ? "8px" : "0"} 0 0 0;font-size:14px;line-height:20px;color:${SLATE};">
       <span style="color:${CORAL};font-weight:700;">${index + 1}</span>&nbsp;&nbsp;${esc(fact)}
     </div>`,
       )
@@ -182,7 +185,6 @@ export const headlineBlock = (headline: string, sub: string) => `
 export const ctaBlock = (href: string, label: string, iconSrc?: string) => `
 <tr><td style="padding:12px 24px 32px 24px;" align="center">${button(href, label, iconSrc)}</td></tr>`;
 
-export const footerReason = (sentence: string) =>
-  `${TAGLINE}. ${sentence} on ${SITE_NAME}.net.`;
+export const footerReason = (sentence: string) => `${TAGLINE}. ${sentence} on ${SITE_NAME}.net.`;
 
 export { SITE_NAME, SITE_URL, TAGLINE };

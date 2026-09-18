@@ -21,7 +21,8 @@ export const Route = createFileRoute("/email")({
       { title: "Email previews | Sponsa" },
       {
         name: "description",
-        content: "Previews of the Sponsa emails: welcome, unfinished setup, weekly picks and alerts.",
+        content:
+          "Previews of the Sponsa emails: welcome, unfinished setup, weekly picks and alerts.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
