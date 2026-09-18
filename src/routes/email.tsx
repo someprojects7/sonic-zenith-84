@@ -28,7 +28,7 @@ export const Route = createFileRoute("/email")({
 });
 
 const WHY = [
-  "One goal, one call to action, repeated twice — nothing competes with it.",
+  "One goal and one call to action, so nothing competes with it.",
   "Subject and preheader read as one line: what it is, and one number.",
   "Value first: three real picks with match, time and price before the ask.",
   "The other picks stay in the app, so the click has a reason.",
@@ -44,11 +44,13 @@ function EmailPreview() {
       renderWeeklyDigest({
         firstName: "Eduard",
         city: CITY,
-        weekLabel: "17–23 Sep",
+        weekLabel: "17 to 23 Sep",
         picks,
         totalPicks: 10,
         eventsScanned: SCAN.eventsScanned,
         sources: SCAN.sources,
+        // Preview renders on this origin, so bundled images resolve here.
+        baseUrl: typeof window === "undefined" ? undefined : window.location.origin,
       }),
     [],
   );
