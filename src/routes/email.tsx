@@ -59,6 +59,8 @@ function EmailPreview() {
         city: CITY,
         totalPicks: 10,
         sources: SCAN.sources,
+        eventsScanned: SCAN.eventsScanned,
+        ...(top ? { topPick: top } : {}),
         ...base,
       }),
       finish: renderFinishSetup({

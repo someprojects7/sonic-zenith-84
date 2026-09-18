@@ -109,6 +109,35 @@ export const picksBlock = (picks: EventItem[], appUrl: string) => `
 </td></tr>`;
 
 /** Three short facts in one line: used for "what happens next" style blocks. */
+/** Three numbers in one white card: the work already done for this person. */
+export const statsStrip = (stats: { value: string; label: string }[]) => `
+<tr><td style="padding:0 24px 8px 24px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:16px 8px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+      ${stats
+        .map(
+          (stat) => `<td align="center" width="33%" style="font-family:${BODY_FONT};">
+        <div style="font-family:${HEAD_FONT};font-size:22px;line-height:26px;font-weight:700;letter-spacing:-0.02em;color:${INK};">${esc(stat.value)}</div>
+        <div style="padding-top:2px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(stat.label)}</div>
+      </td>`,
+        )
+        .join("")}
+    </tr></table>
+  </td></tr></table>
+</td></tr>`;
+
+/** Small coral eyebrow above a headline. */
+export const eyebrow = (text: string) => `
+<tr><td align="center" style="padding:28px 24px 0 24px;text-align:center;">
+  <span style="display:inline-block;font-family:${HEAD_FONT};font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${CORAL};">${esc(text)}</span>
+</td></tr>`;
+
+/** Section label above a block of content. */
+export const sectionLabel = (text: string) => `
+<tr><td style="padding:16px 24px 8px 24px;font-family:${BODY_FONT};">
+  <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(text)}</span>
+</td></tr>`;
+
 export const factsBlock = (facts: string[]) => `
 <tr><td style="padding:0 24px 4px 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:14px 16px;font-family:${BODY_FONT};">
