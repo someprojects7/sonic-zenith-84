@@ -17,7 +17,6 @@ import {
   CORAL,
   ctaBlock,
   esc,
-  factsBlock,
   footerReason,
   headlineBlock,
   layout,
@@ -52,11 +51,8 @@ export const finishSetupSubject = (input: FinishSetupInput) =>
 export const finishSetupPreheader = (input: FinishSetupInput) =>
   `About ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"} left, then ${input.totalPicks} picks unlock.`;
 
-const facts = (input: FinishSetupInput) => [
-  `Your answers are saved. You pick up at question ${Math.min(input.answered + 1, input.totalQuestions)}.`,
-  `About ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"} of tapping, no typing.`,
-  `Then ${input.totalPicks} picks for ${input.city} with times, prices and ticket links.`,
-];
+const summaryLine = (input: FinishSetupInput) =>
+  `${input.answered} of ${input.totalQuestions} answered, about ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"} left, ${input.totalPicks} picks unlock.`;
 
 export const renderFinishSetupHtml = (input: FinishSetupInput) => {
   const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
@@ -71,9 +67,8 @@ export const renderFinishSetupHtml = (input: FinishSetupInput) => {
     content: `
   ${headlineBlock(
     `${name} are <span style="color:${CORAL};">almost</span> set up.`,
-    `${input.answered} of ${input.totalQuestions} questions answered. The rest takes about ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"}.`,
+    `${input.answered} of ${input.totalQuestions} answered · about ${minutesLeft(input)} minute${minutesLeft(input) === 1 ? "" : "s"} left · ${input.totalPicks} picks unlock`,
   )}
-  ${factsBlock(facts(input))}
   ${input.teaser ? picksBlock([input.teaser], appUrl) : ""}
   ${ctaBlock(quizUrl, "Finish my setup", absolute("/email-crown.png"))}`,
     reason: footerReason("You started setting up your picks"),
@@ -88,7 +83,7 @@ export const renderFinishSetupText = (input: FinishSetupInput) => {
   return [
     `${input.firstName ? `${input.firstName}, you` : "You"} are almost set up.`,
     "",
-    ...facts(input).map((fact, index) => `${index + 1}. ${fact}`),
+    summaryLine(input),
     "",
     `Finish my setup: ${quizUrl}`,
     "",
