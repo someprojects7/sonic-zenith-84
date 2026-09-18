@@ -95,8 +95,8 @@ function Landing() {
       <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 sm:px-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
           <HeroTile />
-          <StepsTile />
           <PicksTile />
+          <StepsTile />
           <div className="flex flex-col gap-4 md:col-span-6">
             <div className="grid grid-cols-2 gap-4">
               <StatTile value={SCAN.sourcesClaim} label="sources scanned" bg={cityMap} />
