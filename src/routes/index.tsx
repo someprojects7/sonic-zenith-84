@@ -257,17 +257,19 @@ function PicksTile() {
   return (
     <section className="tile flex flex-col border-ink bg-ink p-7 md:col-span-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-heading text-[22px] font-semibold leading-[1.2] text-paper">
+        <h2 className="font-heading text-[22px] font-semibold leading-[1.2] tracking-[-0.01em] text-paper">
           Your picks look like this
         </h2>
-        <span className="shrink-0 text-[13px] font-semibold text-paper/60">
+        <span className="shrink-0 text-[13px] font-semibold tracking-[0.01em] text-paper/80">
           {SCAN.picksPerWeekClaim} a week
         </span>
       </div>
 
-      <ul className="mt-6 space-y-4">
+      {/* On a dark surface, secondary text needs more contrast and a touch more
+          weight and tracking than it would on white — flat grey reads muddy. */}
+      <ul className="mt-6 divide-y divide-paper/10">
         {SAMPLE.map((p) => (
-          <li key={p.title} className="flex items-center gap-4">
+          <li key={p.title} className="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
             <div className="relative shrink-0">
               <img
                 src={p.img}
@@ -287,13 +289,15 @@ function PicksTile() {
               <p className="truncate text-[15px] font-semibold leading-[1.3] text-paper">
                 {p.title}
               </p>
-              <p className="mt-0.5 truncate text-[13px] text-paper/60">{p.meta}</p>
+              <p className="mt-1 truncate text-[13px] font-medium leading-[1.35] tracking-[0.01em] text-paper/80">
+                {p.meta}
+              </p>
             </div>
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 flex items-center gap-1.5 text-[13px] text-paper/60">
+      <p className="mt-6 flex items-center gap-1.5 text-[13px] font-medium tracking-[0.01em] text-paper/80">
         <Sparkles className="size-3.5 shrink-0 text-signal" />
         Matched to your taste
       </p>
