@@ -175,7 +175,7 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste.</p>
   </td></tr>
 
-  ${picksBlock(input.picks, appUrl, absolute)}
+  ${picksBlock(input.picks, appUrl)}
 
   <tr><td style="padding:20px 24px 14px 24px;font-family:${BODY_FONT};text-align:center;border-top:1px solid ${LINE};">
     <p style="margin:0;font-size:15px;line-height:21px;color:${SLATE};">${rest} more picks waiting, with times, prices and tickets.</p>
@@ -210,7 +210,7 @@ export const renderWeeklyDigestText = (input: WeeklyDigestInput) => {
     "",
     ...input.picks.map(
       (e) =>
-        `${e.match ?? ""}% ${e.title}\n${formatWhen(e)} · ${e.venue} · ${priceLabel(e)}\n${appUrl.replace(/\/app\/?$/, "")}/event/${e.id}`,
+        `${e.match ?? ""}% ${e.title}\n${e.day + " · " + e.time} · ${e.venue} · ${priceLabel(e)}\n${appUrl.replace(/\/app\/?$/, "")}/event/${e.id}`,
     ),
     "",
     `${rest} more picks: ${appUrl}`,
