@@ -180,7 +180,7 @@ function Hero() {
               alt="Crowd with hands up at a live concert in a small city venue"
               width={900}
               height={1200}
-              className="h-44 w-full rounded-xl object-cover sm:h-56"
+              className="h-44 w-full rounded-xl object-cover sm:h-[420px]"
             />
             <div className="mt-3 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1 rounded-xl border border-line px-1 py-2">
               {FUNNEL.map((s, i) => (
