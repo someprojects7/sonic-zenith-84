@@ -115,16 +115,18 @@ function Nav() {
     <div className="sticky top-0 z-10 bg-cloud/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6">
         <Wordmark />
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           <Link
             to="/app"
-            className="text-[15px] font-medium text-slate transition-colors hover:text-ink"
+            aria-label="Sign in"
+            className="inline-flex items-center gap-2 text-[15px] font-medium text-slate transition-colors hover:text-ink"
           >
-            Sign in
+            <LogIn className="size-[18px] shrink-0" strokeWidth={2} />
+            <span className="hidden sm:inline">Sign in</span>
           </Link>
           <Link
             to="/quiz"
-            className="press inline-flex h-10 items-center rounded-xl bg-signal px-5 text-[15px] font-semibold text-paper"
+            className="press hidden h-10 items-center rounded-xl bg-signal px-5 text-[15px] font-semibold text-paper sm:inline-flex"
           >
             {CTA}
           </Link>
@@ -133,6 +135,7 @@ function Nav() {
     </div>
   );
 }
+
 
 function HeroTile() {
   return (
