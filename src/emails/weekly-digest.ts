@@ -70,7 +70,7 @@ export const preheaderFor = (input: WeeklyDigestInput) =>
 
 /** The site wordmark: uppercase, wide tracking, coral dot. */
 const wordmark = () =>
-  `<span style="font-family:${HEAD_FONT};font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${SLATE};">Sponsa<span style="color:${CORAL};">.</span>net</span>`;
+  `<span style="font-family:${HEAD_FONT};font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${SLATE};">Sponsa<span style="color:${CORAL};">.</span>net</span>`;
 
 /** Single CTA, same shape as the app buttons. Crown = the Picks tab icon. */
 const button = (href: string, label: string, crownSrc: string) => `
