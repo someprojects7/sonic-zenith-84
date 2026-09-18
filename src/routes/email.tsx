@@ -97,8 +97,8 @@ function EmailPreview() {
           <iframe
             title="Weekly email preview"
             srcDoc={email.html}
-            className="h-[1200px] rounded-2xl border border-line bg-paper"
-            style={{ width: mobile ? 390 : 680 }}
+            className="h-[1100px] w-full rounded-2xl border border-line bg-paper"
+            style={{ maxWidth: mobile ? 390 : 680 }}
           />
         </div>
       </div>
