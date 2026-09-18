@@ -296,63 +296,42 @@ function Preview() {
   );
 }
 
-const PLANS = [
-  {
-    name: "Free",
-    price: "€0",
-    unit: "",
-    perks: ["3 picks a week", "One city", "Basic filters"],
-    accent: false,
-  },
-  {
-    name: "Pro",
-    price: "€7.99",
-    unit: "/ month",
-    perks: [
-      "All 10 picks every week",
-      "New events the hour we find them",
-      "Saved lists and calendar sync",
-      "Every city we cover",
-    ],
-    accent: true,
-  },
+const PERKS = [
+  "Ten picks every week, matched to your taste",
+  "New events the hour we find them",
+  "Saved lists and calendar sync",
+  "Every city we cover",
 ];
 
 function Pricing() {
   return (
     <Section className="bg-paper">
-      <SectionHead eyebrow="Pricing" title="Start free. Go Pro when you are out every week." />
+      <SectionHead eyebrow="Pricing" title="One week free, then €7.99 a month." />
 
-      <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-        {PLANS.map((plan) => (
-          <article
-            key={plan.name}
-            className={`rounded-3xl bg-cloud p-6 ${
-              plan.accent ? "border-2 border-signal" : "border border-line"
-            }`}
-          >
-            <p className="flex items-baseline justify-between gap-3">
-              <span className="text-[24px] font-bold text-ink">{plan.name}</span>
-              <span className="text-[14px] text-slate">
-                <span className="text-[20px] font-bold text-ink">{plan.price}</span> {plan.unit}
-              </span>
-            </p>
-            <ul className="mt-4 space-y-2">
-              {plan.perks.map((perk) => (
-                <li key={perk} className="flex items-center gap-2 text-[16px] text-slate">
-                  <Check
-                    className={`size-4 shrink-0 ${plan.accent ? "text-signal" : "text-ink"}`}
-                    strokeWidth={2.5}
-                  />
-                  {perk}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
+      <div className="mx-auto mt-10 max-w-lg rounded-3xl border-2 border-signal bg-cloud p-6">
+        <p className="flex items-baseline justify-between gap-3">
+          <span className="text-[24px] font-bold text-ink">Sponsa Pro</span>
+          <span className="text-[14px] text-slate">
+            <span className="text-[20px] font-bold text-ink">€7.99</span> / month
+          </span>
+        </p>
+        <p className="mt-1 inline-flex rounded-full bg-pebble px-2.5 py-1 text-[12px] font-semibold text-cobalt">
+          7 day trial
+        </p>
+        <ul className="mt-4 space-y-2">
+          {PERKS.map((perk) => (
+            <li key={perk} className="flex items-center gap-2 text-[16px] text-slate">
+              <Check className="size-4 shrink-0 text-signal" strokeWidth={2.5} />
+              {perk}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6">
+          <Cta />
+        </div>
       </div>
 
-      <p className="mt-5 text-center text-[14px] text-slate">Cancel any time.</p>
+      <p className="mt-5 text-center text-[14px] text-slate">Cancel any time in the app.</p>
     </Section>
   );
 }
@@ -364,20 +343,14 @@ const STATS = [
   { k: "50,000+", v: "guests hosted" },
 ];
 
-const FOUNDERS = [
-  { name: "Eduard Titov", img: founderEduard, handle: "edititov", role: "Product and algorithm" },
-  {
-    name: "Artem Derenchuk",
-    img: founderArtem,
-    handle: "artem.derenchuk",
-    role: "Partners and venues",
-  },
-];
-
 function Team() {
   return (
     <Section>
-      <SectionHead eyebrow="Team" title="Built by two people who live in events." />
+      <SectionHead eyebrow="Behind Sponsa" title="Built by people who run city nights." />
+      <p className="mx-auto mt-4 max-w-xl text-center text-[16px] leading-[1.5] text-slate">
+        Years of booking venues, promoting nights and standing at the door, turned into the picks you
+        get every week.
+      </p>
 
       <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
         {STATS.map((s) => (
@@ -387,40 +360,10 @@ function Team() {
           </div>
         ))}
       </dl>
-
-      <div className="mx-auto mt-4 grid max-w-3xl gap-4 sm:grid-cols-2">
-        {FOUNDERS.map((f) => (
-          <div
-            key={f.name}
-            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-2xl border border-line bg-paper p-5"
-          >
-            <img
-              src={f.img}
-              alt={f.name}
-              loading="lazy"
-              width={768}
-              height={768}
-              className="size-16 shrink-0 rounded-full object-cover"
-            />
-            <div className="min-w-0">
-              <h3 className="truncate text-[17px] font-bold leading-[1.25] text-ink">{f.name}</h3>
-              <p className="truncate text-[14px] text-slate">{f.role}</p>
-              <a
-                href={`https://instagram.com/${f.handle}`}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-1.5 inline-flex max-w-full items-center gap-1.5 text-[14px] font-semibold text-signal"
-              >
-                <Instagram className="size-4 shrink-0" />
-                <span className="truncate">@{f.handle}</span>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
     </Section>
   );
 }
+
 
 function FinalCta() {
   return (
