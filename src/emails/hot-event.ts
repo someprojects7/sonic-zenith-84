@@ -81,7 +81,6 @@ export const renderHotEventHtml = (input: HotEventInput) => {
   ${alertLabel("On sale now")}
   <tr><td align="center" style="padding:10px 24px 20px 24px;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;text-align:center;">
     <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${name} one is a <span style="color:${CORAL};">${input.event.match ?? 0}% match</span>.</h1>
-    <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">Tickets opened today and this kind of night sells out early.</p>
   </td></tr>
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">${eventRow(input.event, appUrl)}</table>
