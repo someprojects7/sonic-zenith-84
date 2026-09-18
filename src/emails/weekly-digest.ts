@@ -131,7 +131,7 @@ const eventRow = (event: EventItem, appUrl: string) => {
           </a>
 
         </td>
-        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:18px;font-weight:600;color:${SLATE};white-space:nowrap;padding-left:10px;"><a href="${esc(href)}" style="color:${SLATE};text-decoration:none;">&rsaquo;</a></td>
+        <td align="right" valign="middle" style="font-family:${BODY_FONT};font-size:20px;font-weight:700;color:${CORAL};white-space:nowrap;padding-left:10px;"><a href="${esc(href)}" style="color:${CORAL};text-decoration:none;">&rsaquo;</a></td>
 
       </tr>
     </table>
