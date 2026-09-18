@@ -200,7 +200,12 @@ const SAMPLE = [
     title: "Nils Frahm, live piano",
     meta: "Thu 19:00 · Old Power Plant",
   },
-  { img: eventArt, match: "91%", title: "Ceramics opening night", meta: "Fri 19:30 · Studio Kraft" },
+  {
+    img: eventArt,
+    match: "91%",
+    title: "Ceramics opening night",
+    meta: "Fri 19:30 · Studio Kraft",
+  },
   { img: eventClub, match: "88%", title: "Smala Nights: Ø Room", meta: "Sat 23:30 · Smala" },
 ];
 
