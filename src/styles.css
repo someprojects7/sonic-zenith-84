@@ -265,6 +265,37 @@
   animation: rise-in 260ms var(--ease-out) both;
 }
 
+/* Interstitial visuals: bars grow from the left, tiles pop in gently. */
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@utility bar-fill {
+  transform-origin: left;
+  animation: bar-fill 620ms var(--ease-out) both;
+}
+
+@utility pop-in {
+  animation: pop-in 260ms var(--ease-out) both;
+}
+
+
 /* Reduced motion: keep colour and opacity feedback, drop movement. */
 @media (prefers-reduced-motion: reduce) {
   *,
