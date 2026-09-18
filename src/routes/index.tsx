@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
-import heroCity from "@/assets/hero-event.jpg";
+import heroMap from "@/assets/vilnius-events-city-map.jpg.asset.json";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -211,7 +211,6 @@ function Hero() {
   );
 }
 
-
 const STEPS = [
   { n: "1", title: "Tell us your taste", note: "Sound, budget, nights you go out. 20 taps." },
   { n: "2", title: "We scan the city", note: "Venues, promoters, ticket sites, channels." },
@@ -241,7 +240,6 @@ function Steps() {
     </Section>
   );
 }
-
 
 const SAMPLE = [
   {
@@ -351,8 +349,8 @@ function Team() {
     <Section>
       <SectionHead eyebrow="Behind Sponsa" title="Built by people who run city nights." />
       <p className="mx-auto mt-4 max-w-xl text-center text-[16px] leading-[1.5] text-slate">
-        Years of booking venues, promoting nights and standing at the door, turned into the picks you
-        get every week.
+        Years of booking venues, promoting nights and standing at the door, turned into the picks
+        you get every week.
       </p>
 
       <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
@@ -366,7 +364,6 @@ function Team() {
     </Section>
   );
 }
-
 
 function FinalCta() {
   return (
