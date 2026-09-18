@@ -1,11 +1,12 @@
 import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Check, LogIn, Sparkles, Star } from "lucide-react";
 
 import { CITY, SCAN, SITE_NAME, TAGLINE, canonicalUrl } from "@/config/site";
 import eventLive from "@/assets/event-live.jpg";
 import eventArt from "@/assets/event-art.jpg";
 import eventClub from "@/assets/event-club.jpg";
+import cityMap from "@/assets/city-map-stats.jpg";
 
 const TITLE = `${SITE_NAME}: ${TAGLINE.toLowerCase()}`;
 const DESCRIPTION =
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const CTA = "Find my week";
+const CTA = "Build my week";
 
 /* ---------------------------------------------------------------------------
  * Marketing primitives. The landing page uses its own fixed light palette
@@ -115,16 +116,18 @@ function Nav() {
     <div className="sticky top-0 z-10 bg-cloud/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6">
         <Wordmark />
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           <Link
             to="/app"
-            className="text-[15px] font-medium text-slate transition-colors hover:text-ink"
+            aria-label="Sign in"
+            className="inline-flex items-center gap-2 text-[15px] font-medium text-slate transition-colors hover:text-ink"
           >
-            Sign in
+            <LogIn className="size-[18px] shrink-0" strokeWidth={2} />
+            <span className="hidden sm:inline">Sign in</span>
           </Link>
           <Link
             to="/quiz"
-            className="press inline-flex h-10 items-center rounded-xl bg-signal px-5 text-[15px] font-semibold text-paper"
+            className="press hidden h-10 items-center rounded-xl bg-signal px-5 text-[15px] font-semibold text-paper sm:inline-flex"
           >
             {CTA}
           </Link>
@@ -190,7 +193,14 @@ function StepsTile() {
 
 function StatTile({ value, label }: { value: string; label: string }) {
   return (
-    <div className="tile flex flex-col items-center justify-center gap-1 px-5 py-7 text-center">
+    <div className="tile relative isolate flex flex-col items-center justify-center gap-1 overflow-hidden px-5 py-7 text-center">
+      <img
+        src={cityMap}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-90"
+      />
       <p className="font-heading text-[40px] font-bold leading-none text-signal">{value}</p>
       <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">{label}</p>
     </div>
