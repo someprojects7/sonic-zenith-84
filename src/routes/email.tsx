@@ -30,6 +30,10 @@ export const Route = createFileRoute("/email")({
 function EmailPreview() {
   const [mobile, setMobile] = useState(false);
   const [copied, setCopied] = useState(false);
+  // Resolved after mount so server and client render the same markup.
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => setOrigin(window.location.origin), []);
 
   const email = useMemo(
     () =>
@@ -42,9 +46,9 @@ function EmailPreview() {
         eventsScanned: SCAN.eventsScanned,
         sources: SCAN.sources,
         // Preview renders on this origin, so bundled images resolve here.
-        ...(typeof window === "undefined" ? {} : { baseUrl: window.location.origin }),
+        ...(origin ? { baseUrl: origin } : {}),
       }),
-    [],
+    [origin],
   );
 
   const copy = async () => {
