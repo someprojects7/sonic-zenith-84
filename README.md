@@ -90,8 +90,8 @@ Rules that keep screens consistent:
 | Preferences              | `src/lib/preferences.tsx`                                                    | localStorage today; replace the read/write calls with API calls, keep the hook shape.                                                                     |
 | Photos                   | `src/assets/*`                                                               | Generated placeholders. Replace with real event/venue/team images and keep the same import pattern.                                                       |
 | Auth, payments, Pro plan | landing + quiz result                                                        | CTAs route to `/quiz` and `/app`; there is no auth or billing yet.                                                                                        |
-| Canonical domain         | `src/config/site.ts` (`SITE_URL`), `public/sitemap.xml`, `public/robots.txt` | Currently `https://sponsanet.lovable.app`. Switch all three to `https://sponsa.net` the day the custom domain is connected.                                |
-| Legal details            | `src/config/site.ts` (`LEGAL`)                                               | Operator name, contact and notice mailboxes, liability cap, last-updated date. Have `/terms` reviewed by a Lithuanian lawyer before launch.                |
+| Canonical domain         | `src/config/site.ts` (`SITE_URL`), `public/sitemap.xml`, `public/robots.txt` | Currently `https://sponsanet.lovable.app`. Switch all three to `https://sponsa.net` the day the custom domain is connected.                               |
+| Legal details            | `src/config/site.ts` (`LEGAL`)                                               | Operator name, contact and notice mailboxes, liability cap, last-updated date. Have `/terms` reviewed by a Lithuanian lawyer before launch.               |
 
 ## Recommended backend steps
 
