@@ -241,17 +241,18 @@ const SAMPLE = [
   { img: eventClub, match: "88%", title: "Smala Nights: Ø Room", meta: "Sat 23:30 · Smala" },
 ];
 
+/** Sits in the narrow 4-column slot beside the hero, so rows stay compact. */
 function PicksTile() {
   return (
-    <section className="tile p-7 md:col-span-6">
+    <section className="tile flex flex-col p-7 md:col-span-4">
       <div className="flex items-baseline justify-between gap-3">
         <TileTitle>Your picks look like this</TileTitle>
-        <span className="text-[13px] font-semibold text-slate">
+        <span className="shrink-0 text-[13px] font-semibold text-slate">
           {SCAN.picksPerWeekClaim} a week
         </span>
       </div>
 
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-6 space-y-4">
         {SAMPLE.map((p) => (
           <li key={p.title} className="flex items-center gap-4">
             <div className="relative shrink-0">
@@ -259,27 +260,28 @@ function PicksTile() {
                 src={p.img}
                 alt=""
                 aria-hidden
-                width={72}
-                height={72}
+                width={60}
+                height={60}
                 loading="lazy"
                 decoding="async"
-                className="size-[72px] rounded-xl object-cover"
+                className="size-[60px] rounded-xl object-cover"
               />
-              <span className="absolute -right-2 -top-2 rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold text-paper">
+              <span className="absolute -right-2 -top-2 rounded-full bg-signal px-1.5 py-0.5 text-[10px] font-bold text-paper">
                 {p.match}
               </span>
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[16px] font-semibold leading-[1.3] text-ink">{p.title}</p>
-              <p className="mt-0.5 truncate text-[14px] text-slate">{p.meta}</p>
-              <p className="mt-1 flex items-center gap-1.5 text-[13px] text-slate">
-                <Sparkles className="size-3.5 shrink-0 text-signal" />
-                Matched to your taste
-              </p>
+              <p className="truncate text-[15px] font-semibold leading-[1.3] text-ink">{p.title}</p>
+              <p className="mt-0.5 truncate text-[13px] text-slate">{p.meta}</p>
             </div>
           </li>
         ))}
       </ul>
+
+      <p className="mt-6 flex items-center gap-1.5 text-[13px] text-slate">
+        <Sparkles className="size-3.5 shrink-0 text-signal" />
+        Matched to your taste
+      </p>
     </section>
   );
 }
