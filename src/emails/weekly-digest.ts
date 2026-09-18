@@ -105,8 +105,9 @@ const eventRow = (event: EventItem, appUrl: string) => {
   const { weekday, date, month } = splitDay(event.day);
   return `
 <tr>
-  <td style="padding:0 0 8px 0;">
-    <a href="${esc(href)}" style="display:block;background-color:${CANVAS};border-radius:10px;padding:12px 14px;text-decoration:none;color:${INK};">
+  <td style="padding:0 0 10px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${CANVAS};border:1px solid ${LINE};border-radius:10px;"><tr><td style="padding:12px 14px;">
+    <a href="${esc(href)}" style="display:block;text-decoration:none;color:${INK};">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
       <tr>
         <td width="72" valign="top" style="width:72px;">
@@ -133,6 +134,7 @@ const eventRow = (event: EventItem, appUrl: string) => {
       </tr>
     </table>
     </a>
+    </td></tr></table>
   </td>
 </tr>`;
 };
