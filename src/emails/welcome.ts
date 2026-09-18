@@ -12,12 +12,12 @@
 import { SITE_URL, TAGLINE } from "@/config/site";
 import { type EventItem, formatWhen, priceLabel } from "@/data/events";
 import {
+  BODY_FONT,
   CORAL,
   ctaBlock,
   esc,
   eventRow,
   eyebrow,
-  factsBlock,
   footerReason,
   HEAD_FONT,
   INK,
@@ -25,7 +25,6 @@ import {
   makeAbsolute,
   sectionLabel,
   SLATE,
-  statsStrip,
 } from "@/emails/shared";
 
 export type WelcomeInput = {
@@ -52,10 +51,9 @@ export const welcomePreheader = (input: WelcomeInput) =>
     ? `Starting with ${input.topPick.title}, a ${input.topPick.match ?? 0}% match.`
     : `We read ${input.sources} sources so you can read one list.`;
 
-const facts = (input: WelcomeInput) => [
-  "Like or skip an event and next week lands closer to your taste.",
-  `Every Monday morning a fresh ${input.city} week. Nothing in between.`,
-];
+/** One quiet line of proof, instead of a stats card. */
+const proofLine = (input: WelcomeInput) =>
+  `${input.sources} sources read · ${input.eventsScanned} events checked · ${input.totalPicks} picks for you`;
 
 export const renderWelcomeHtml = (input: WelcomeInput) => {
   const absolute = makeAbsolute(input.baseUrl ?? SITE_URL);
@@ -68,24 +66,20 @@ export const renderWelcomeHtml = (input: WelcomeInput) => {
     headerNote: esc(input.city),
     content: `
   ${eyebrow("Welcome to Sponsa")}
-  <tr><td align="center" style="padding:10px 24px 20px 24px;font-family:${HEAD_FONT};text-align:center;">
+  <tr><td align="center" style="padding:10px 24px 8px 24px;font-family:${HEAD_FONT};text-align:center;">
     <h1 style="margin:0;font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${name} <span style="color:${CORAL};">${esc(input.city)}</span> week is already picked.</h1>
-    <p style="margin:8px 0 0 0;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:22px;color:${SLATE};">No scrolling through pages of listings. Just the nights worth your evening.</p>
   </td></tr>
-  ${statsStrip([
-    { value: String(input.sources), label: "sources read" },
-    { value: String(input.eventsScanned), label: "events checked" },
-    { value: String(input.totalPicks), label: "picks for you" },
-  ])}
+  <tr><td align="center" style="padding:0 24px 20px 24px;font-family:${BODY_FONT};text-align:center;">
+    <span style="font-size:12px;line-height:18px;font-weight:600;letter-spacing:0.02em;color:${SLATE};">${esc(proofLine(input))}</span>
+  </td></tr>
   ${
     input.topPick
-      ? `${sectionLabel("Start with your top match")}
+      ? `${sectionLabel("Your top match")}
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">${eventRow(input.topPick, appUrl)}</table>
   </td></tr>`
       : ""
   }
-  ${factsBlock(facts(input))}
   ${ctaBlock(appUrl, `Open my ${input.totalPicks} picks`, absolute("/email-crown.png"))}`,
     reason: footerReason("You are getting this because you just created an account"),
     preferencesUrl: absolute(input.preferencesUrl ?? "/app"),
@@ -99,7 +93,7 @@ export const renderWelcomeText = (input: WelcomeInput) => {
   return [
     `${input.firstName ? `${input.firstName}, your` : "Your"} ${input.city} week is already picked.`,
     "",
-    `${input.sources} sources read, ${input.eventsScanned} events checked, ${input.totalPicks} picks for you.`,
+    proofLine(input),
     ...(input.topPick
       ? [
           "",
@@ -107,8 +101,6 @@ export const renderWelcomeText = (input: WelcomeInput) => {
           `${formatWhen(input.topPick)} · ${input.topPick.venue} · ${priceLabel(input.topPick)}`,
         ]
       : []),
-    "",
-    ...facts(input).map((fact, index) => `${index + 1}. ${fact}`),
     "",
     `Open my picks: ${appUrl}`,
     "",
