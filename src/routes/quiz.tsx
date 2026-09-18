@@ -14,13 +14,14 @@ export const Route = createFileRoute("/quiz")({
       {
         name: "description",
         content:
-          "Twenty quick taps and Sponsa knows which nights in the city are yours. Free to start.",
+          "Twenty quick taps and Sponsa knows which nights in the city are yours. Seven days free.",
       },
       { property: "og:title", content: "Set your taste in a minute" },
       {
         property: "og:description",
         content: "Twenty quick taps and your week in the city is planned.",
       },
+
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonicalUrl("/quiz") },
       { name: "twitter:card", content: "summary_large_image" },
