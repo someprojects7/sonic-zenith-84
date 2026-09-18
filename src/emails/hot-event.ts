@@ -53,13 +53,19 @@ const alertLabel = (text: string) => `
   <span style="display:inline-block;font-family:${HEAD_FONT};font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${CORAL};">${esc(text)}</span>
 </td></tr>`;
 
+/** Why now: plain text with a thin coral rule, never a card (cards mean events). */
 const reasonBlock = (reason: string, source?: string) => `
-<tr><td style="padding:4px 24px 0 24px;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:14px 16px;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;">
-    <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">Why now</div>
-    <div style="padding-top:4px;font-size:14px;line-height:20px;color:${INK};">${esc(reason)}</div>
-    ${source ? `<div style="padding-top:6px;font-size:12px;line-height:18px;color:${SLATE};">Sold by ${esc(source)}</div>` : ""}
-  </td></tr></table>
+<tr><td style="padding:16px 24px 0 24px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+      <td width="3" bgcolor="${CORAL}" style="width:3px;line-height:0;font-size:0;border-radius:2px;">&nbsp;</td>
+      <td style="padding-left:14px;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">Why now</div>
+        <div style="padding-top:4px;font-size:15px;line-height:22px;color:${INK};">${esc(reason)}</div>
+        ${source ? `<div style="padding-top:6px;font-size:12px;line-height:18px;color:${SLATE};">Tickets on ${esc(source)}</div>` : ""}
+      </td>
+    </tr>
+  </table>
 </td></tr>`;
 
 export const renderHotEventHtml = (input: HotEventInput) => {
@@ -75,7 +81,6 @@ export const renderHotEventHtml = (input: HotEventInput) => {
   ${alertLabel("On sale now")}
   <tr><td align="center" style="padding:10px 24px 20px 24px;font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;text-align:center;">
     <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${name} one is a <span style="color:${CORAL};">${input.event.match ?? 0}% match</span>.</h1>
-    <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">Tickets opened today and this kind of night sells out early.</p>
   </td></tr>
   <tr><td style="padding:0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">${eventRow(input.event, appUrl)}</table>
