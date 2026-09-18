@@ -41,11 +41,16 @@ export type WeeklyDigestInput = {
   preferencesUrl?: string;
 };
 
+/** Same tokens as the app and the site: Airbnb-style canvas, hairlines, coral. */
 const INK = "#222222";
 const SLATE = "#6a6a6a";
 const LINE = "#ebebeb";
 const CANVAS = "#f7f7f8";
 const CORAL = "#ff385c";
+
+/** Site fonts with mail-safe fallbacks. */
+const BODY_FONT = "Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif";
+const HEAD_FONT = "Outfit,'Helvetica Neue',Helvetica,Arial,sans-serif";
 
 const esc = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -63,42 +68,55 @@ export const subjectFor = (input: WeeklyDigestInput) =>
 export const preheaderFor = (input: WeeklyDigestInput) =>
   `${input.picks[0]?.title ?? "Your top pick"} and ${Math.max(input.totalPicks - 1, 0)} more, matched to your taste.`;
 
-/** Single CTA. The crown is the same icon as the Picks tab in the app. */
+/** The site wordmark: uppercase, wide tracking, coral dot. */
+const wordmark = () =>
+  `<span style="font-family:${HEAD_FONT};font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${INK};">Sponsa<span style="color:${CORAL};">.</span>net</span>`;
+
+/** Single CTA, same shape as the app buttons. Crown = the Picks tab icon. */
 const button = (href: string, label: string, crownSrc: string) => `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
   <tr>
     <td align="center" bgcolor="${CORAL}" style="border-radius:12px;">
-      <a href="${esc(href)}" style="display:block;padding:15px 28px;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px;">
+      <a href="${esc(href)}" style="display:block;padding:14px 24px;font-family:${BODY_FONT};font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:12px;">
         <img src="${esc(crownSrc)}" width="18" height="18" alt="" style="display:inline-block;width:18px;height:18px;border:0;vertical-align:-3px;margin-right:8px;" />${esc(label)}
       </a>
     </td>
   </tr>
 </table>`;
 
-/** One pick: 64px thumb, tight text column, hairline separator instead of a box. */
-const eventRow = (
-  event: EventItem,
-  appUrl: string,
-  absolute: (url: string) => string,
-  first: boolean,
-) => {
+/** One pick, laid out like the event card in the app: thumb, category, title, when, price. */
+const eventRow = (event: EventItem, appUrl: string, absolute: (url: string) => string) => {
   const href = `${appUrl.replace(/\/app\/?$/, "")}/event/${event.id}`;
   return `
 <tr>
-  <td style="padding:${first ? "0" : "14px"} 0 14px 0;${first ? "" : `border-top:1px solid ${LINE};`}">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <td style="padding-bottom:8px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#ffffff;border:1px solid ${LINE};border-radius:12px;">
       <tr>
-        <td width="76" style="width:76px;">
-          <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="64" height="64" alt="${esc(event.title)}" style="display:block;width:64px;height:64px;border-radius:10px;object-fit:cover;border:0;" /></a>
-        </td>
-        <td style="font-family:Helvetica,Arial,sans-serif;">
-          <div style="font-size:12px;font-weight:700;color:${CORAL};letter-spacing:0.02em;">${event.match ?? ""}% match${event.match ? " · " : ""}<span style="color:${SLATE};font-weight:600;">${esc(event.category)}</span></div>
-          <div style="padding-top:3px;font-size:15px;line-height:20px;font-weight:700;color:${INK};">
-            <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
-          </div>
-          <div style="padding-top:3px;font-size:13px;line-height:19px;color:${SLATE};">${esc(formatWhen(event))} · ${esc(event.venue)} · <span style="color:${INK};font-weight:600;">${esc(priceLabel(event))}</span></div>
+        <td style="padding:12px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+              <td width="72" style="width:72px;">
+                <a href="${esc(href)}"><img src="${esc(absolute(event.image))}" width="60" height="60" alt="${esc(event.title)}" style="display:block;width:60px;height:60px;border-radius:12px;object-fit:cover;border:0;" /></a>
+              </td>
+              <td style="font-family:${BODY_FONT};">
+                <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(event.category)}</div>
+                <div style="padding-top:2px;font-size:16px;line-height:20px;font-weight:500;color:${INK};">
+                  <a href="${esc(href)}" style="color:${INK};text-decoration:none;">${esc(event.title)}</a>
+                </div>
+                <div style="padding-top:2px;font-size:14px;line-height:20px;color:${SLATE};">${esc(formatWhen(event))}</div>
+              </td>
+              <td align="right" valign="top" style="font-family:${BODY_FONT};font-size:14px;font-weight:600;color:${INK};white-space:nowrap;padding-left:8px;">${esc(priceLabel(event))}</td>
+            </tr>
+          </table>
         </td>
       </tr>
+      ${
+        event.match
+          ? `<tr><td style="padding:8px 12px;border-top:1px solid ${LINE};font-family:${BODY_FONT};font-size:13px;line-height:16px;font-weight:500;color:${SLATE};">
+        <span style="color:${CORAL};font-weight:600;">${event.match}% match</span> · ${esc(event.venue)}
+      </td></tr>`
+          : ""
+      }
     </table>
   </td>
 </tr>`;
@@ -106,9 +124,9 @@ const eventRow = (
 
 /** Picks sit in a narrower centred column so they do not span the full email. */
 const picksBlock = (picks: EventItem[], appUrl: string, absolute: (url: string) => string) => `
-<tr><td align="center" style="padding:4px 24px 4px 24px;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="width:100%;max-width:420px;">
-    ${picks.map((event, index) => eventRow(event, appUrl, absolute, index === 0)).join("")}
+<tr><td align="center" style="padding:0 24px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="440" style="width:100%;max-width:440px;">
+    ${picks.map((event) => eventRow(event, appUrl, absolute)).join("")}
   </table>
 </td></tr>`;
 
@@ -124,40 +142,43 @@ export const renderWeeklyDigestHtml = (input: WeeklyDigestInput) => {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="color-scheme" content="light only" />
 <title>${esc(subjectFor(input))}</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet" />
 </head>
 <body style="margin:0;padding:0;background:${CANVAS};">
 <div style="display:none;font-size:1px;color:${CANVAS};line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">${esc(preheaderFor(input))}</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:${CANVAS};">
-<tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:#ffffff;border:1px solid ${LINE};border-radius:16px;">
+<tr><td align="center" style="padding:20px 12px 28px 12px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;background:${CANVAS};">
 
-  <tr><td style="padding:22px 28px 0 28px;font-family:Helvetica,Arial,sans-serif;">
+  <tr><td style="padding:8px 24px 0 24px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
-      <td style="font-size:16px;font-weight:800;color:${CORAL};letter-spacing:-0.01em;">${esc(SITE_NAME)}.net</td>
-      <td align="right" style="font-size:12px;font-weight:600;color:${SLATE};letter-spacing:0.02em;">${esc(input.weekLabel)}</td>
+      <td>${wordmark()}</td>
+      <td align="right" style="font-family:${BODY_FONT};font-size:13px;font-weight:500;color:${SLATE};">${esc(input.weekLabel)}</td>
     </tr></table>
   </td></tr>
 
-  <tr><td style="padding:18px 28px 18px 28px;font-family:Helvetica,Arial,sans-serif;">
-    <h1 style="margin:0;font-size:26px;line-height:32px;font-weight:800;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
+  <tr><td style="padding:20px 24px 16px 24px;font-family:${BODY_FONT};">
+    <h1 style="margin:0;font-family:${HEAD_FONT};font-size:26px;line-height:32px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${greeting} ${esc(input.city)} week is ready.</h1>
     <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${input.sources} sources, ${input.eventsScanned} events, ${input.totalPicks} that match your taste. The top three:</p>
   </td></tr>
 
   ${picksBlock(input.picks, appUrl, absolute)}
 
-  <tr><td style="padding:18px 28px 0 28px;font-family:Helvetica,Arial,sans-serif;text-align:center;">
-    <p style="margin:0;font-size:15px;line-height:22px;color:${INK};font-weight:700;">${rest} more picks are waiting in the app.</p>
-    <p style="margin:6px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Times, prices and tickets for every one of them.</p>
+  <tr><td style="padding:14px 24px 0 24px;font-family:${BODY_FONT};text-align:center;">
+    <p style="margin:0;font-size:16px;line-height:22px;color:${INK};font-weight:600;">${rest} more picks are waiting in the app.</p>
+    <p style="margin:4px 0 16px 0;font-size:14px;line-height:20px;color:${SLATE};">Times, prices and tickets for every one of them.</p>
   </td></tr>
 
-  <tr><td style="padding:0 28px 26px 28px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
+  <tr><td style="padding:0 24px 24px 24px;" align="center">${button(appUrl, `See all ${input.totalPicks} picks`, absolute("/email-crown.png"))}</td></tr>
 
-  <tr><td style="padding:0 28px 24px 28px;font-family:Helvetica,Arial,sans-serif;border-top:1px solid ${LINE};">
-    <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
-      ${esc(TAGLINE)}. Once a week, because you set up picks on ${esc(SITE_NAME)}.net.<br />
-      <a href="${esc(absolute(input.preferencesUrl ?? "/app"))}" style="color:${SLATE};">Change your interests</a> ·
-      <a href="${esc(absolute(input.unsubscribeUrl ?? "/app"))}" style="color:${SLATE};">Unsubscribe</a>
-    </p>
+  <tr><td style="padding:0 24px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="border-top:1px solid ${LINE};font-family:${BODY_FONT};">
+      <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:${SLATE};">
+        ${esc(TAGLINE)}. Once a week, because you set up picks on ${esc(SITE_NAME)}.net.<br />
+        <a href="${esc(absolute(input.preferencesUrl ?? "/app"))}" style="color:${SLATE};">Change your interests</a> ·
+        <a href="${esc(absolute(input.unsubscribeUrl ?? "/app"))}" style="color:${SLATE};">Unsubscribe</a>
+      </p>
+    </td></tr></table>
   </td></tr>
 
 </table>
