@@ -111,7 +111,7 @@ export const picksBlock = (picks: EventItem[], appUrl: string) => `
 /** Three short facts in one line: used for "what happens next" style blocks. */
 /** Three numbers in one white card: the work already done for this person. */
 export const statsStrip = (stats: { value: string; label: string }[]) => `
-<tr><td style="padding:0 24px 8px 24px;">
+<tr><td style="padding:0 24px 16px 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:16px 8px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
       ${stats
@@ -128,18 +128,18 @@ export const statsStrip = (stats: { value: string; label: string }[]) => `
 
 /** Small coral eyebrow above a headline. */
 export const eyebrow = (text: string) => `
-<tr><td align="center" style="padding:28px 24px 0 24px;text-align:center;">
+<tr><td align="center" style="padding:32px 24px 0 24px;text-align:center;">
   <span style="display:inline-block;font-family:${HEAD_FONT};font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${CORAL};">${esc(text)}</span>
 </td></tr>`;
 
 /** Section label above a block of content. */
 export const sectionLabel = (text: string) => `
-<tr><td style="padding:16px 24px 8px 24px;font-family:${BODY_FONT};">
+<tr><td style="padding:24px 24px 8px 24px;font-family:${BODY_FONT};">
   <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:${SLATE};">${esc(text)}</span>
 </td></tr>`;
 
 export const factsBlock = (facts: string[]) => `
-<tr><td style="padding:0 24px 4px 24px;">
+<tr><td style="padding:0 24px 16px 24px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;border-radius:10px;"><tr><td style="padding:14px 16px;font-family:${BODY_FONT};">
     ${facts
       .map(
@@ -210,15 +210,15 @@ export const layout = (options: {
 </body></html>`;
 
 /** Centred headline plus one supporting line. */
-export const headlineBlock = (headline: string, sub: string) => `
-<tr><td align="center" style="padding:32px 24px 20px 24px;font-family:${BODY_FONT};text-align:center;">
+export const headlineBlock = (headline: string, sub?: string, options?: { tight?: boolean }) => `
+<tr><td align="center" style="padding:${options?.tight ? 10 : 32}px 24px 20px 24px;font-family:${BODY_FONT};text-align:center;">
   <h1 style="margin:0;font-family:${HEAD_FONT};font-size:25px;line-height:31px;font-weight:700;color:${INK};letter-spacing:-0.02em;">${headline}</h1>
-  <p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${sub}</p>
+  ${sub ? `<p style="margin:8px 0 0 0;font-size:15px;line-height:22px;color:${SLATE};">${sub}</p>` : ""}
 </td></tr>`;
 
 /** One CTA row, always straight after the value. */
 export const ctaBlock = (href: string, label: string, iconSrc?: string) => `
-<tr><td style="padding:12px 24px 32px 24px;" align="center">${button(href, label, iconSrc)}</td></tr>`;
+<tr><td style="padding:16px 24px 32px 24px;" align="center">${button(href, label, iconSrc)}</td></tr>`;
 
 export const footerReason = (sentence: string) => `${TAGLINE}. ${sentence} on ${SITE_NAME}.net.`;
 
