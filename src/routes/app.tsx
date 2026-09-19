@@ -103,6 +103,8 @@ function AppScreen() {
           {view === "all" && <AllEventsList />}
           {view === "profile" && <ProfileView />}
         </div>
+
+        {tourRunning && <Tour steps={TOUR} onFinish={finishTour} />}
       </div>
     </PhoneFrame>
   );
