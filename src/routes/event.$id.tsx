@@ -90,8 +90,8 @@ export const Route = createFileRoute("/event/$id")({
   notFoundComponent: EventMissing,
 });
 
+/** Only what the header does not already say: the date lives under the title. */
 const facts = (event: EventItem) => [
-  { icon: CalendarDays, label: "When", value: formatWhen(event) },
   { icon: Clock, label: "Doors", value: event.doorsOpen },
   { icon: Users, label: "Entry", value: event.ageLimit },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
