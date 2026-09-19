@@ -89,10 +89,10 @@ export const Route = createFileRoute("/event/$id")({
   notFoundComponent: EventMissing,
 });
 
-/** Only what the header does not already say: the date lives under the title. */
+/** Everything factual about the event: when it starts, when doors open, where it is. */
 const facts = (event: EventItem) => [
+  { icon: CalendarPlus, label: "When", value: formatWhen(event) },
   { icon: Clock, label: "Doors", value: event.doorsOpen },
-  { icon: Users, label: "Entry", value: event.ageLimit },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
 ];
 
@@ -169,14 +169,6 @@ function EventPage() {
             <h1 className="mt-3 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
               {event.title}
             </h1>
-            {/* The only place the date is spelled out in full. */}
-            <p className="mt-2 text-[14px] font-medium leading-[1.43] text-foreground">
-              {formatWhen(event)}
-            </p>
-            <p className="text-[14px] leading-[1.43] text-muted-foreground">
-              {event.venue}, {event.city}
-            </p>
-
             {/* Three equal actions on the event itself; rating the pick lives with the match. */}
             <div className="mt-4 flex items-center gap-2">
               <SaveButton id={event.id} className="size-11 bg-surface-2" />
