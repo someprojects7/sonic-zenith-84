@@ -59,7 +59,7 @@ const TOUR: TourStep[] = [
   {
     selector: '[data-tour="tabs"]',
     title: "Picks is your 10 a week",
-    body: "We read 746 events in the city and keep the 10 best for you. All is the full week if you want to dig yourself.",
+    body: `We read ${SCAN.eventsScanned} events in ${CITY} and keep the 10 best for you. All is the full week if you want to dig yourself.`,
   },
   {
     selector: '[data-tour="profile"]',
