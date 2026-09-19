@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
+  Calendar,
   CalendarPlus,
   ChevronLeft,
-  Clock,
   MapPin,
   Share2,
   Sparkles,
@@ -90,8 +90,7 @@ export const Route = createFileRoute("/event/$id")({
 
 /** Everything factual about the event: when it starts, when doors open, where it is. */
 const facts = (event: EventItem) => [
-  { icon: CalendarPlus, label: "When", value: formatWhen(event) },
-  { icon: Clock, label: "Doors", value: event.doorsOpen },
+  { icon: Calendar, label: "When", value: formatWhen(event) },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
 ];
 
