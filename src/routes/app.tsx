@@ -7,6 +7,7 @@ import { FeedTabs, type FeedTab } from "@/components/FeedTabs";
 import { ForYouFeed } from "@/components/ForYouFeed";
 import { PhoneFrame } from "@/components/PhoneFrame";
 import { ProfileView } from "@/components/ProfileView";
+import { Tour, type TourStep } from "@/components/Tour";
 import { CITY, SCAN, SITE_NAME, canonicalUrl } from "@/config/site";
 import { allEvents, picks, type EventItem } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
@@ -43,10 +44,34 @@ export const Route = createFileRoute("/app")({
    - recurring shapes come from the utilities in styles.css (eyebrow, icon-button…) */
 type View = FeedTab | "profile";
 
+/** Four coach marks on the first visit: read, rate, browse, adjust. */
+const TOUR: TourStep[] = [
+  {
+    selector: '[data-tour="card"]',
+    title: "Your top pick",
+    body: "Date on the left, match on the right. Tap a card for the full event.",
+  },
+  {
+    selector: '[data-tour="card"] [data-tour-vote]',
+    title: "Teach it your taste",
+    body: "Like or skip a pick and next week's list gets closer to you.",
+  },
+  {
+    selector: '[data-tour="tabs"]',
+    title: "Picks or everything",
+    body: "Picks is your shortlist. All is the whole week, with search and dates.",
+  },
+  {
+    selector: '[data-tour="profile"]',
+    title: "Your profile",
+    body: "Saved events and your interests live here, editable any time.",
+  },
+];
+
 function AppScreen() {
   const [view, setView] = useState<View>("foryou");
   const headerHidden = useHideOnScroll();
-  const { isSeen } = usePreferences();
+  const { isSeen, tourDone, finishTour } = usePreferences();
 
   // "New" means found in the latest scan and not opened yet.
   const unseen = (list: EventItem[]) =>
