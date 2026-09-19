@@ -1,4 +1,4 @@
-import { Heart, User } from "lucide-react";
+import { Heart, Sparkles, User } from "lucide-react";
 
 import { EventCard } from "@/components/EventCard";
 import { InterestPicker } from "@/components/InterestPicker";
@@ -6,7 +6,7 @@ import { allEvents } from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
 /** Who Sponsa thinks you are, and the events you kept. */
-export function ProfileView() {
+export function ProfileView({ onReplayTour }: { onReplayTour: () => void }) {
   const { saved, interests } = usePreferences();
   const savedEvents = allEvents.filter((event) => saved.includes(event.id));
 
@@ -50,6 +50,19 @@ export function ProfileView() {
             </p>
           </div>
         )}
+      </section>
+
+      <section className="px-5">
+        <button
+          type="button"
+          onClick={onReplayTour}
+          className="press flex min-h-12 w-full items-center gap-3 rounded-xl bg-card px-4 text-left"
+        >
+          <span className="icon-button size-9 bg-surface-2 text-muted-foreground">
+            <Sparkles className="size-[17px]" strokeWidth={2} />
+          </span>
+          <span className="text-[16px] font-medium text-foreground">Show me around again</span>
+        </button>
       </section>
     </main>
   );
