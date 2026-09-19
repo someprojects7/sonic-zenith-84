@@ -50,7 +50,9 @@ export function ForYouFeed() {
 
         <div className="space-y-2">
           {order.sorted.map((event, i) => (
-            <EventCard key={event.id} event={event} />
+            <div key={event.id} {...(i === 0 ? { "data-tour": "card" } : {})}>
+              <EventCard event={event} />
+            </div>
           ))}
         </div>
       </section>
