@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
   CalendarDays,
+  CalendarPlus,
   ChevronLeft,
   Clock,
   MapPin,
@@ -16,7 +17,15 @@ import { PhoneFrame } from "@/components/PhoneFrame";
 import { SaveButton } from "@/components/SaveButton";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { canonicalUrl } from "@/config/site";
-import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import {
+  formatWhen,
+  getEvent,
+  icsFile,
+  isFree,
+  mapEmbedUrl,
+  mapLinkUrl,
+  type EventItem,
+} from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
 export const Route = createFileRoute("/event/$id")({
@@ -83,9 +92,9 @@ export const Route = createFileRoute("/event/$id")({
 
 const facts = (event: EventItem) => [
   { icon: CalendarDays, label: "When", value: formatWhen(event) },
-  { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
   { icon: Clock, label: "Doors", value: event.doorsOpen },
   { icon: Users, label: "Entry", value: event.ageLimit },
+  { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
 ];
 
 function EventMissing() {
@@ -127,6 +136,17 @@ function EventPage() {
     }
   };
 
+  // Downloads a calendar file, which every phone and desktop opens in its own app.
+  const addToCalendar = () => {
+    const blob = new Blob([icsFile(event)], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${event.id}.ics`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <PhoneFrame>
       <div className="mx-auto min-h-screen max-w-md bg-background pb-6 md:min-h-full">
@@ -155,16 +175,19 @@ function EventPage() {
                 {formatWhen(event)} · {event.city}
               </p>
             </div>
-            <div className="mt-1 flex shrink-0 items-center gap-2">
-              <SaveButton id={event.id} className="size-11 bg-surface-2" />
-              <button
-                type="button"
-                aria-label="Share event"
-                onClick={shareEvent}
-                className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
-              >
-                <Share2 className="size-[18px]" strokeWidth={2} />
-              </button>
+            <div className="mt-1 flex shrink-0 flex-col items-end gap-2">
+              <div className="flex items-center gap-2">
+                <SaveButton id={event.id} className="size-11 bg-surface-2" />
+                <button
+                  type="button"
+                  aria-label="Share event"
+                  onClick={shareEvent}
+                  className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
+                >
+                  <Share2 className="size-[18px]" strokeWidth={2} />
+                </button>
+              </div>
+              <VoteButtons id={event.id} />
             </div>
           </header>
 
@@ -175,7 +198,6 @@ function EventPage() {
                 <span className="min-w-0 flex-1 text-[13px] font-semibold text-foreground">
                   {voteLabel(vote(event.id), event.match)}
                 </span>
-                <VoteButtons id={event.id} />
               </div>
               <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
                 {event.reason}
@@ -202,7 +224,31 @@ function EventPage() {
                   </div>
                 </div>
               ))}
+
+              <a
+                href={mapLinkUrl(event)}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${event.venue} in maps`}
+                className="press block"
+              >
+                <iframe
+                  title={`Map of ${event.venue}`}
+                  src={mapEmbedUrl(event)}
+                  loading="lazy"
+                  className="pointer-events-none block h-[150px] w-full border-0 grayscale-[0.15]"
+                />
+              </a>
             </div>
+
+            <button
+              type="button"
+              onClick={addToCalendar}
+              className="press mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-surface-2 text-[14px] font-semibold text-foreground"
+            >
+              <CalendarPlus className="size-[18px]" strokeWidth={2} />
+              Add to calendar
+            </button>
           </section>
 
           <section>

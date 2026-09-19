@@ -15,6 +15,9 @@ export type EventItem = {
   venue: string;
   city: string;
   address: string;
+  /** Venue coordinates, used for the small map on the event page. */
+  lat: number;
+  lng: number;
   price: string;
   image: string;
 
@@ -50,6 +53,8 @@ export const picks: EventItem[] = [
     venue: "Šv. Kotrynos bažnyčia",
     city: "Vilnius",
     address: "Šv. Mikalojaus g. 8, Vilnius 01133",
+    lat: 54.6801,
+    lng: 25.2843,
     price: "from €18",
     image: shalom,
 
@@ -75,6 +80,8 @@ export const picks: EventItem[] = [
     venue: "Smala, Vitebsko g. 21",
     city: "Vilnius",
     address: "Vitebsko g. 21, Vilnius 03209",
+    lat: 54.6651,
+    lng: 25.2617,
     price: "€12",
     image: club,
     ageLimit: "18+",
@@ -96,6 +103,8 @@ export const picks: EventItem[] = [
     venue: "Loftas",
     city: "Vilnius",
     address: "Švitrigailos g. 29, Vilnius 03228",
+    lat: 54.6714,
+    lng: 25.2664,
     price: "from €25",
     image: live,
     ageLimit: "16+",
@@ -121,6 +130,8 @@ export const allEvents: EventItem[] = [
     venue: "MO Museum",
     city: "Vilnius",
     address: "Pylimo g. 17, Vilnius 01141",
+    lat: 54.6787,
+    lng: 25.2768,
     price: "Free",
     image: art,
     ageLimit: "All ages",
@@ -140,6 +151,8 @@ export const allEvents: EventItem[] = [
     venue: "Vokiečių g.",
     city: "Vilnius",
     address: "Vokiėčių g., Vilnius 01130",
+    lat: 54.6795,
+    lng: 25.2827,
     price: "Free entry",
     image: food,
     ageLimit: "All ages",
@@ -164,3 +177,64 @@ export const eventDate = (event: EventItem) => {
 };
 
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
+
+/** Start of the event as a local Date, from "Thu 17 Sep" + "19:00". */
+export const eventStart = (event: EventItem) => {
+  const start = eventDate(event);
+  const [hours = "0", minutes = "0"] = event.time.split(":");
+  start.setHours(Number(hours), Number(minutes), 0, 0);
+  return start;
+};
+
+/** Events have no published end time, so a calendar entry books two hours. */
+const EVENT_HOURS = 2;
+
+export const eventEnd = (event: EventItem) =>
+  new Date(eventStart(event).getTime() + EVENT_HOURS * 60 * 60 * 1000);
+
+/** "20260917T190000Z" — the UTC stamp both Google Calendar and .ics expect. */
+const stamp = (date: Date) =>
+  date
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
+
+export const googleCalendarUrl = (event: EventItem) => {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: event.title,
+    dates: `${stamp(eventStart(event))}/${stamp(eventEnd(event))}`,
+    details: event.about,
+    location: `${event.venue}, ${event.address}`,
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
+
+/** A downloadable .ics file for Apple Calendar, Outlook and everything else. */
+export const icsFile = (event: EventItem) =>
+  [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Sponsa//Events//EN",
+    "BEGIN:VEVENT",
+    `UID:${event.id}@sponsa.net`,
+    `DTSTAMP:${stamp(new Date())}`,
+    `DTSTART:${stamp(eventStart(event))}`,
+    `DTEND:${stamp(eventEnd(event))}`,
+    `SUMMARY:${event.title}`,
+    `LOCATION:${event.venue}, ${event.address}`,
+    `DESCRIPTION:${event.about.replace(/\n/g, " ")}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+/** OpenStreetMap embed for the small map under the address. */
+export const mapEmbedUrl = (event: EventItem) => {
+  const d = 0.004;
+  const bbox = [event.lng - d, event.lat - d / 2, event.lng + d, event.lat + d / 2].join("%2C");
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${event.lat}%2C${event.lng}`;
+};
+
+/** Opens the venue in the person's own maps app. */
+export const mapLinkUrl = (event: EventItem) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${event.venue}, ${event.address}`)}`;
