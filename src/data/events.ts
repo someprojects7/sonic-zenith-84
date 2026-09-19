@@ -15,6 +15,9 @@ export type EventItem = {
   venue: string;
   city: string;
   address: string;
+  /** Venue coordinates, used for the small map on the event page. */
+  lat: number;
+  lng: number;
   price: string;
   image: string;
 
