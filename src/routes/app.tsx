@@ -78,11 +78,14 @@ function AppScreen() {
     list.filter((event) => event.isNew && !isSeen(event.id)).length;
   const newCounts = { foryou: unseen(picks), all: unseen(allEvents) };
 
+  // Runs once, on the Picks feed, and only after storage says it has not run.
+  const tourRunning = tourDone === false && view === "foryou";
+
   return (
     <PhoneFrame>
       <div className="mx-auto min-h-screen max-w-md bg-background pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:min-h-full">
         <AppHeader
-          hidden={headerHidden}
+          hidden={headerHidden && !tourRunning}
           profileActive={view === "profile"}
           onProfileClick={() => setView(view === "profile" ? "foryou" : "profile")}
         />
