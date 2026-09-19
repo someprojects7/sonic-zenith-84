@@ -48,23 +48,23 @@ type View = FeedTab | "profile";
 const TOUR: TourStep[] = [
   {
     selector: '[data-tour="card"]',
-    title: "Your top pick",
-    body: "Date on the left, match on the right. Tap a card for the full event.",
+    title: "One card, one event",
+    body: "Day on the left, how well it fits you on the right. Tap it for the full event, tickets and map.",
   },
   {
     selector: '[data-tour="card"] [data-tour-vote]',
-    title: "Teach it your taste",
-    body: "Like or skip a pick and next week's list gets closer to you.",
+    title: "Like or skip, it learns",
+    body: "Every like tells us the music, places and prices you want. Skips remove that kind of night. Two weeks in, your list barely has a miss.",
   },
   {
     selector: '[data-tour="tabs"]',
-    title: "Picks or everything",
-    body: "Picks is your shortlist. All is the whole week, with search and dates.",
+    title: "Picks is your 10 a week",
+    body: `We read ${SCAN.eventsScanned} events in ${CITY} and keep the 10 best for you. All is the full week if you want to dig yourself.`,
   },
   {
     selector: '[data-tour="profile"]',
-    title: "Your profile",
-    body: "Saved events and your interests live here, editable any time.",
+    title: "Saved and your taste",
+    body: "Events you keep, your interests and your plan. Change an interest here and the next list follows.",
   },
 ];
 
