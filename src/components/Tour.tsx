@@ -141,18 +141,20 @@ export function Tour({
         }
         className="pointer-events-none absolute inset-x-4 mx-auto max-w-[360px] transition-all duration-300 ease-out"
       >
-        <div className="pointer-events-auto animate-in fade-in slide-in-from-bottom-1 rounded-2xl bg-card p-4 shadow-2xl duration-200">
-          <p className="text-[16px] font-semibold leading-5 text-foreground">{step.title}</p>
-          <p className="mt-1 text-[14px] leading-[1.43] text-muted-foreground">{step.body}</p>
+        {/* Coaching layer, not app furniture: dark ink bubble so it never reads
+            as a card the person could interact with. */}
+        <div className="pointer-events-auto animate-in fade-in slide-in-from-bottom-1 rounded-xl bg-[#222222] px-4 py-3.5 duration-200">
+          <p className="text-[16px] font-semibold leading-5 text-white">{step.title}</p>
+          <p className="mt-1 text-[14px] leading-[1.43] text-white/70">{step.body}</p>
 
-          <div className="mt-4 flex items-center justify-between gap-3">
+          <div className="mt-3.5 flex items-center justify-between gap-3">
             <div className="flex items-center gap-1.5" aria-hidden>
               {steps.map((s, i) => (
                 <span
                   key={s.selector}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
-                    i === index ? "w-4 bg-rausch" : "w-1.5 bg-surface-2",
+                    i === index ? "w-4 bg-white" : "w-1.5 bg-white/30",
                   )}
                 />
               ))}
@@ -162,7 +164,7 @@ export function Tour({
                 <button
                   type="button"
                   onClick={onFinish}
-                  className="press flex h-10 items-center rounded-full px-3 text-[14px] font-medium text-muted-foreground"
+                  className="press flex h-9 items-center rounded-full px-3 text-[14px] font-medium text-white/60"
                 >
                   Skip
                 </button>
@@ -170,7 +172,7 @@ export function Tour({
               <button
                 type="button"
                 onClick={next}
-                className="press flex h-10 items-center rounded-full bg-rausch px-4 text-[14px] font-semibold text-white"
+                className="press flex h-9 items-center rounded-full bg-white px-4 text-[14px] font-semibold text-[#222222]"
               >
                 {last ? "Got it" : "Next"}
               </button>
