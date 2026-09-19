@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
-  CalendarDays,
   CalendarPlus,
   ChevronLeft,
   Clock,
@@ -291,7 +290,7 @@ function EventPage() {
               {event.price}
             </p>
             <p className="truncate text-[12px] leading-4 text-muted-foreground">
-              {formatWhen(event)}
+              {event.source}
             </p>
           </div>
           <button
