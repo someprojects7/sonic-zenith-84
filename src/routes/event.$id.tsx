@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
-  CalendarDays,
   CalendarPlus,
   ChevronLeft,
   Clock,
@@ -90,8 +89,8 @@ export const Route = createFileRoute("/event/$id")({
   notFoundComponent: EventMissing,
 });
 
+/** Only what the header does not already say: the date lives under the title. */
 const facts = (event: EventItem) => [
-  { icon: CalendarDays, label: "When", value: formatWhen(event) },
   { icon: Clock, label: "Doors", value: event.doorsOpen },
   { icon: Users, label: "Entry", value: event.ageLimit },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
@@ -163,31 +162,40 @@ function EventPage() {
         </div>
 
         <main className="space-y-8 px-5 pt-5">
-          <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
-            <div className="min-w-0">
-              <span className="inline-flex h-7 items-center rounded-full bg-card px-3 text-[12px] font-semibold text-foreground">
-                {event.category}
-              </span>
-              <h1 className="mt-3 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
-                {event.title}
-              </h1>
-              <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
-                {formatWhen(event)} · {event.city}
-              </p>
-            </div>
-            <div className="mt-1 flex shrink-0 flex-col items-end gap-2">
-              <div className="flex items-center gap-2">
-                <SaveButton id={event.id} className="size-11 bg-surface-2" />
-                <button
-                  type="button"
-                  aria-label="Share event"
-                  onClick={shareEvent}
-                  className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
-                >
-                  <Share2 className="size-[18px]" strokeWidth={2} />
-                </button>
-              </div>
-              <VoteButtons id={event.id} />
+          <header>
+            <span className="inline-flex h-7 items-center rounded-full bg-card px-3 text-[12px] font-semibold text-foreground">
+              {event.category}
+            </span>
+            <h1 className="mt-3 text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-balance-tight">
+              {event.title}
+            </h1>
+            {/* The only place the date is spelled out in full. */}
+            <p className="mt-2 text-[14px] font-medium leading-[1.43] text-foreground">
+              {formatWhen(event)}
+            </p>
+            <p className="text-[14px] leading-[1.43] text-muted-foreground">
+              {event.venue}, {event.city}
+            </p>
+
+            {/* Three equal actions on the event itself; rating the pick lives with the match. */}
+            <div className="mt-4 flex items-center gap-2">
+              <SaveButton id={event.id} className="size-11 bg-surface-2" />
+              <button
+                type="button"
+                aria-label="Share event"
+                onClick={shareEvent}
+                className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
+              >
+                <Share2 className="size-[18px]" strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                aria-label="Add to calendar"
+                onClick={addToCalendar}
+                className="icon-button size-11 shrink-0 bg-surface-2 text-foreground"
+              >
+                <CalendarPlus className="size-[18px]" strokeWidth={2} />
+              </button>
             </div>
           </header>
 
@@ -198,6 +206,7 @@ function EventPage() {
                 <span className="min-w-0 flex-1 text-[13px] font-semibold text-foreground">
                   {voteLabel(vote(event.id), event.match)}
                 </span>
+                <VoteButtons id={event.id} />
               </div>
               <p className="mt-2 text-[14px] leading-[1.43] text-muted-foreground">
                 {event.reason}
@@ -240,15 +249,6 @@ function EventPage() {
                 />
               </a>
             </div>
-
-            <button
-              type="button"
-              onClick={addToCalendar}
-              className="press mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-surface-2 text-[14px] font-semibold text-foreground"
-            >
-              <CalendarPlus className="size-[18px]" strokeWidth={2} />
-              Add to calendar
-            </button>
           </section>
 
           <section>
@@ -285,14 +285,9 @@ function EventPage() {
           >
             <ChevronLeft className="size-[21px]" />
           </Link>
-          <div className="min-w-0">
-            <p className="truncate text-[16px] font-semibold leading-5 text-foreground">
-              {event.price}
-            </p>
-            <p className="truncate text-[12px] leading-4 text-muted-foreground">
-              {formatWhen(event)}
-            </p>
-          </div>
+          <p className="min-w-0 truncate text-[16px] font-semibold leading-5 text-foreground">
+            {event.price}
+          </p>
           <button
             type="button"
             className="cta-halo press flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-rausch px-5 text-[14px] font-medium text-white"
