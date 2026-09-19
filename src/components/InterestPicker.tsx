@@ -61,6 +61,18 @@ export function InterestPicker({ onDismiss }: { onDismiss?: () => void }) {
           );
         })}
       </div>
+
+      {/* On the feed the block is a one-off task, so it ends with a clear done
+          action. In the profile it is a permanent setting and needs no button. */}
+      {onDismiss && interests.length > 0 && (
+        <button
+          type="button"
+          onClick={onDismiss}
+          className="press mt-4 flex h-11 w-full items-center justify-center rounded-full bg-brand text-[15px] font-semibold text-brand-foreground"
+        >
+          Save interests
+        </button>
+      )}
     </section>
   );
 }
