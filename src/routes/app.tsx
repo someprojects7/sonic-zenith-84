@@ -71,7 +71,7 @@ const TOUR: TourStep[] = [
 function AppScreen() {
   const [view, setView] = useState<View>("foryou");
   const headerHidden = useHideOnScroll();
-  const { isSeen, tourDone, finishTour } = usePreferences();
+  const { isSeen, tourDone, finishTour, restartTour } = usePreferences();
 
   // "New" means found in the latest scan and not opened yet.
   const unseen = (list: EventItem[]) =>
@@ -101,7 +101,14 @@ function AppScreen() {
         <div key={view} className="animate-in fade-in duration-150 ease-out">
           {view === "foryou" && <ForYouFeed />}
           {view === "all" && <AllEventsList />}
-          {view === "profile" && <ProfileView />}
+          {view === "profile" && (
+            <ProfileView
+              onReplayTour={() => {
+                restartTour();
+                setView("foryou");
+              }}
+            />
+          )}
         </div>
 
         {tourRunning && <Tour steps={TOUR} onFinish={finishTour} />}
