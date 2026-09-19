@@ -29,6 +29,9 @@ type Preferences = {
   /** The interest block on the Picks tab is dismissible; editing lives in the profile. */
   interestsDismissed: boolean;
   dismissInterests: () => void;
+  /** The first-run walkthrough runs once; null while we still read storage. */
+  tourDone: boolean | null;
+  finishTour: () => void;
 };
 
 type Stored = {
@@ -37,6 +40,7 @@ type Stored = {
   votes: Record<string, Vote>;
   seen: string[];
   interestsDismissed: boolean;
+  tourDone: boolean;
 };
 
 const KEY = "sponsa.preferences";
