@@ -88,7 +88,7 @@ export const Route = createFileRoute("/event/$id")({
   notFoundComponent: EventMissing,
 });
 
-/** Everything factual about the event: when it starts, when doors open, where it is. */
+/** Everything factual about the event: when it starts and where it is. */
 const facts = (event: EventItem) => [
   { icon: Calendar, label: "When", value: formatWhen(event) },
   { icon: MapPin, label: "Where", value: `${event.venue}\n${event.address}` },
@@ -275,12 +275,9 @@ function EventPage() {
           >
             <ChevronLeft className="size-[21px]" />
           </Link>
-          <div className="min-w-0">
-            <p className="truncate text-[16px] font-semibold leading-5 text-foreground">
-              {formatWhen(event)}
-            </p>
-            <p className="truncate text-[12px] leading-4 text-muted-foreground">{event.price}</p>
-          </div>
+          <p className="min-w-0 truncate text-[16px] font-semibold leading-5 text-foreground">
+            {event.price}
+          </p>
           <button
             type="button"
             className="cta-halo press flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-rausch px-5 text-[14px] font-medium text-white"
