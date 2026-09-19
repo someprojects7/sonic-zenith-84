@@ -177,3 +177,60 @@ export const eventDate = (event: EventItem) => {
 };
 
 export const getEvent = (id: string) => allEvents.find((e) => e.id === id);
+
+/** Start of the event as a local Date, from "Thu 17 Sep" + "19:00". */
+export const eventStart = (event: EventItem) => {
+  const start = eventDate(event);
+  const [hours = "0", minutes = "0"] = event.time.split(":");
+  start.setHours(Number(hours), Number(minutes), 0, 0);
+  return start;
+};
+
+/** Events have no published end time, so a calendar entry books two hours. */
+const EVENT_HOURS = 2;
+
+export const eventEnd = (event: EventItem) =>
+  new Date(eventStart(event).getTime() + EVENT_HOURS * 60 * 60 * 1000);
+
+/** "20260917T190000Z" — the UTC stamp both Google Calendar and .ics expect. */
+const stamp = (date: Date) => date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+
+export const googleCalendarUrl = (event: EventItem) => {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: event.title,
+    dates: `${stamp(eventStart(event))}/${stamp(eventEnd(event))}`,
+    details: event.about,
+    location: `${event.venue}, ${event.address}`,
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
+
+/** A downloadable .ics file for Apple Calendar, Outlook and everything else. */
+export const icsFile = (event: EventItem) =>
+  [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Sponsa//Events//EN",
+    "BEGIN:VEVENT",
+    `UID:${event.id}@sponsa.net`,
+    `DTSTAMP:${stamp(new Date())}`,
+    `DTSTART:${stamp(eventStart(event))}`,
+    `DTEND:${stamp(eventEnd(event))}`,
+    `SUMMARY:${event.title}`,
+    `LOCATION:${event.venue}, ${event.address}`,
+    `DESCRIPTION:${event.about.replace(/\n/g, " ")}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+/** OpenStreetMap embed for the small map under the address. */
+export const mapEmbedUrl = (event: EventItem) => {
+  const d = 0.004;
+  const bbox = [event.lng - d, event.lat - d / 2, event.lng + d, event.lat + d / 2].join("%2C");
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${event.lat}%2C${event.lng}`;
+};
+
+/** Opens the venue in the person's own maps app. */
+export const mapLinkUrl = (event: EventItem) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${event.venue}, ${event.address}`)}`;
