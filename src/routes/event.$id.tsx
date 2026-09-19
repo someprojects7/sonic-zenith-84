@@ -9,7 +9,6 @@ import {
   Share2,
   Sparkles,
   Ticket,
-  Users,
 } from "lucide-react";
 
 import { PhoneFrame } from "@/components/PhoneFrame";
