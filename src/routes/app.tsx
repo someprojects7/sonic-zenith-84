@@ -49,22 +49,22 @@ const TOUR: TourStep[] = [
   {
     selector: '[data-tour="card"]',
     title: "One card, one event",
-    body: "Day on the left, how well it fits you on the right. Tap it for the full event, tickets and map.",
+    body: "Tap it for tickets and the map.",
   },
   {
     selector: '[data-tour="card"] [data-tour-vote]',
-    title: "Like or skip, it learns",
-    body: "Every like tells us the music, places and prices you want. Skips remove that kind of night. Two weeks in, your list barely has a miss.",
+    title: "Like or skip",
+    body: "Each tap makes next week's list sharper.",
   },
   {
     selector: '[data-tour="tabs"]',
     title: "Picks is your 10 a week",
-    body: `We read ${SCAN.eventsScanned} events in ${CITY} and keep the 10 best for you. All is the full week if you want to dig yourself.`,
+    body: `The best of ${SCAN.eventsScanned} events. All is the full week.`,
   },
   {
     selector: '[data-tour="profile"]',
-    title: "Saved and your taste",
-    body: "Events you keep, your interests and your plan. Change an interest here and the next list follows.",
+    title: "Your profile",
+    body: "Saved events and your interests.",
   },
 ];
 
