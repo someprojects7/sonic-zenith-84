@@ -108,8 +108,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       markSeen,
       interestsDismissed,
       dismissInterests: () => setInterestsDismissed(true),
+      tourDone,
+      finishTour: () => setTourDone(true),
     };
-  }, [interests, saved, votes, seen, markSeen, interestsDismissed]);
+  }, [interests, saved, votes, seen, markSeen, interestsDismissed, tourDone]);
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
