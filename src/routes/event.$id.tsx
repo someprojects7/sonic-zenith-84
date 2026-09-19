@@ -136,6 +136,17 @@ function EventPage() {
     }
   };
 
+  // Downloads a calendar file, which every phone and desktop opens in its own app.
+  const addToCalendar = () => {
+    const blob = new Blob([icsFile(event)], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${event.id}.ics`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <PhoneFrame>
       <div className="mx-auto min-h-screen max-w-md bg-background pb-6 md:min-h-full">
