@@ -193,7 +193,11 @@ export const eventEnd = (event: EventItem) =>
   new Date(eventStart(event).getTime() + EVENT_HOURS * 60 * 60 * 1000);
 
 /** "20260917T190000Z" — the UTC stamp both Google Calendar and .ics expect. */
-const stamp = (date: Date) => date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const stamp = (date: Date) =>
+  date
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
 
 export const googleCalendarUrl = (event: EventItem) => {
   const params = new URLSearchParams({
