@@ -32,7 +32,7 @@ export function FeedTabs({
         hidden && "hidden",
       )}
     >
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2" data-tour="tabs">
         {TABS.map(({ id, label, icon: Icon }) => {
           const count = newCounts[id];
           return (
