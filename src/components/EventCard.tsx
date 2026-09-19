@@ -58,7 +58,7 @@ export function EventCard({ event }: { event: EventItem }) {
         </p>
       </div>
 
-      <div className="relative shrink-0">
+      <div className="relative shrink-0" data-tour-vote>
         <VoteButtons id={event.id} />
       </div>
     </article>

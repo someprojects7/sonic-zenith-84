@@ -29,6 +29,7 @@ export function AppHeader({
 
         <button
           onClick={onProfileClick}
+          data-tour="profile"
           aria-label="Profile"
           aria-current={profileActive ? "page" : undefined}
           className={cn(

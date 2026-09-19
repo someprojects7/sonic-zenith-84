@@ -29,6 +29,9 @@ type Preferences = {
   /** The interest block on the Picks tab is dismissible; editing lives in the profile. */
   interestsDismissed: boolean;
   dismissInterests: () => void;
+  /** The first-run walkthrough runs once; null while we still read storage. */
+  tourDone: boolean | null;
+  finishTour: () => void;
 };
 
 type Stored = {
@@ -37,6 +40,7 @@ type Stored = {
   votes: Record<string, Vote>;
   seen: string[];
   interestsDismissed: boolean;
+  tourDone: boolean;
 };
 
 const KEY = "sponsa.preferences";
@@ -49,33 +53,36 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [votes, setVotes] = useState<Record<string, Vote>>({});
   const [seen, setSeen] = useState<string[]>([]);
   const [interestsDismissed, setInterestsDismissed] = useState(false);
+  const [tourDone, setTourDone] = useState<boolean | null>(null);
 
   // Read after mount: touching localStorage during render breaks hydration.
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(KEY);
-      if (!raw) return;
-      const parsed = JSON.parse(raw) as Partial<Stored>;
+      const parsed = raw ? (JSON.parse(raw) as Partial<Stored>) : {};
       if (Array.isArray(parsed.interests)) setInterests(parsed.interests);
       if (Array.isArray(parsed.saved)) setSaved(parsed.saved);
       if (Array.isArray(parsed.seen)) setSeen(parsed.seen);
       if (parsed.votes && typeof parsed.votes === "object") setVotes(parsed.votes);
       if (parsed.interestsDismissed === true) setInterestsDismissed(true);
+      setTourDone(parsed.tourDone === true);
     } catch {
       // A corrupted value just means we start from a clean slate.
+      setTourDone(false);
     }
   }, []);
 
   useEffect(() => {
+    if (tourDone === null) return; // Do not overwrite storage before it is read.
     try {
       window.localStorage.setItem(
         KEY,
-        JSON.stringify({ interests, saved, votes, seen, interestsDismissed }),
+        JSON.stringify({ interests, saved, votes, seen, interestsDismissed, tourDone }),
       );
     } catch {
       // Private browsing can refuse writes; the session still works.
     }
-  }, [interests, saved, votes, seen, interestsDismissed]);
+  }, [interests, saved, votes, seen, interestsDismissed, tourDone]);
 
   const markSeen = useCallback((id: string) => {
     setSeen((list) => (list.includes(id) ? list : [...list, id]));
@@ -101,8 +108,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       markSeen,
       interestsDismissed,
       dismissInterests: () => setInterestsDismissed(true),
+      tourDone,
+      finishTour: () => setTourDone(true),
     };
-  }, [interests, saved, votes, seen, markSeen, interestsDismissed]);
+  }, [interests, saved, votes, seen, markSeen, interestsDismissed, tourDone]);
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
