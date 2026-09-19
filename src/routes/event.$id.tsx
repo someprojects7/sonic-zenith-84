@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowUpRight,
   CalendarDays,
+  CalendarPlus,
   ChevronLeft,
   Clock,
   MapPin,
@@ -16,7 +17,15 @@ import { PhoneFrame } from "@/components/PhoneFrame";
 import { SaveButton } from "@/components/SaveButton";
 import { VoteButtons, voteLabel } from "@/components/VoteButtons";
 import { canonicalUrl } from "@/config/site";
-import { formatWhen, getEvent, isFree, type EventItem } from "@/data/events";
+import {
+  formatWhen,
+  getEvent,
+  icsFile,
+  isFree,
+  mapEmbedUrl,
+  mapLinkUrl,
+  type EventItem,
+} from "@/data/events";
 import { usePreferences } from "@/lib/preferences";
 
 export const Route = createFileRoute("/event/$id")({
