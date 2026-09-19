@@ -32,6 +32,8 @@ type Preferences = {
   /** The first-run walkthrough runs once; null while we still read storage. */
   tourDone: boolean | null;
   finishTour: () => void;
+  /** Lets the person play the walkthrough again from the profile. */
+  restartTour: () => void;
 };
 
 type Stored = {
@@ -110,6 +112,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       dismissInterests: () => setInterestsDismissed(true),
       tourDone,
       finishTour: () => setTourDone(true),
+      restartTour: () => setTourDone(false),
     };
   }, [interests, saved, votes, seen, markSeen, interestsDismissed, tourDone]);
 
