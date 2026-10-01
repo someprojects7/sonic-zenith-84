@@ -18,8 +18,8 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", ui-sans-serif, system-ui,
+    "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-sans);
   --font-wordmark: "Outfit", var(--font-sans);
 
@@ -87,8 +87,8 @@
 :root {
   --radius: 0.75rem;
 
-  --background: #f7f7f7;
-  --foreground: #222222;
+  --background: #f2f2f7;
+  --foreground: #000000;
   --card: #ffffff;
   --card-foreground: #222222;
   --popover: #ffffff;
@@ -98,7 +98,7 @@
   --secondary: #f7f7f7;
   --secondary-foreground: #222222;
   --muted: #f7f7f7;
-  --muted-foreground: #6a6a6a;
+  --muted-foreground: #8a8a8e;
   --accent: #f7f7f7;
   --accent-foreground: #222222;
   --destructive: #e00b41;
@@ -111,8 +111,8 @@
   --brand-foreground: #ffffff;
   --rausch: #ff385c;
 
-  --surface-2: #f7f7f7;
-  --surface-3: #ebebeb;
+  --surface-2: #efeff4;
+  --surface-3: #d1d1d6;
   --hairline: #ebebeb;
 
   --glass: rgb(255 255 255 / 0.92);
@@ -122,9 +122,9 @@
 }
 
 .dark {
-  --background: #161616;
+  --background: #000000;
   --foreground: #f7f7f7;
-  --card: #1f1f1f;
+  --card: #1c1c1e;
   --card-foreground: #f7f7f7;
   --popover: #1f1f1f;
   --popover-foreground: #f7f7f7;
@@ -147,7 +147,7 @@
   --rausch: #ff5a76;
 
   --surface-2: #242424;
-  --surface-3: #2f2f2f;
+  --surface-3: #38383a;
   --hairline: rgb(255 255 255 / 0.1);
 
   --glass: rgb(22 22 22 / 0.92);
@@ -156,6 +156,27 @@
 
 @utility bg-glass {
   background-color: var(--glass);
+}
+
+/* iOS inset grouped list: one rounded white block, rows split by inset hairlines. */
+@utility ios-list {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--card);
+
+  & > * {
+    position: relative;
+  }
+  & > * + *::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 64px;
+    height: 0.5px;
+    background: var(--surface-3);
+    z-index: 1;
+  }
 }
 
 /* ---- Recurring shapes. Use these instead of repeating the class lists. ---- */

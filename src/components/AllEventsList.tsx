@@ -62,7 +62,7 @@ export function AllEventsList() {
       {/* Dates and search stay put; categories get their own scroll track below. */}
       <div className="flex items-center justify-between gap-3 px-5">
         <div className="min-w-0">
-          <h2 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+          <h2 className="text-[22px] font-bold leading-[1.2] tracking-[-0.01em] text-foreground">
             All events
           </h2>
           <p className="mt-0.5 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
@@ -196,10 +196,10 @@ export function AllEventsList() {
       <div className="space-y-6 px-5">
         {days.groups.map(([day, events]) => (
           <section key={day}>
-            <h3 className="mb-2 text-[13px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
+            <h3 className="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-muted-foreground px-4">
               {day}
             </h3>
-            <div className="space-y-2">
+            <div className="ios-list">
               {events.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}

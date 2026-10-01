@@ -40,7 +40,7 @@ export function ForYouFeed() {
       )}
 
       <section className="px-5">
-        <h3 className="text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+        <h3 className="text-[22px] font-bold leading-[1.2] tracking-[-0.01em] text-foreground">
           Picked for you
         </h3>
         <p className="mb-3 mt-1 flex items-center gap-1.5 text-[14px] leading-[1.43] text-muted-foreground">
@@ -48,7 +48,7 @@ export function ForYouFeed() {
           {order.sorted.length} of {SCAN.eventsScanned} events
         </p>
 
-        <div className="space-y-2">
+        <div className="ios-list">
           {order.sorted.map((event, i) => (
             <div key={event.id} {...(i === 0 ? { "data-tour": "card" } : {})}>
               <EventCard event={event} />
@@ -58,10 +58,10 @@ export function ForYouFeed() {
       </section>
 
       <section className="px-5">
-        <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
+        <h3 className="mb-3 text-[22px] font-bold leading-[1.2] tracking-[-0.01em] text-foreground">
           More this week
         </h3>
-        <div className="space-y-2">
+        <div className="ios-list">
           {order.rest.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
