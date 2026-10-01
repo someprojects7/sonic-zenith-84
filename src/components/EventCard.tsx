@@ -27,20 +27,20 @@ export function EventCard({ event }: { event: EventItem }) {
   const Icon = CATEGORY_ICONS[event.category] ?? Sparkles;
 
   return (
-    <article className="relative flex items-center gap-3 rounded-xl bg-card p-3">
+    <article className="relative flex items-center gap-3 bg-card px-4 py-2.5">
       <Link
         to="/event/$id"
         params={{ id: event.id }}
         aria-label={event.title}
-        className="press absolute inset-0 rounded-xl"
+        className="absolute inset-0 transition-colors active:bg-surface-2"
       />
 
-      <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-rausch/10 text-rausch">
-        <Icon className="size-5" strokeWidth={2} />
+      <div className="relative flex size-9 shrink-0 items-center justify-center rounded-[9px] bg-rausch text-primary-foreground dark:text-foreground">
+        <Icon className="size-[18px]" strokeWidth={2} />
       </div>
 
-      <div className="min-w-0 flex-1">
-        <p className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
+      <div className="pointer-events-none relative min-w-0 flex-1">
+        <p className="flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground">
           {event.match && <span className="shrink-0 text-rausch">{event.match}% match ·</span>}
           <span className="truncate">{event.category}</span>
           {isNew && <NewBadge />}
