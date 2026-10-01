@@ -1,13 +1,18 @@
+import { Crown, LayoutGrid } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 export type FeedTab = "foryou" | "all";
 
 const TABS = [
-  { id: "foryou", label: "Picks" },
-  { id: "all", label: "All" },
+  { id: "foryou", label: "Picks", icon: Crown },
+  { id: "all", label: "All", icon: LayoutGrid },
 ] as const;
 
-/** iOS segmented control, sticky under the large title. */
+/**
+ * Sticky feed switch: flat tabs on the canvas, active one underlined in ink.
+ * A red count tells the person how many events they have not looked at yet.
+ */
 export function FeedTabs({
   value,
   onChange,
@@ -21,34 +26,36 @@ export function FeedTabs({
 }) {
   return (
     <div
-      className={cn("sticky top-0 z-20 bg-background/90 px-5 py-2 backdrop-blur-xl", hidden && "hidden")}
+      role="tablist"
+      className={cn(
+        "sticky top-0 z-20 border-b border-hairline bg-card/95 px-5 backdrop-blur-xl",
+        hidden && "hidden",
+      )}
     >
-      <div
-        role="tablist"
-        data-tour="tabs"
-        className="grid grid-cols-2 rounded-[9px] bg-surface-3/60 p-0.5"
-      >
-        {TABS.map(({ id, label }) => {
+      <div className="grid grid-cols-2" data-tour="tabs">
+        {TABS.map(({ id, label, icon: Icon }) => {
           const count = newCounts[id];
-          const active = value === id;
           return (
             <button
               key={id}
               role="tab"
-              aria-selected={active}
+              aria-selected={value === id}
               onClick={() => onChange(id)}
               className={cn(
-                "flex h-8 items-center justify-center gap-1.5 rounded-[7px] text-[13px] font-semibold text-foreground transition-colors",
-                active && "bg-card shadow-[0_1px_3px_rgb(0_0_0/0.12)]",
+                "flex h-12 min-w-0 items-center justify-center gap-2 border-b-2 text-[16px] font-medium leading-none transition-colors",
+                value === id
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground",
               )}
             >
-              {label}
+              <Icon className="size-4 shrink-0" strokeWidth={2} />
+              <span className="truncate">{label}</span>
               {count > 0 && (
                 <span
                   aria-label={`${count} new`}
-                  className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-rausch px-1 text-[11px] font-semibold leading-none text-primary-foreground dark:text-foreground"
+                  className="inline-flex h-[18px] shrink-0 items-center rounded-full bg-rausch px-1.5 text-[11px] font-semibold leading-none text-white"
                 >
-                  {count}
+                  +{count}
                 </span>
               )}
             </button>

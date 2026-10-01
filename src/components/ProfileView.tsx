@@ -30,11 +30,11 @@ export function ProfileView({ onReplayTour }: { onReplayTour: () => void }) {
       </div>
 
       <section className="px-5">
-        <h3 className="mb-3 text-[22px] font-bold leading-[1.2] tracking-[-0.01em] text-foreground">
+        <h3 className="mb-3 text-[22px] font-medium leading-[1.18] tracking-[-0.02em] text-foreground">
           Saved
         </h3>
         {savedEvents.length > 0 ? (
-          <div className="ios-list">
+          <div className="space-y-2">
             {savedEvents.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
