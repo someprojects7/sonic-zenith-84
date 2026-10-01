@@ -16,7 +16,7 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
       {/* Decorative backdrop, desktop only. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
+        className="pointer-events-none absolute inset-0 hidden bg-cover bg-center bg-no-repeat opacity-[0.18] grayscale md:block"
         style={{ backgroundImage: `url(${cityMapBg.url})` }}
       />
 
