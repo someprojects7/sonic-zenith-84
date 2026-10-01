@@ -44,17 +44,12 @@ export const Route = createFileRoute("/app")({
    - recurring shapes come from the utilities in styles.css (eyebrow, icon-button…) */
 type View = FeedTab | "profile";
 
-/** Four coach marks on the first visit: read, rate, browse, adjust. */
+/** Three coach marks on the first visit: read, browse, adjust. */
 const TOUR: TourStep[] = [
   {
     selector: '[data-tour="card"]',
     title: "One card, one event",
-    body: "Tap it for tickets and the map.",
-  },
-  {
-    selector: '[data-tour="card"] [data-tour-vote]',
-    title: "Like or skip",
-    body: "Each tap makes next week's list sharper.",
+    body: "Tap it for tickets, the map and to rate it.",
   },
   {
     selector: '[data-tour="tabs"]',
